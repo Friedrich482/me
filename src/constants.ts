@@ -34,18 +34,22 @@ export const THEME_ITEMS: {
 export const HEADER_LINKS: {
   Icon: IconType;
   link: string;
+  title: string;
 }[] = [
   {
     Icon: SiGithub,
     link: "https://github.com/Friedrich482",
+    title: "GitHub",
   },
   {
     Icon: SiDailydotdev,
     link: "https://app.daily.dev/friedrich",
+    title: "Daily.dev",
   },
   {
     Icon: SiX,
     link: "https://x.com/FriedrichC109",
+    title: "X",
   },
 ];
 

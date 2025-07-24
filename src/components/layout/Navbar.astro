@@ -12,8 +12,8 @@ const navItems = NAVBAR_LINKS.map((entry) => ({
 }));
 ---
 
-<nav class="text-foreground/50 flex-1">
-  <ul class="flex items-center justify-end gap-4">
+<nav class="text-foreground/50 flex flex-1 max-[28.25rem]:hidden">
+  <ul class="flex w-full items-center justify-end gap-4">
     {
       navItems.map((entry) => (
         <li class={entry.className}>

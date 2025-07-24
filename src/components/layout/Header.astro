@@ -2,6 +2,8 @@
 import Logo from "@/assets/signature.svg";
 import HeaderIcons from "./HeaderIcons.astro";
 import Navbar from "./Navbar.astro";
+import SideBar from "./SideBar";
+const pathName = Astro.url.pathname;
 ---
 
 <header class="flex items-center justify-between gap-12 px-8 py-2">
@@ -9,5 +11,6 @@ import Navbar from "./Navbar.astro";
     <Logo class="hover:text-primary size-12" />
   </a>
   <Navbar />
+  <SideBar client:load pathName={pathName} />
   <HeaderIcons />
 </header>
