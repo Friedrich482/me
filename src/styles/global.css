@@ -105,7 +105,6 @@
   --shadow-xl:
     0 1px 3px 0px hsl(0 0% 0% / 0.1), 0 8px 10px -1px hsl(0 0% 0% / 0.1);
   --shadow-2xl: 0 1px 3px 0px hsl(0 0% 0% / 0.25);
-  --signature-color: #ffffff;
 }
 
 @theme inline {
@@ -159,7 +158,6 @@
   --shadow-lg: var(--shadow-lg);
   --shadow-xl: var(--shadow-xl);
   --shadow-2xl: var(--shadow-2xl);
-  --signature-color: #000000;
 }
 
 @layer base {
@@ -172,7 +170,6 @@
 }
 
 #signature {
-  stroke: var(--signature-color);
   stroke-dasharray: 100;
   stroke-dashoffset: 100;
   animation: sign-loop 17s ease infinite;

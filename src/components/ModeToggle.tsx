@@ -42,12 +42,12 @@ export function ModeToggle() {
           <DropdownMenuItem
             onClick={() => setThemeState(selectedTheme)}
             className={cn(
-              "cursor-pointer",
+              "group cursor-pointer",
               selectedTheme === theme && "border-primary border",
             )}
             key={text}
           >
-            <Icon />
+            <Icon className="group-hover:text-primary-foreground" />
             {text}
           </DropdownMenuItem>
         ))}
