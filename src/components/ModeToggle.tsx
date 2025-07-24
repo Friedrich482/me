@@ -8,11 +8,12 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import type { Theme } from "@/types-schemas";
+import { THEME_ITEMS } from "@/constants";
+import { cn } from "@/lib/utils";
 
 export function ModeToggle() {
-  const [theme, setThemeState] = useState<"theme-light" | "dark" | "system">(
-    "theme-light",
-  );
+  const [theme, setThemeState] = useState<Theme>("theme-light");
 
   useEffect(() => {
     const isDarkMode = document.documentElement.classList.contains("dark");
@@ -30,22 +31,26 @@ export function ModeToggle() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="outline" size="icon">
-          <Sun className="h-[1.2rem] w-[1.2rem] scale-100 rotate-0 transition-all dark:scale-0 dark:-rotate-90" />
-          <Moon className="absolute h-[1.2rem] w-[1.2rem] scale-0 rotate-90 transition-all dark:scale-100 dark:rotate-0" />
+        <Button variant="ghost" size="icon">
+          <Sun className="size-[1.6rem] scale-100 rotate-0 transition-all dark:scale-0 dark:-rotate-90" />
+          <Moon className="absolute size-[1.3rem] scale-0 rotate-90 transition-all dark:scale-100 dark:rotate-0" />
           <span className="sr-only">Toggle theme</span>
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="end">
-        <DropdownMenuItem onClick={() => setThemeState("theme-light")}>
-          Light
-        </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => setThemeState("dark")}>
-          Dark
-        </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => setThemeState("system")}>
-          System
-        </DropdownMenuItem>
+      <DropdownMenuContent align="end" className="flex flex-col gap-1 p-2">
+        {THEME_ITEMS.map(({ Icon, text, theme: selectedTheme }) => (
+          <DropdownMenuItem
+            onClick={() => setThemeState(selectedTheme)}
+            className={cn(
+              "cursor-pointer",
+              selectedTheme === theme && "border border-indigo-500",
+            )}
+            key={text}
+          >
+            <Icon />
+            {text}
+          </DropdownMenuItem>
+        ))}
       </DropdownMenuContent>
     </DropdownMenu>
   );

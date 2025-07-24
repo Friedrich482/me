@@ -1,9 +1,9 @@
 ---
-import { ModeToggle } from "../ModeToggle";
 import Logo from "@/assets/signature.svg";
+import HeaderIcons from "./HeaderIcons.astro";
 ---
 
-<header class="flex items-center justify-between">
+<header class="flex items-center justify-between px-8 py-2">
   <Logo class="size-12" />
-  <ModeToggle client:load />
+  <HeaderIcons />
 </header>
