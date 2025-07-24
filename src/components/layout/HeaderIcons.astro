@@ -3,12 +3,12 @@ import { ModeToggle } from "../ModeToggle";
 import { SiGithub, SiX } from "@icons-pack/react-simple-icons";
 ---
 
-<div class="flex items-center justify-center gap-2">
+<div class="flex items-center justify-center gap-4">
   <a href="https://x.com/FriedrichC109">
-    <SiX size={20} />
+    <SiX size={20} className="hover:text-primary" />
   </a>
   <a href="https://github.com/Friedrich482">
-    <SiGithub size={20} />
+    <SiGithub size={20} className="hover:text-primary" />
   </a>
   <ModeToggle client:load />
 </div>

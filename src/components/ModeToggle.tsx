@@ -43,7 +43,7 @@ export function ModeToggle() {
             onClick={() => setThemeState(selectedTheme)}
             className={cn(
               "cursor-pointer",
-              selectedTheme === theme && "border border-indigo-500",
+              selectedTheme === theme && "border-primary border",
             )}
             key={text}
           >
