@@ -1,5 +1,11 @@
 import { Monitor, Moon, Sun, type LucideProps } from "lucide-react";
 import type { Theme } from "./types-schemas";
+import {
+  SiDailydotdev,
+  SiGithub,
+  SiX,
+  type IconType,
+} from "@icons-pack/react-simple-icons";
 
 export const THEME_ITEMS: {
   theme: Theme;
@@ -23,4 +29,27 @@ export const THEME_ITEMS: {
     Icon: Monitor,
     text: "System",
   },
+];
+
+export const HEADER_LINKS: {
+  Icon: IconType;
+  link: string;
+}[] = [
+  {
+    Icon: SiGithub,
+    link: "https://github.com/Friedrich482",
+  },
+  {
+    Icon: SiDailydotdev,
+    link: "https://app.daily.dev/friedrich",
+  },
+  {
+    Icon: SiX,
+    link: "https://x.com/FriedrichC109",
+  },
+];
+
+export const NAVBAR_LINKS: { text: string; link: string }[] = [
+  { text: "Blog", link: "/blog" },
+  { text: "Portfolio", link: "/portfolio" },
 ];

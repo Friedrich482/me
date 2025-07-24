@@ -1,14 +1,15 @@
 ---
 import { ModeToggle } from "../ModeToggle";
-import { SiGithub, SiX } from "@icons-pack/react-simple-icons";
+import { HEADER_LINKS } from "@/constants";
 ---
 
 <div class="flex items-center justify-center gap-4">
-  <a href="https://x.com/FriedrichC109">
-    <SiX size={20} className="hover:text-primary" />
-  </a>
-  <a href="https://github.com/Friedrich482">
-    <SiGithub size={20} className="hover:text-primary" />
-  </a>
+  {
+    HEADER_LINKS.map(({ Icon, link }) => (
+      <a href={link}>
+        <Icon size={20} className="hover:text-primary" />
+      </a>
+    ))
+  }
   <ModeToggle client:load />
 </div>
