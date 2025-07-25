@@ -1,0 +1,30 @@
+---
+import Layout from "@/layouts/main.astro";
+import type { Post } from "@/types-schemas";
+
+export async function getStaticPaths() {
+  const response = await fetch("https://dummyjson.com/posts");
+  const data = await response.json();
+  const posts: Post[] = data.posts;
+
+  return posts.map((post) => ({
+    params: { id: String(post.id) },
+  }));
+}
+
+const { id } = Astro.params;
+
+const res = await fetch(`https://dummyjson.com/posts/${id}`);
+const post = await res.json();
+---
+
+<Layout>
+  <main class="flex h-screen flex-1 flex-col items-center justify-center py-2">
+    <section
+      class="flex w-3/6 flex-col items-center justify-center gap-16 pt-8 max-md:w-5/6"
+    >
+      <h1 class="text-4xl">{post.title}</h1>
+      <p>{post.body}</p>
+    </section>
+  </main>
+</Layout>

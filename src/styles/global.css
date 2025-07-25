@@ -192,3 +192,22 @@
     stroke-dashoffset: 100;
   }
 }
+
+/* scrollbar properties */
+
+::-webkit-scrollbar {
+  width: 0.5rem;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgb(163 163 163 / var(--tw-bg-opacity, 1));
+  border-radius: 0.25rem;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgb(212 212 212 / var(--tw-bg-opacity, 1));
+}
