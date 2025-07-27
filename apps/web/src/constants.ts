@@ -1,11 +1,12 @@
-import { Monitor, Moon, Sun, type LucideProps } from "lucide-react";
-import type { Theme } from "./types-schemas";
 import {
   SiDailydotdev,
   SiGithub,
   SiX,
   type IconType,
 } from "@icons-pack/react-simple-icons";
+import { Monitor, Moon, Sun, type LucideProps } from "lucide-react";
+
+import type { Theme } from "./types-schemas";
 
 export const THEME_ITEMS: {
   theme: Theme;

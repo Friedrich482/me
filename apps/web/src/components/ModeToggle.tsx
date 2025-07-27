@@ -1,5 +1,5 @@
-import { useState, useEffect } from "react";
 import { Moon, Sun } from "lucide-react";
+import { useState, useEffect } from "react";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -8,9 +8,9 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import type { Theme } from "@/types-schemas";
 import { THEME_ITEMS } from "@/constants";
 import { cn } from "@/lib/utils";
+import type { Theme } from "@/types-schemas";
 
 export function ModeToggle() {
   const [theme, setThemeState] = useState<Theme>("theme-light");

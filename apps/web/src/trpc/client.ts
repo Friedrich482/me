@@ -1,9 +1,10 @@
-import { createTRPCClient, httpBatchLink } from "@trpc/client";
 import type { AppRouter } from "@repo/trpc/router";
-import { API_URL } from "@/constants";
+import { createTRPCClient, httpBatchLink } from "@trpc/client";
 import superjson from "superjson";
 
-// @ts-expect-error
+import { API_URL } from "@/constants";
+
+// @ts-expect-error: createTRPCClient type mismatch due to trpc internal errors
 const trpc = createTRPCClient<AppRouter>({
   links: [
     httpBatchLink({

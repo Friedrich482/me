@@ -1,9 +1,10 @@
 import { Menu, X } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import { useState } from "react";
-import { cn } from "@/lib/utils";
-import useOutsideClick from "@/hooks/useOutsideClick";
+
+import { Button } from "@/components/ui/button";
 import { HEADER_LINKS, NAVBAR_LINKS } from "@/constants";
+import useOutsideClick from "@/hooks/useOutsideClick";
+import { cn } from "@/lib/utils";
 
 const SideBar = ({ pathName }: { pathName: string }) => {
   const [isOpen, setIsOpen] = useState(false);
