@@ -3,6 +3,7 @@ import { ConfigModule } from "@nestjs/config";
 
 import { AppController } from "./app.controller";
 import { AppService } from "./app.service";
+import { DrizzleModule } from "./drizzle/drizzle.module";
 import { envSchema } from "./env";
 import { EnvModule } from "./env/env.module";
 import { EnvService } from "./env/env.service";
@@ -16,6 +17,7 @@ import { TrpcModule } from "./trpc/trpc.module";
     }),
     TrpcModule,
     EnvModule,
+    DrizzleModule,
   ],
   controllers: [AppController],
   providers: [AppService, EnvService],

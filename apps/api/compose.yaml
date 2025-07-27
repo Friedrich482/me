@@ -1,0 +1,22 @@
+services:
+  me_database:
+    image: postgres:17-alpine
+    container_name: me_postgres_db_container
+    networks:
+      - me_app_network
+    ports:
+      - "5431:5432"
+    volumes:
+      - me_postgres:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=me
+
+volumes:
+  me_postgres:
+    name: me_postgres_db
+
+networks:
+  me_app_network:
+    name: me_postgres_network
