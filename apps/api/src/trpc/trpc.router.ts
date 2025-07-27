@@ -1,7 +1,8 @@
-import * as trpcExpress from '@trpc/server/adapters/express';
-import { INestApplication, Injectable } from '@nestjs/common';
-import { TrpcService, createContext } from './trpc.service';
-import z from 'zod';
+import { INestApplication, Injectable } from "@nestjs/common";
+import * as trpcExpress from "@trpc/server/adapters/express";
+import z from "zod";
+
+import { TrpcService, createContext } from "./trpc.service";
 
 @Injectable()
 export class TrpcRouter {
@@ -15,14 +16,14 @@ export class TrpcRouter {
   });
 
   async applyMiddleware(app: INestApplication) {
-    const isDev = process.env.NODE_ENV === 'development';
+    const isDev = process.env.NODE_ENV === "development";
 
     app.use(
-      '/trpc',
+      "/trpc",
       trpcExpress.createExpressMiddleware({
         router: this.appRouter,
         createContext,
-        onError: ({ path, error, input }) => {
+        onError: ({ path, error }) => {
           if (isDev) {
             console.error(`tRPC failed on ${path}:`, error);
           }
@@ -30,7 +31,7 @@ export class TrpcRouter {
         responseMeta: () => {
           return {
             headers: {
-              'Content-Type': 'application/json',
+              "Content-Type": "application/json",
             },
           };
         },
@@ -39,4 +40,4 @@ export class TrpcRouter {
   }
 }
 
-export type AppRouter = TrpcRouter['appRouter'];
+export type AppRouter = TrpcRouter["appRouter"];

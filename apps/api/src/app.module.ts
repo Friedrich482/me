@@ -1,11 +1,12 @@
-import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
-import { TrpcModule } from './trpc/trpc.module';
-import { EnvModule } from './env/env.module';
-import { ConfigModule } from '@nestjs/config';
-import { envSchema } from './env';
-import { EnvService } from './env/env.service';
+import { Module } from "@nestjs/common";
+import { ConfigModule } from "@nestjs/config";
+
+import { AppController } from "./app.controller";
+import { AppService } from "./app.service";
+import { envSchema } from "./env";
+import { EnvModule } from "./env/env.module";
+import { EnvService } from "./env/env.service";
+import { TrpcModule } from "./trpc/trpc.module";
 
 @Module({
   imports: [
