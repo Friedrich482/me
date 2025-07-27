@@ -1,9 +1,15 @@
 ---
 import Layout from "@/layouts/main.astro";
+import trpc from "@/trpc/client";
 ---
 
 <Layout>
   <main class="grid h-screen place-items-center content-center">
     <p class="text-4xl">Portfolio</p>
+    {
+      trpc.getHello.query({
+        name: "Friedrich",
+      })
+    }
   </main>
 </Layout>

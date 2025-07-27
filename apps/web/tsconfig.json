@@ -1,5 +1,6 @@
 {
   "extends": "astro/tsconfigs/strict",
+  "references": [{ "path": "../../packages/trpc/tsconfig.json" }],
   "include": [".astro/types.d.ts", "**/*"],
   "exclude": ["dist"],
   "compilerOptions": {
@@ -8,6 +9,10 @@
       "@/*": ["./src/*"]
     },
     "jsx": "react-jsx",
-    "jsxImportSource": "react"
+    "jsxImportSource": "react",
+    "target": "esnext",
+    "module": "preserve",
+    "moduleResolution": "bundler",
+    "strict": true
   }
 }

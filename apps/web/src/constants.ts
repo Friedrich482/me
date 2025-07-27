@@ -57,3 +57,5 @@ export const NAVBAR_LINKS: { text: string; link: string }[] = [
   { text: "Blog", link: "/blog" },
   { text: "Portfolio", link: "/portfolio" },
 ];
+
+export const API_URL = "http://localhost:3010/trpc";
