@@ -3,8 +3,8 @@ import { JwtService } from "@nestjs/jwt";
 import { TRPCError, initTRPC } from "@trpc/server";
 import * as trpcExpress from "@trpc/server/adapters/express";
 import { EnvService } from "src/env/env.service";
+import { errorFormatter } from "src/filters/errorFormatter";
 import superjson from "superjson";
-import { ZodError } from "zod";
 
 export type TrpcContext = {
   req: trpcExpress.CreateExpressContextOptions["req"];
@@ -34,71 +34,8 @@ export class TrpcService {
   ) {
     this.trpc = initTRPC.context<TrpcContext>().create({
       transformer: superjson,
-      errorFormatter: ({ shape, error }) => {
-        const isDev = process.env.NODE_ENV === "development";
-
-        // Handle TRPCError with Zod validation errors
-        if (error instanceof TRPCError && error.code === "BAD_REQUEST") {
-          // Check if the cause is a ZodError
-          if (error.cause instanceof ZodError) {
-            return {
-              ...shape,
-              message: "Validation failed",
-              data: {
-                code: shape.data.code,
-                httpStatus: shape.data.httpStatus,
-                validationErrors: error.cause.issues.map((issue) => ({
-                  field: issue.path.join("."),
-                  message: issue.message,
-                  code: issue.code,
-                })),
-                ...(isDev && {
-                  stack: shape.data.stack,
-                  path: shape.data.path,
-                }),
-              },
-            };
-          }
-        }
-
-        // For other errors, try to parse if it's a JSON array of errors
-        let cleanMessage = error.message;
-        let validationErrors: Array<{
-          field: string;
-          message: string;
-          code: string;
-        }> = [];
-
-        try {
-          if (error.message.startsWith("[") && error.message.endsWith("]")) {
-            const parsedErrors = JSON.parse(error.message);
-            if (Array.isArray(parsedErrors)) {
-              cleanMessage = "Validation failed";
-              validationErrors = parsedErrors.map((err: any) => ({
-                field: err.path?.join(".") || "unknown",
-                message: err.message || "Validation error",
-                code: err.code || "unknown",
-              }));
-            }
-          }
-        } catch {
-          // If parsing fails, keep original message
-        }
-
-        return {
-          ...shape,
-          message: cleanMessage,
-          data: {
-            code: shape.data.code,
-            httpStatus: shape.data.httpStatus,
-            ...(validationErrors.length > 0 && { validationErrors }),
-            ...(isDev && {
-              stack: shape.data.stack,
-              path: shape.data.path,
-            }),
-          },
-        };
-      },
+      errorFormatter: ({ error, shape }) =>
+        errorFormatter(this.envService, { error, shape }),
     });
   }
 
