@@ -24,10 +24,11 @@ const SideBar = ({ pathName }: { pathName: string }) => {
       >
         <Menu />
       </Button>
+
       {/* Sidebar */}
       <div
         className={cn(
-          "border-primary bg-background fixed top-0 z-50 hidden h-[105%] w-64 translate-x-40 flex-col gap-20 rounded-sm border p-8 transition duration-300 ease-in max-[28.25rem]:flex",
+          "border-primary bg-background fixed top-0 z-50 hidden h-[105%] w-64 translate-x-40 flex-col gap-20 rounded-sm border p-8 transition duration-200 ease-in max-[28.25rem]:flex",
           isOpen && "-translate-x-44",
         )}
         ref={ref}
@@ -55,6 +56,8 @@ const SideBar = ({ pathName }: { pathName: string }) => {
             </li>
           ))}
         </ul>
+
+        {/* Socials */}
         <div className="flex flex-col gap-4 pt-8">
           <h2 className="text-2xl">Socials</h2>
           <div className="flex flex-col gap-2">
@@ -62,7 +65,7 @@ const SideBar = ({ pathName }: { pathName: string }) => {
               <a
                 href={link}
                 target="_blank"
-                className="hover:border-primary group flex w-auto gap-3 rounded-md border border-neutral-600 p-1"
+                className="hover:border-primary group border-border flex w-auto gap-3 rounded-md border p-1.5"
                 key={link}
               >
                 <Icon
