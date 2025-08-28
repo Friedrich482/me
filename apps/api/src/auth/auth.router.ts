@@ -10,21 +10,40 @@ export class AuthRouter {
     private readonly trpcService: TrpcService,
     private readonly authService: AuthService,
   ) {}
+  private readonly AUTH_COOKIE_NAME = "auth_token";
+  private readonly COOKIE_MAX_AGE = 28 * 24 * 60 * 60 * 1000; // 28 days
+
   procedures = {
     auth: this.trpcService.trpc.router({
       signInUser: this.trpcService
         .publicProcedure()
         .input(SignInUserDto)
-        .mutation(async ({ input, ctx }) =>
-          this.authService.signIn(input, ctx.res),
-        ),
+        .mutation(async ({ input, ctx }) => {
+          const token = await this.authService.signIn(input);
+
+          // Set the HTTP-only cookie
+          ctx.res.cookie(this.AUTH_COOKIE_NAME, token, {
+            httpOnly: true,
+            secure: true,
+            sameSite: "none",
+            maxAge: this.COOKIE_MAX_AGE,
+          });
+        }),
 
       registerUser: this.trpcService
         .publicProcedure()
         .input(RegisterUserDto)
-        .mutation(async ({ input, ctx }) =>
-          this.authService.register(input, ctx.res),
-        ),
+        .mutation(async ({ input, ctx }) => {
+          const token = await this.authService.register(input);
+
+          // Set the HTTP-only cookie
+          ctx.res.cookie(this.AUTH_COOKIE_NAME, token, {
+            httpOnly: true,
+            secure: true,
+            sameSite: "none",
+            maxAge: this.COOKIE_MAX_AGE,
+          });
+        }),
     }),
   };
 }
