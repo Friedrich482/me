@@ -17,8 +17,8 @@ export const posts = pgTable("posts", {
   content: text("content").notNull(),
   status: statusEnum(),
   publishedAt: timestamp("published_at"),
-  ...timestamps,
   authorId: varchar("author_id", { length: 26 })
     .notNull()
     .references(() => users.id, { onDelete: "cascade" }),
+  ...timestamps,
 });

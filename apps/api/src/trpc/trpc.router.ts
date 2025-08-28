@@ -1,18 +1,18 @@
 import { INestApplication, Injectable } from "@nestjs/common";
 import * as trpcExpress from "@trpc/server/adapters/express";
-import z from "zod";
+import { AuthRouter } from "src/auth/auth.router";
 
 import { TrpcService, createContext } from "./trpc.service";
 
 @Injectable()
 export class TrpcRouter {
-  constructor(private readonly trpcService: TrpcService) {}
+  constructor(
+    private readonly trpcService: TrpcService,
+    private readonly authRouter: AuthRouter,
+  ) {}
 
   appRouter = this.trpcService.trpc.router({
-    getHello: this.trpcService
-      .publicProcedure()
-      .input(z.object({ name: z.string() }))
-      .query(({ input }) => `Hello ${input.name}`),
+    ...this.authRouter.procedures,
   });
 
   async applyMiddleware(app: INestApplication) {

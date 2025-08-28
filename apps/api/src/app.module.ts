@@ -8,6 +8,8 @@ import { envSchema } from "./env";
 import { EnvModule } from "./env/env.module";
 import { EnvService } from "./env/env.service";
 import { TrpcModule } from "./trpc/trpc.module";
+import { AuthModule } from './auth/auth.module';
+import { UsersModule } from './users/users.module';
 
 @Module({
   imports: [
@@ -18,6 +20,8 @@ import { TrpcModule } from "./trpc/trpc.module";
     TrpcModule,
     EnvModule,
     DrizzleModule,
+    AuthModule,
+    UsersModule,
   ],
   controllers: [AppController],
   providers: [AppService, EnvService],

@@ -1,4 +1,4 @@
-import { pgTable, text, varchar } from "drizzle-orm/pg-core";
+import { pgTable, varchar } from "drizzle-orm/pg-core";
 import { ulid } from "ulid";
 
 import { timestamps } from "../columns.helpers";
@@ -8,7 +8,7 @@ export const tags = pgTable("tags", {
     .primaryKey()
     .notNull()
     .$defaultFn(() => ulid().toLowerCase()),
-  name: text("name").notNull(),
-  slug: text("slug").notNull().unique(),
+  name: varchar("name", { length: 200 }).notNull(),
+  slug: varchar("slug", { length: 200 }).notNull().unique(),
   ...timestamps,
 });
