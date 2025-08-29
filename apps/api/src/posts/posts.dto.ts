@@ -21,6 +21,7 @@ export const UpdatePostDto = z.object({
   slug: z.string().min(1),
   content: z.string().min(1).optional(),
   status: z.enum(STATUS_ENUM).optional(),
+  publishedAt: z.date().optional(),
 });
 
 export const DeletePostDto = z.object({

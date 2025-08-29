@@ -1,0 +1,18 @@
+---
+import { Button } from "@/components/ui/button";
+import Layout from "@/layouts/main.astro";
+---
+
+<Layout>
+  <main class="flex flex-1 items-start justify-center py-2">
+    <section
+      class="flex w-3/6 flex-col items-center justify-center gap-16 pt-8 max-md:w-5/6"
+    >
+      <h1 class="w-full text-start text-6xl font-bold">404</h1>
+      <p class="w-full text-start font-light">Page not found</p>
+      <Button variant="link">
+        <a class="w-full" href="/">Go home</a>
+      </Button>
+    </section>
+  </main>
+</Layout>

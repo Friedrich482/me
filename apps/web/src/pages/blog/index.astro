@@ -3,7 +3,7 @@ import Layout from "@/layouts/main.astro";
 import { CircleSmall } from "lucide-react";
 import trpc from "@/trpc/client";
 
-const posts = await trpc.posts.findAll.query({status: "draft"})
+const posts = await trpc.posts.findAll.query({ status: "published" });
 ---
 
 <Layout>

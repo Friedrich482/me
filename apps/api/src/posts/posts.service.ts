@@ -73,6 +73,7 @@ export class PostsService {
         slug: posts.slug,
         content: posts.content,
         status: posts.status,
+        publishDate: posts.publishedAt,
       })
       .from(posts)
       .where(status ? eq(posts.status, status) : undefined);
@@ -90,6 +91,7 @@ export class PostsService {
         slug: posts.slug,
         content: posts.content,
         status: posts.status,
+        publishDate: posts.publishedAt,
       })
       .from(posts)
       .where(and(eq(posts.slug, slug)));
@@ -126,6 +128,7 @@ export class PostsService {
         slug: posts.slug,
         content: posts.content,
         status: posts.status,
+        publishedAt: posts.publishedAt,
       });
 
     if (!updated) throw new NotFoundException("Post not found");
