@@ -15,7 +15,7 @@ export class AuthRouter {
 
   procedures = {
     auth: this.trpcService.trpc.router({
-      signInUser: this.trpcService
+      signIn: this.trpcService
         .publicProcedure()
         .input(SignInUserDto)
         .mutation(async ({ input, ctx }) => {
@@ -30,7 +30,7 @@ export class AuthRouter {
           });
         }),
 
-      registerUser: this.trpcService
+      register: this.trpcService
         .publicProcedure()
         .input(RegisterUserDto)
         .mutation(async ({ input, ctx }) => {

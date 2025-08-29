@@ -2,6 +2,7 @@ import { Injectable } from "@nestjs/common";
 import { JwtService } from "@nestjs/jwt";
 import { TRPCError, initTRPC } from "@trpc/server";
 import * as trpcExpress from "@trpc/server/adapters/express";
+import { JWTDtoType } from "src/common/dto";
 import { EnvService } from "src/env/env.service";
 import { errorFormatter } from "src/filters/errorFormatter";
 import superjson from "superjson";
@@ -78,9 +79,18 @@ export class TrpcService {
     }
 
     try {
-      return { sub: "nothing" };
+      const payload: JWTDtoType = await this.jwtService.verifyAsync(
+        accessToken,
+        {
+          secret: this.envService.get("JWT_SECRET"),
+        },
+      );
+      return payload;
     } catch (error) {
-      console.error(error);
+      if (error instanceof Error && error.name !== "JsonWebTokenError") {
+        console.error("Unexpected Error:", error);
+      }
+
       throw new TRPCError({
         code: "UNAUTHORIZED",
         message: "An error occurred",

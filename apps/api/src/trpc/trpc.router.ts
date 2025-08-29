@@ -19,18 +19,11 @@ export class TrpcRouter {
   });
 
   async applyMiddleware(app: INestApplication) {
-    const isDev = process.env.NODE_ENV === "development";
-
     app.use(
       "/trpc",
       trpcExpress.createExpressMiddleware({
         router: this.appRouter,
         createContext,
-        onError: ({ path, error }) => {
-          if (isDev) {
-            console.error(`tRPC failed on ${path}:`, error);
-          }
-        },
         responseMeta: () => {
           return {
             headers: {
