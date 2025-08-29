@@ -2,6 +2,7 @@ import { INestApplication, Injectable } from "@nestjs/common";
 import * as trpcExpress from "@trpc/server/adapters/express";
 import { AuthRouter } from "src/auth/auth.router";
 import { PostsRouter } from "src/posts/posts.router";
+import { TagsRouter } from "src/tags/tags.router";
 
 import { TrpcService, createContext } from "./trpc.service";
 
@@ -11,11 +12,13 @@ export class TrpcRouter {
     private readonly trpcService: TrpcService,
     private readonly authRouter: AuthRouter,
     private readonly postsRouter: PostsRouter,
+    private readonly tagsRouter: TagsRouter,
   ) {}
 
   appRouter = this.trpcService.trpc.router({
     ...this.authRouter.procedures,
     ...this.postsRouter.procedures,
+    ...this.tagsRouter.procedures,
   });
 
   async applyMiddleware(app: INestApplication) {

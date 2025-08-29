@@ -30,20 +30,24 @@ export class PostsRouter {
         ),
 
       findAll: this.trpcService
-        .protectedProcedure()
+        .publicProcedure()
         .input(FindAllPostsDto)
-        .query(async ({ ctx, input }) =>
-          this.postsService.findAll({
-            status: input.status,
-            authorId: ctx.user.sub,
-          }),
-        ),
+        .query(async ({ input, ctx }) => {
+          const userId = ctx.user?.sub;
+
+          if (!userId && (!input.status || input.status === "draft")) {
+            return this.postsService.findAll({
+              status: "published",
+            });
+          }
+
+          return this.postsService.findAll({ ...input });
+        }),
+
       findPost: this.trpcService
-        .protectedProcedure()
+        .publicProcedure()
         .input(FindPostDto)
-        .query(async ({ ctx, input }) =>
-          this.postsService.findPost({ ...input, authorId: ctx.user.sub }),
-        ),
+        .query(async ({ input }) => this.postsService.findPost({ ...input })),
 
       update: this.trpcService
         .protectedProcedure()

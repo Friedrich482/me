@@ -25,8 +25,8 @@ export class PostsService {
     private readonly db: NodePgDatabase,
   ) {}
 
-  async create(CreatePostDto: CreatePostDtoType) {
-    const { slug, title, authorId, content, status } = CreatePostDto;
+  async create(createPostDto: CreatePostDtoType) {
+    const { slug, title, authorId, content, status } = createPostDto;
 
     // check if a post with this slug already exists
 
@@ -63,8 +63,8 @@ export class PostsService {
     return createdPost;
   }
 
-  async findAll(FindAllPostsDto: FindAllPostsDtoType) {
-    const { status, authorId } = FindAllPostsDto;
+  async findAll(findAllPostsDto: FindAllPostsDtoType) {
+    const { status } = findAllPostsDto;
 
     const postsFromDb = await this.db
       .select({
@@ -75,17 +75,13 @@ export class PostsService {
         status: posts.status,
       })
       .from(posts)
-      .where(
-        status
-          ? and(eq(posts.authorId, authorId), eq(posts.status, status))
-          : eq(posts.authorId, authorId),
-      );
+      .where(status ? eq(posts.status, status) : undefined);
 
     return postsFromDb;
   }
 
-  async findPost(FindPostDto: FindPostDtoType) {
-    const { slug, authorId } = FindPostDto;
+  async findPost(findPostDto: FindPostDtoType) {
+    const { slug } = findPostDto;
 
     const [post] = await this.db
       .select({
@@ -96,7 +92,7 @@ export class PostsService {
         status: posts.status,
       })
       .from(posts)
-      .where(and(eq(posts.authorId, authorId), eq(posts.slug, slug)));
+      .where(and(eq(posts.slug, slug)));
 
     if (!post) {
       throw new TRPCError({
@@ -108,8 +104,8 @@ export class PostsService {
     return post;
   }
 
-  async update(UpdatePostDto: UpdatePostDtoType) {
-    const { slug, authorId, ...maybeFields } = UpdatePostDto;
+  async update(updatePostDto: UpdatePostDtoType) {
+    const { slug, authorId, ...maybeFields } = updatePostDto;
 
     const setFields = Object.fromEntries(
       Object.entries(maybeFields).filter(([, value]) => value !== undefined),

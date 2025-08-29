@@ -1,14 +1,13 @@
 ---
 import Layout from "@/layouts/main.astro";
 import { CircleSmall } from "lucide-react";
-import type { Post } from "@/types-schemas";
+import trpc from "@/trpc/client";
 
-const res = await fetch("https://dummyjson.com/posts");
-const posts: Post[] = (await res.json()).posts;
+const posts = await trpc.posts.findAll.query({status: "draft"})
 ---
 
 <Layout>
-  <main class="flex flex-1 items-center justify-center py-2">
+  <main class="flex flex-1 items-start justify-center py-2">
     <section
       class="flex w-3/6 flex-col items-center justify-center gap-16 pt-8 max-md:w-5/6"
     >
@@ -16,7 +15,7 @@ const posts: Post[] = (await res.json()).posts;
       <ul class="text-foreground/60 w-full space-y-8 text-[18px]">
         {
           posts.length === 0 ? (
-            <p>No posts yet</p>
+            <p class="text-center">No posts yet</p>
           ) : (
             posts.map((post) => (
               <li class="hover:text-primary/75 w-full cursor-pointer text-start">

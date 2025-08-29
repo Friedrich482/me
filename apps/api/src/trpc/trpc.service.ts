@@ -46,7 +46,6 @@ export class TrpcService {
   }
 
   // these routes requires authentication:
-
   protectedProcedure() {
     const procedure = this.trpc.procedure.use(async (opts) => {
       const payload = await this.getPayload(opts.ctx);

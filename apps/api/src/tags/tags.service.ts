@@ -71,9 +71,9 @@ export class TagsService {
   }
 
   async findAllTagsForPost(findAllTagsForPostDto: FindAllTagsForPostDtoType) {
-    const { postSlug, authorId } = findAllTagsForPostDto;
+    const { postSlug } = findAllTagsForPostDto;
 
-    const post = await this.postsService.findPost({ authorId, slug: postSlug });
+    const post = await this.postsService.findPost({ slug: postSlug });
 
     const tagsForPost = await this.db
       .select({
@@ -88,7 +88,7 @@ export class TagsService {
   }
 
   async removeTagFromPost(removeTagFromPostDto: RemoveTagFromPostDtoType) {
-    const { authorId, postSlug, tagSlug } = removeTagFromPostDto;
+    const { postSlug, tagSlug } = removeTagFromPostDto;
 
     const [tag] = await this.db
       .select({
@@ -103,7 +103,7 @@ export class TagsService {
       throw new NotFoundException("Tag not found");
     }
 
-    const post = await this.postsService.findPost({ authorId, slug: postSlug });
+    const post = await this.postsService.findPost({ slug: postSlug });
 
     await this.db
       .delete(postTags)

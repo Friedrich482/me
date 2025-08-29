@@ -31,13 +31,9 @@ export type CreatePostDtoType = z.infer<typeof CreatePostDto> & {
   authorId: string;
 };
 
-export type FindAllPostsDtoType = z.infer<typeof FindAllPostsDto> & {
-  authorId: string;
-};
+export type FindAllPostsDtoType = z.infer<typeof FindAllPostsDto>;
 
-export type FindPostDtoType = z.infer<typeof FindPostDto> & {
-  authorId: string;
-};
+export type FindPostDtoType = z.infer<typeof FindPostDto>;
 
 export type UpdatePostDtoType = z.infer<typeof UpdatePostDto> & {
   authorId: string;
