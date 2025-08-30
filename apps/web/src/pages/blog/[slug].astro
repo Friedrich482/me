@@ -1,6 +1,7 @@
 ---
 import Layout from "@/layouts/main.astro";
 import trpc from "@/trpc/client";
+import { ArrowLeft } from "lucide-react";
 
 export async function getStaticPaths() {
   const posts = await trpc.posts.findAll.query({ status: "published" });
@@ -16,18 +17,32 @@ const { post } = Astro.props;
 
 <Layout>
   <main
-    class="flex h-screen flex-1 flex-col items-center justify-center py-2"
+    class="flex flex-1 flex-col items-center justify-start py-2"
     transition:animate="slide"
   >
     <section
-      class="flex w-3/6 flex-col items-center justify-center gap-16 pt-8 max-md:w-5/6"
+      class="flex w-3/6 flex-col items-start justify-center gap-8 pt-2 text-start max-md:w-5/6"
     >
-      <h1>{post.title}</h1>
-      <p>
-        {post.publishDate && post.publishDate.toDateString()}
-      </p>
+      <a
+        href="/blog"
+        class="hover:text-primary flex items-center justify-center gap-1 text-base opacity-60 hover:underline"
+      >
+        <ArrowLeft size={16} />
+        <span> Back to posts </span>
+      </a>
 
-      <article>{post.content}</article>
+      <div class="flex flex-col items-center justify-center gap-10">
+        <div class="flex w-full flex-col gap-2">
+          <h1 class="text-5xl font-bold">{post.title}</h1>
+          <p class="opacity-40">
+            {post.publishDate && post.publishDate.toDateString()}
+          </p>
+        </div>
+
+        <article class="w-full">
+          {post.content}
+        </article>
+      </div>
     </section>
   </main>
 </Layout>

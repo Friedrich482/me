@@ -1,9 +1,4 @@
-import {
-  BadRequestException,
-  Inject,
-  Injectable,
-  NotFoundException,
-} from "@nestjs/common";
+import { Inject, Injectable } from "@nestjs/common";
 import { TRPCError } from "@trpc/server";
 import { and, eq } from "drizzle-orm";
 import { NodePgDatabase } from "drizzle-orm/node-postgres";
@@ -113,9 +108,10 @@ export class PostsService {
       Object.entries(maybeFields).filter(([, value]) => value !== undefined),
     );
     if (Object.keys(setFields).length === 0) {
-      throw new BadRequestException(
-        "You need to specify at least one field to update",
-      );
+      throw new TRPCError({
+        code: "BAD_REQUEST",
+        message: "You need to specify at least one field to update",
+      });
     }
 
     const [updated] = await this.db
@@ -131,7 +127,8 @@ export class PostsService {
         publishedAt: posts.publishedAt,
       });
 
-    if (!updated) throw new NotFoundException("Post not found");
+    if (!updated)
+      throw new TRPCError({ message: "Post not found", code: "NOT_FOUND" });
 
     return updated;
   }
@@ -148,7 +145,8 @@ export class PostsService {
         title: posts.title,
       });
 
-    if (!deletedPost) throw new NotFoundException("Post not found");
+    if (!deletedPost)
+      throw new TRPCError({ message: "Post not found", code: "NOT_FOUND" });
 
     return deletedPost;
   }

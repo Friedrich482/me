@@ -7,7 +7,7 @@ const navItems = NAVBAR_LINKS.map((entry) => ({
   ...entry,
   className: cn(
     "hover:text-foreground",
-    pathName === entry.link && "text-primary hover:text-primary",
+    pathName.includes(entry.link) && "text-primary hover:text-primary",
   ),
 }));
 ---

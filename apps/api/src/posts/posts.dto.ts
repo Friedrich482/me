@@ -1,6 +1,13 @@
 import { STATUS_ENUM } from "src/common/constants";
 import { z } from "zod";
 
+const isoDateSchema = z
+  .string()
+  .refine((val) => !isNaN(Date.parse(val)), {
+    message: "Invalid ISO date string",
+  })
+  .transform((val) => new Date(val));
+
 export const CreatePostDto = z.object({
   title: z.string().min(1),
   slug: z.string().min(1),
@@ -21,7 +28,7 @@ export const UpdatePostDto = z.object({
   slug: z.string().min(1),
   content: z.string().min(1).optional(),
   status: z.enum(STATUS_ENUM).optional(),
-  publishedAt: z.date().optional(),
+  publishedAt: isoDateSchema.optional(),
 });
 
 export const DeletePostDto = z.object({

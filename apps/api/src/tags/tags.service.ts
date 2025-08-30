@@ -1,9 +1,5 @@
-import {
-  ConflictException,
-  Inject,
-  Injectable,
-  NotFoundException,
-} from "@nestjs/common";
+import { Inject, Injectable } from "@nestjs/common";
+import { TRPCError } from "@trpc/server";
 import { and, eq } from "drizzle-orm";
 import { NodePgDatabase } from "drizzle-orm/node-postgres";
 import { DrizzleAsyncProvider } from "src/drizzle/drizzle.provider";
@@ -59,7 +55,10 @@ export class TagsService {
       );
 
     if (existingRelation) {
-      throw new ConflictException("This tag is already linked to that post");
+      throw new TRPCError({
+        code: "CONFLICT",
+        message: "This tag is already linked to that post",
+      });
     }
 
     await this.db.insert(postTags).values({
@@ -100,7 +99,7 @@ export class TagsService {
       .where(eq(tags.slug, tagSlug));
 
     if (!tag) {
-      throw new NotFoundException("Tag not found");
+      throw new TRPCError({ code: "NOT_FOUND", message: "Tag not found" });
     }
 
     const post = await this.postsService.findPost({ slug: postSlug });
