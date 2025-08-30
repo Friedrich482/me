@@ -2,6 +2,7 @@
 import Layout from "@/layouts/main.astro";
 import trpc from "@/trpc/client";
 import { ArrowLeft } from "lucide-react";
+import { format } from "date-fns";
 
 export async function getStaticPaths() {
   const posts = await trpc.posts.findAll.query({ status: "published" });
@@ -35,11 +36,11 @@ const { post } = Astro.props;
         <div class="flex w-full flex-col gap-2">
           <h1 class="text-5xl font-bold">{post.title}</h1>
           <p class="opacity-40">
-            {post.publishDate && post.publishDate.toDateString()}
+            {post.publishDate && format(post.publishDate, "MMM dd, yyyy")}
           </p>
         </div>
 
-        <article class="w-full">
+        <article class="w-full text-[18px] opacity-75">
           {post.content}
         </article>
       </div>

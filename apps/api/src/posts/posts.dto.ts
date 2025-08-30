@@ -1,4 +1,5 @@
 import { STATUS_ENUM } from "src/common/constants";
+import { slugSchema } from "src/common/dto";
 import { z } from "zod";
 
 const isoDateSchema = z
@@ -10,7 +11,7 @@ const isoDateSchema = z
 
 export const CreatePostDto = z.object({
   title: z.string().min(1),
-  slug: z.string().min(1),
+  slug: slugSchema,
   content: z.string().min(1),
   status: z.enum(STATUS_ENUM),
 });
@@ -20,19 +21,19 @@ export const FindAllPostsDto = z.object({
 });
 
 export const FindPostDto = z.object({
-  slug: z.string().min(1),
+  slug: slugSchema,
 });
 
 export const UpdatePostDto = z.object({
   title: z.string().min(1).optional(),
-  slug: z.string().min(1),
+  slug: slugSchema,
   content: z.string().min(1).optional(),
   status: z.enum(STATUS_ENUM).optional(),
   publishedAt: isoDateSchema.optional(),
 });
 
 export const DeletePostDto = z.object({
-  slug: z.string().min(1),
+  slug: slugSchema,
 });
 
 export type CreatePostDtoType = z.infer<typeof CreatePostDto> & {
