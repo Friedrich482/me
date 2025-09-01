@@ -2,7 +2,8 @@
 @import "tw-animate-css";
 
 @source "./components/**/*.{ts,tsx}";
-@source "../../apps/dashboard/**/*.{ts,tsx}";
+@source "../../apps/web/**/*.{ts,tsx}";
+@source "../../apps/admin/**/*.{ts,tsx}";
 
 @custom-variant dark (&:is(.dark *));
 

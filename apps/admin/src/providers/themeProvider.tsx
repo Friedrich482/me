@@ -10,7 +10,6 @@ type ThemeProviderProps = {
 
 type ThemeProviderState = {
   theme: Theme;
-  // eslint-disable-next-line no-unused-vars
   setTheme: (theme: Theme) => void;
   resolvedTheme: "dark" | "light";
 };
