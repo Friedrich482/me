@@ -4,6 +4,8 @@
   "private": true,
   "exports": {
     "./globals.css": "./src/globals.css",
+    "./types-schemas": "./src/types-schemas.ts",
+    "./constants": "./src/constants.ts",
     "./postcss.config": "./postcss.config.mjs",
     "./tailwind.config": "./tailwind.config.ts",
     "./lib/*": "./src/lib/*.ts",

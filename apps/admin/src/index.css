@@ -4,8 +4,4 @@
   height: 100%;
   display: flex;
   flex-direction: column;
-
-  &.auth-root {
-    padding-top: 0%;
-  }
 }

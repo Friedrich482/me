@@ -1,23 +1,17 @@
-import { Button } from "@repo/ui/components/ui/button";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@repo/ui/components/ui/dropdown-menu";
-import { cn } from "@repo/ui/lib/utils";
-import { Moon, Sun } from "lucide-react";
+import ModeToggleContent from "@repo/ui/components/ModeToggleContent";
+import type { Theme } from "@repo/ui/types-schemas";
 import { useState, useEffect } from "react";
 
-import { THEME_ITEMS } from "@/constants";
-import type { Theme } from "@/types-schemas";
-
 export function ModeToggle() {
-  const [theme, setThemeState] = useState<Theme>("theme-light");
+  const [theme, setTheme] = useState<Theme>("light");
+
+  const handleThemeOptionClick = (theme: Theme) => {
+    setTheme(theme);
+  };
 
   useEffect(() => {
     const isDarkMode = document.documentElement.classList.contains("dark");
-    setThemeState(isDarkMode ? "dark" : "theme-light");
+    setTheme(isDarkMode ? "dark" : "light");
   }, []);
 
   useEffect(() => {
@@ -29,29 +23,9 @@ export function ModeToggle() {
   }, [theme]);
 
   return (
-    <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <Button variant="ghost" size="icon">
-          <Sun className="size-[1.6rem] scale-100 rotate-0 transition-all dark:scale-0 dark:-rotate-90" />
-          <Moon className="absolute size-[1.3rem] scale-0 rotate-90 transition-all dark:scale-100 dark:rotate-0" />
-          <span className="sr-only">Toggle theme</span>
-        </Button>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent align="end" className="flex flex-col gap-1 p-2">
-        {THEME_ITEMS.map(({ Icon, text, theme: selectedTheme }) => (
-          <DropdownMenuItem
-            onClick={() => setThemeState(selectedTheme)}
-            className={cn(
-              "group cursor-pointer",
-              selectedTheme === theme && "border-primary border",
-            )}
-            key={text}
-          >
-            <Icon className="group-hover:text-primary-foreground" />
-            {text}
-          </DropdownMenuItem>
-        ))}
-      </DropdownMenuContent>
-    </DropdownMenu>
+    <ModeToggleContent
+      theme={theme}
+      handleThemeOptionClick={handleThemeOptionClick}
+    />
   );
 }

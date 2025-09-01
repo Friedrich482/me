@@ -1,10 +1,8 @@
-import { Button } from "@repo/ui/components/ui/button";
-
 const Root = () => {
   return (
-    <div className="text-primary">
-      <Button>Shadcn button</Button>
-    </div>
+    <main className="flex-1 flex items-start justify-center">
+      <h1 className="text-4xl font-bold">Posts List</h1>
+    </main>
   );
 };
 
