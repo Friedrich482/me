@@ -7,6 +7,7 @@ import Root from "./components/root/Root";
 import Posts from "./components/posts/Posts";
 import Post from "./components/post/Post";
 import CreatePost from "./components/create/CreatePost";
+import EditPost from "./components/edit/EditPost";
 
 const router = createBrowserRouter([
   {
@@ -26,6 +27,10 @@ const router = createBrowserRouter([
           {
             element: <Post />,
             path: "/posts/:slug",
+          },
+          {
+            element: <EditPost />,
+            path: "/posts/:slug/edit",
           },
           {
             element: <CreatePost />,
