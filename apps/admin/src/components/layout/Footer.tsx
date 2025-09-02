@@ -1,11 +1,12 @@
 const Footer = () => (
-  <footer className="w-full py-3 text-center mt-auto">
+  <footer className="mt-auto w-full py-3 text-center">
     <p>
       Built by{" "}
       <a
         href="https://github.com/Friedrich482"
         target="_blank"
-        className="underline hover:text-primary"
+        className="hover:text-primary underline"
+        rel="noopener noreferrer"
       >
         Friedrich482
       </a>
@@ -13,7 +14,8 @@ const Footer = () => (
       <a
         href="https://github.com/Friedrich482/me-monorepo"
         target="_blank"
-        className="underline hover:text-primary"
+        className="hover:text-primary underline"
+        rel="noopener noreferrer"
       >
         GitHub
       </a>

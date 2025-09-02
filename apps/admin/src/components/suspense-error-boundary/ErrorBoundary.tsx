@@ -12,12 +12,12 @@ const FallBackRender = ({
   resetErrorBoundary: () => void;
 }) => {
   return (
-    <div className={cn("flex gap-4 flex-col p-2 w-full", className)}>
-      <h2 className="text-2xl flex gap-2">
+    <div className={cn("flex w-full flex-col gap-4 p-2", className)}>
+      <h2 className="flex gap-2 text-2xl">
         <TriangleAlert className="text-destructive size-8" />
         <span className="text-destructive">Something went wrong</span>
       </h2>
-      <div className="flex flex-col items-start justify-center gap-2 text-destructive text-xl">
+      <div className="text-destructive flex flex-col items-start justify-center gap-2 text-xl">
         <p>{error.message}</p>
         <Button
           variant="outline"

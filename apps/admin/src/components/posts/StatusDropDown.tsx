@@ -33,7 +33,7 @@ const StatusDropDown = ({
             onClick={() => handleStatusOptionClick(selectedStatus)}
             className={cn(
               "group cursor-pointer",
-              selectedStatus === status && "border-primary border"
+              selectedStatus === status && "border-primary border",
             )}
           >
             {text}

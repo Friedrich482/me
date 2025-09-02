@@ -9,7 +9,7 @@ const PostSection = () => {
   const trpc = useTRPC();
 
   const { data: post } = useSuspenseQuery(
-    trpc.posts.findPost.queryOptions({ slug })
+    trpc.posts.findPost.queryOptions({ slug }),
   );
 
   return (

@@ -15,10 +15,10 @@ const Posts = () => {
   const handleStatusOptionClick = (status: Status) => setStatus(status);
 
   return (
-    <main className="flex-1 flex items-start justify-center py-2">
+    <main className="flex flex-1 items-start justify-center py-2">
       <section className="flex w-3/6 flex-col items-center justify-center gap-7 pt-8 max-md:w-5/6">
-        <div className="flex items-center justify-between w-full max-[24rem]:flex-col gap-y-4 max-[24rem]:items-start">
-          <h1 className="text-4xl font-bold text-start">Posts List</h1>
+        <div className="flex w-full items-center justify-between gap-y-4 max-[24rem]:flex-col max-[24rem]:items-start">
+          <h1 className="text-start text-4xl font-bold">Posts List</h1>
           <Button asChild>
             <Link
               to="/create"
@@ -30,7 +30,7 @@ const Posts = () => {
           </Button>
         </div>
 
-        <div className="flex gap-2 items-center justify-start rounded-sm w-full">
+        <div className="flex w-full items-center justify-start gap-2 rounded-sm">
           <p>Posts to display:</p>
           <StatusDropDown
             status={status}
@@ -47,7 +47,7 @@ const Posts = () => {
             />
           )}
         >
-          <SuspenseBoundary className="w-5/6 h-80 self-start">
+          <SuspenseBoundary className="h-80 w-5/6 self-start">
             <PostsList status={status} />
           </SuspenseBoundary>
         </ErrorBoundary>

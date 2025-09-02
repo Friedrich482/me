@@ -48,7 +48,7 @@ const App = () => {
           transformer: superjson,
         }),
       ],
-    })
+    }),
   );
   return (
     <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">

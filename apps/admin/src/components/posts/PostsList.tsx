@@ -8,13 +8,13 @@ const PostsList = ({ status }: { status: Status }) => {
   const trpc = useTRPC();
 
   const { data: posts } = useSuspenseQuery(
-    trpc.posts.findAll.queryOptions({ status })
+    trpc.posts.findAll.queryOptions({ status }),
   );
 
   return posts.length === 0 ? (
     <p className="text-xl">No posts yet.</p>
   ) : (
-    <ul className="w-full text-foreground/60 space-y-8 text-[18px]">
+    <ul className="text-foreground/60 w-full space-y-8 text-[18px]">
       {posts.map((post) => (
         <li
           key={post.id}

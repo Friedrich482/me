@@ -12,11 +12,11 @@ const Post = () => {
   const { slug } = useSafeParams(ParamsSchema);
 
   return (
-    <main className="flex-1 flex items-center flex-col py-2">
-      <div className="flex justify-between items-center w-1/2 max-md:w-5/6 max-[18rem]:flex-col gap-y-4 max-[18rem]:items-start">
+    <main className="flex flex-1 flex-col items-center py-2">
+      <div className="flex w-1/2 items-center justify-between gap-y-4 max-md:w-5/6 max-[18rem]:flex-col max-[18rem]:items-start">
         <Link
           to="/posts"
-          className="hover:text-primary flex items-center justify-start gap-1 text-base opacity-60 hover:underline "
+          className="hover:text-primary flex items-center justify-start gap-1 text-base opacity-60 hover:underline"
         >
           <ArrowLeft size={16} />
           <span> Back to posts </span>
@@ -25,7 +25,7 @@ const Post = () => {
         <Button asChild>
           <Link
             to={`/posts/${slug}/edit`}
-            className="flex items-center justify-center gap-1 w-24"
+            className="flex w-24 items-center justify-center gap-1"
           >
             <span>Edit</span>
             <Pencil />
@@ -37,12 +37,12 @@ const Post = () => {
         FallbackComponent={({ error, resetErrorBoundary }) => (
           <FallBackRender
             error={error}
-            className="pt-8 w-1/2 max-md:w-5/6 self-center"
+            className="w-1/2 self-center pt-8 max-md:w-5/6"
             resetErrorBoundary={resetErrorBoundary}
           />
         )}
       >
-        <SuspenseBoundary className="w-1/2 h-[22rem] translate-y-14 max-md:w-5/6">
+        <SuspenseBoundary className="h-[22rem] w-1/2 translate-y-14 max-md:w-5/6">
           <PostSection />
         </SuspenseBoundary>
       </ErrorBoundary>

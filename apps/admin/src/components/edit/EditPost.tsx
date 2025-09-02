@@ -9,13 +9,13 @@ const EditPost = () => {
   const trpc = useTRPC();
 
   const { data: post } = useSuspenseQuery(
-    trpc.posts.findPost.queryOptions({ slug })
+    trpc.posts.findPost.queryOptions({ slug }),
   );
 
   return (
-    <main className="flex-1 flex items-start justify-center py-2">
+    <main className="flex flex-1 items-start justify-center py-2">
       <section className="flex w-3/6 flex-col items-center justify-center gap-16 pt-8 max-md:w-5/6">
-        <h1 className="text-4xl font-bold text-start w-full flex items-center justify-start gap-2">
+        <h1 className="flex w-full items-center justify-start gap-2 text-start text-4xl font-bold">
           Edit <Pencil />
         </h1>
         {post.content}
