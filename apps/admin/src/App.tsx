@@ -14,6 +14,7 @@ function makeQueryClient() {
     defaultOptions: {
       queries: {
         refetchOnWindowFocus: true,
+        retry: 3,
       },
     },
   });

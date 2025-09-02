@@ -1,11 +1,15 @@
 import { NestFactory } from "@nestjs/core";
 
 import { AppModule } from "./app.module";
-import { API_PORT } from "./constants";
+import { ALLOWED_CLIENTS, API_PORT } from "./constants";
 import { TrpcRouter } from "./trpc/trpc.router";
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+  app.enableCors({
+    origin: ALLOWED_CLIENTS,
+    credentials: true,
+  });
   const trpc = app.get(TrpcRouter);
   trpc.applyMiddleware(app);
 
