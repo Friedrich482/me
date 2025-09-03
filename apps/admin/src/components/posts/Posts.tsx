@@ -26,8 +26,8 @@ const Posts = () => {
               to="/create"
               className="flex items-center justify-center gap-2"
             >
-              <span>Create Post</span>
               <Plus />
+              <span>Create Post</span>
             </Link>
           </Button>
         </div>

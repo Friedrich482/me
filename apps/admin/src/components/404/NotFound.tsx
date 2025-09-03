@@ -1,0 +1,23 @@
+import { Link } from "react-router";
+
+import { Button } from "@repo/ui/components/ui/button";
+
+const NotFound = () => {
+  return (
+    <main className="flex flex-1 items-start justify-center py-2">
+      <section className="flex w-1/2 flex-col items-center justify-center gap-12 max-md:w-5/6">
+        <div className="flex flex-col items-center justify-center">
+          <h1 className="text-center text-[9rem] font-bold">404</h1>
+          <p className="-translate-y-5 text-2xl font-light">Not Found</p>
+        </div>
+        <Button asChild>
+          <Link className="" to="/">
+            Go home
+          </Link>
+        </Button>
+      </section>
+    </main>
+  );
+};
+
+export default NotFound;

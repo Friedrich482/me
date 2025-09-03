@@ -29,8 +29,8 @@ const Post = () => {
             to={`/posts/${slug}/edit`}
             className="flex w-24 items-center justify-center gap-1"
           >
-            <span>Edit</span>
             <Pencil />
+            <span>Edit</span>
           </Link>
         </Button>
       </div>

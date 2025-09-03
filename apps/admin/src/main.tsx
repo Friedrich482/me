@@ -3,6 +3,7 @@ import { createRoot } from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router";
 
 import App from "./App";
+import NotFound from "./components/404/NotFound";
 import CreatePost from "./components/create/CreatePost";
 import EditPost from "./components/edit/EditPost";
 import Layout from "./components/layout/Layout";
@@ -36,6 +37,10 @@ const router = createBrowserRouter([
           {
             element: <CreatePost />,
             path: "/create",
+          },
+          {
+            element: <NotFound />,
+            path: "*",
           },
         ],
       },
