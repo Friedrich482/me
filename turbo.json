@@ -30,6 +30,11 @@
       "cache": false,
       "persistent": true,
       "dependsOn": ["api#health-check"]
+    },
+    "admin#dev": {
+      "cache": false,
+      "persistent": true,
+      "dependsOn": ["api#health-check"]
     }
   }
 }
