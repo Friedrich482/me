@@ -1,11 +1,13 @@
+import { Moon, Sun } from "lucide-react";
+
+import { Button } from "./ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
-import { Button } from "./ui/button";
-import { Moon, Sun } from "lucide-react";
+
 import { THEME_ITEMS } from "#constants.ts";
 import { cn } from "#lib/utils.ts";
 import { Theme } from "#types-schemas.ts";

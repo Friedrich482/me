@@ -1,9 +1,10 @@
-import { Module } from "@nestjs/common";
-import { ConfigModule } from "@nestjs/config";
-import { JwtModule } from "@nestjs/jwt";
 import { EnvModule } from "src/env/env.module";
 import { EnvService } from "src/env/env.service";
 import { UsersModule } from "src/users/users.module";
+
+import { Module } from "@nestjs/common";
+import { ConfigModule } from "@nestjs/config";
+import { JwtModule } from "@nestjs/jwt";
 
 import { AuthRouter } from "./auth.router";
 import { AuthService } from "./auth.service";

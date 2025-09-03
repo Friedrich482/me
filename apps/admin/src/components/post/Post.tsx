@@ -1,12 +1,14 @@
 import { ErrorBoundary } from "react-error-boundary";
+import { Link } from "react-router";
+import { ArrowLeft, Pencil } from "lucide-react";
+
+import useSafeParams from "@/hooks/useSafeParams";
+import { ParamsSchema } from "@/types-schemas";
+import { Button } from "@repo/ui/components/ui/button";
+
 import FallBackRender from "../suspense-error-boundary/ErrorBoundary";
 import SuspenseBoundary from "../suspense-error-boundary/SuspenseBoundary";
 import PostSection from "./PostSection";
-import { ArrowLeft, Pencil } from "lucide-react";
-import { Link } from "react-router";
-import { Button } from "@repo/ui/components/ui/button";
-import useSafeParams from "@/hooks/useSafeParams";
-import { ParamsSchema } from "@/types-schemas";
 
 const Post = () => {
   const { slug } = useSafeParams(ParamsSchema);

@@ -1,3 +1,5 @@
+import { ChevronDown } from "lucide-react";
+
 import { STATUS_OPTIONS } from "@/constants";
 import type { Status } from "@/types-schemas";
 import { Button } from "@repo/ui/components/ui/button";
@@ -8,7 +10,6 @@ import {
   DropdownMenuTrigger,
 } from "@repo/ui/components/ui/dropdown-menu";
 import { cn } from "@repo/ui/lib/utils";
-import { ChevronDown } from "lucide-react";
 
 const StatusDropDown = ({
   status,

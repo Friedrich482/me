@@ -1,8 +1,8 @@
 import {
+  type IconType,
   SiDailydotdev,
   SiGithub,
   SiX,
-  type IconType,
 } from "@icons-pack/react-simple-icons";
 
 export const HEADER_LINKS: {

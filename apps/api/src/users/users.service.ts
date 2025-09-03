@@ -1,10 +1,11 @@
-import { Inject, Injectable } from "@nestjs/common";
-import { TRPCError } from "@trpc/server";
 import * as bcrypt from "bcrypt";
 import { eq } from "drizzle-orm";
 import { NodePgDatabase } from "drizzle-orm/node-postgres";
 import { DrizzleAsyncProvider } from "src/drizzle/drizzle.provider";
 import { users } from "src/drizzle/schema";
+
+import { Inject, Injectable } from "@nestjs/common";
+import { TRPCError } from "@trpc/server";
 
 import {
   CreateUserDtoType,

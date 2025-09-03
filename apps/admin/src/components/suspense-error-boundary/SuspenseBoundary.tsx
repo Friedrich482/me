@@ -1,4 +1,5 @@
-import { Suspense, type ReactNode } from "react";
+import { type ReactNode,Suspense } from "react";
+
 import { Skeleton } from "@repo/ui/components/ui/skeleton";
 
 const SuspenseBoundary = ({

@@ -1,5 +1,5 @@
-import ModeToggleContent from "@repo/ui/components/ModeToggleContent";
 import { useTheme } from "@/providers/themeProvider";
+import ModeToggleContent from "@repo/ui/components/ModeToggleContent";
 import type { Theme } from "@repo/ui/types-schemas";
 
 export function ModeToggle() {

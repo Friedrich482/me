@@ -1,13 +1,14 @@
-import { ThemeProvider } from "./providers/themeProvider";
-
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { createTRPCClient, httpBatchLink } from "@trpc/client";
-import type { AppRouter } from "@repo/trpc/router";
-import { Outlet } from "react-router";
-import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-import { TRPCProvider } from "./utils/trpc";
-import superjson from "superjson";
 import { useState } from "react";
+import { Outlet } from "react-router";
+import superjson from "superjson";
+
+import type { AppRouter } from "@repo/trpc/router";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import { createTRPCClient, httpBatchLink } from "@trpc/client";
+
+import { ThemeProvider } from "./providers/themeProvider";
+import { TRPCProvider } from "./utils/trpc";
 
 function makeQueryClient() {
   return new QueryClient({

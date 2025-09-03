@@ -1,10 +1,11 @@
-import { Injectable } from "@nestjs/common";
-import { JwtService } from "@nestjs/jwt";
-import { TRPCError } from "@trpc/server";
 import { compare } from "bcrypt";
 import { JWTDtoType } from "src/common/dto";
 import { EnvService } from "src/env/env.service";
 import { UsersService } from "src/users/users.service";
+
+import { Injectable } from "@nestjs/common";
+import { JwtService } from "@nestjs/jwt";
+import { TRPCError } from "@trpc/server";
 
 import { RegisterUserDtoType, SignInUserDtoType } from "./auth.dto";
 

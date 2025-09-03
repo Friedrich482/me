@@ -1,8 +1,9 @@
-import { useTRPC } from "@/utils/trpc";
-import { useSuspenseQuery } from "@tanstack/react-query";
 import { Link } from "react-router";
 import { CircleSmall } from "lucide-react";
+
 import type { Status } from "@/types-schemas";
+import { useTRPC } from "@/utils/trpc";
+import { useSuspenseQuery } from "@tanstack/react-query";
 
 const PostsList = ({ status }: { status: Status }) => {
   const trpc = useTRPC();

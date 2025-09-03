@@ -1,5 +1,5 @@
-import { slugSchema } from "src/common/dto";
 import { z } from "zod";
+import { slugSchema } from "src/common/dto";
 
 export const AddTagToPostDto = z.object({
   name: z.string().min(1),

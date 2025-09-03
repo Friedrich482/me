@@ -1,6 +1,7 @@
+import { useEffect,useState } from "react";
+
 import ModeToggleContent from "@repo/ui/components/ModeToggleContent";
 import type { Theme } from "@repo/ui/types-schemas";
-import { useState, useEffect } from "react";
 
 export function ModeToggle() {
   const [theme, setTheme] = useState<Theme>("light");

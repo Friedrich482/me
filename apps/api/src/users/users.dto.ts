@@ -1,5 +1,5 @@
-import { RegisterUserDto } from "src/common/dto";
 import z from "zod";
+import { RegisterUserDto } from "src/common/dto";
 
 export const CreateUserDto = RegisterUserDto;
 

@@ -1,4 +1,4 @@
-import { Monitor, Moon, Sun, type LucideProps } from "lucide-react";
+import { type LucideProps,Monitor, Moon, Sun } from "lucide-react";
 
 import type { Theme } from "#types-schemas.ts";
 

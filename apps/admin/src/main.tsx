@@ -1,13 +1,14 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-import App from "./App";
 import { createBrowserRouter, RouterProvider } from "react-router";
-import Layout from "./components/layout/Layout";
-import Root from "./components/root/Root";
-import Posts from "./components/posts/Posts";
-import Post from "./components/post/Post";
+
+import App from "./App";
 import CreatePost from "./components/create/CreatePost";
 import EditPost from "./components/edit/EditPost";
+import Layout from "./components/layout/Layout";
+import Post from "./components/post/Post";
+import Posts from "./components/posts/Posts";
+import Root from "./components/root/Root";
 
 const router = createBrowserRouter([
   {

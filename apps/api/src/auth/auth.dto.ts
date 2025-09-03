@@ -1,5 +1,5 @@
-import { RegisterUserDto, SignInUserDto } from "src/common/dto";
 import { z } from "zod";
+import { RegisterUserDto, SignInUserDto } from "src/common/dto";
 
 export type SignInUserDtoType = z.infer<typeof SignInUserDto>;
 

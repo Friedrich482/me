@@ -1,6 +1,7 @@
-import { Injectable } from "@nestjs/common";
 import { RegisterUserDto, SignInUserDto } from "src/common/dto";
 import { TrpcService } from "src/trpc/trpc.service";
+
+import { Injectable } from "@nestjs/common";
 
 import { AuthService } from "./auth.service";
 

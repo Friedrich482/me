@@ -1,8 +1,9 @@
+import { format } from "date-fns";
+
 import useSafeParams from "@/hooks/useSafeParams";
 import { ParamsSchema } from "@/types-schemas";
 import { useTRPC } from "@/utils/trpc";
 import { useSuspenseQuery } from "@tanstack/react-query";
-import { format } from "date-fns";
 
 const PostSection = () => {
   const { slug } = useSafeParams(ParamsSchema);

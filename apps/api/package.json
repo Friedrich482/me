@@ -50,6 +50,7 @@
     "@types/jest": "^29.5.2",
     "@types/node": "^20.3.1",
     "@types/pg": "^8.15.4",
+    "@repo/eslint-config": "*",
     "@types/supertest": "^6.0.0",
     "drizzle-kit": "^0.31.4",
     "eslint": "^9.32.0",

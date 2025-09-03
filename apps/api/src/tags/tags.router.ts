@@ -1,5 +1,6 @@
-import { Injectable } from "@nestjs/common";
 import { TrpcService } from "src/trpc/trpc.service";
+
+import { Injectable } from "@nestjs/common";
 
 import {
   AddTagToPostDto,

@@ -1,11 +1,11 @@
 {
   "compilerOptions": {
     "composite": true,
-    "module": "commonjs",
+    "module": "nodenext",
     "declaration": true,
     "declarationMap": true,
     "removeComments": true,
-    "moduleResolution": "node10",
+    "moduleResolution": "nodenext",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "allowSyntheticDefaultImports": true,

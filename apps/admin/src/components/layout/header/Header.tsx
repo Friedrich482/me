@@ -1,6 +1,8 @@
-import Logo from "@/assets/signature.svg?react";
-import { ModeToggle } from "./ModeToggle";
 import { Link } from "react-router";
+
+import Logo from "@/assets/signature.svg?react";
+
+import { ModeToggle } from "./ModeToggle";
 
 const Header = () => (
   <header className="flex items-center justify-between gap-12 px-8 py-2">

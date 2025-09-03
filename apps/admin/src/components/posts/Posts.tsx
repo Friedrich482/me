@@ -1,12 +1,14 @@
-import SuspenseBoundary from "../suspense-error-boundary/SuspenseBoundary";
-import { ErrorBoundary } from "react-error-boundary";
-import FallBackRender from "../suspense-error-boundary/ErrorBoundary";
-import PostsList from "./PostsList";
-import { Button } from "@repo/ui/components/ui/button";
-import { Plus } from "lucide-react";
-import { Link } from "react-router";
 import { useState } from "react";
+import { ErrorBoundary } from "react-error-boundary";
+import { Link } from "react-router";
+import { Plus } from "lucide-react";
+
 import type { Status } from "@/types-schemas";
+import { Button } from "@repo/ui/components/ui/button";
+
+import FallBackRender from "../suspense-error-boundary/ErrorBoundary";
+import SuspenseBoundary from "../suspense-error-boundary/SuspenseBoundary";
+import PostsList from "./PostsList";
 import StatusDropDown from "./StatusDropDown";
 
 const Posts = () => {

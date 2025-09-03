@@ -1,8 +1,9 @@
+import { Pencil } from "lucide-react";
+
 import useSafeParams from "@/hooks/useSafeParams";
 import { ParamsSchema } from "@/types-schemas";
 import { useTRPC } from "@/utils/trpc";
 import { useSuspenseQuery } from "@tanstack/react-query";
-import { Pencil } from "lucide-react";
 
 const EditPost = () => {
   const { slug } = useSafeParams(ParamsSchema);

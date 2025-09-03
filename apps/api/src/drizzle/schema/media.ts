@@ -8,7 +8,6 @@ import {
 import { ulid } from "ulid";
 
 import { timestamps } from "../columns.helpers";
-
 import { posts } from "./posts";
 
 export const media = pgTable("media", {
