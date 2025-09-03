@@ -1,6 +1,7 @@
 import { z } from "zod";
 import { STATUS_ENUM } from "src/common/constants";
-import { slugSchema } from "src/common/dto";
+
+import { slugSchema } from "@repo/common/types-schemas";
 
 const isoDateSchema = z
   .string()

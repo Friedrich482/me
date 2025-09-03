@@ -39,7 +39,8 @@
     "reflect-metadata": "^0.2.0",
     "rxjs": "^7.8.1",
     "ulid": "^3.0.1",
-    "zod": "^4.1.4"
+    "zod": "^4.1.4",
+    "@repo/common": "*"
   },
   "devDependencies": {
     "@nestjs/cli": "^10.0.0",

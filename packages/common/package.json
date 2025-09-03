@@ -1,0 +1,38 @@
+{
+  "name": "@repo/common",
+  "version": "0.0.0",
+  "private": true,
+  "license": "MIT",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "dev": "tsc --watch",
+    "lint": "eslint . --fix"
+  },
+  "files": [
+    "./dist/**"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "typesVersions": {
+    "*": {
+      "*": [
+        "src/*"
+      ]
+    }
+  },
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "require": "./dist/index.js"
+    },
+    "./*": {
+      "import": "./dist/*.js",
+      "require": "./dist/*.js"
+    }
+  },
+  "devDependencies": {
+    "@repo/eslint-config": "*"
+  }
+}

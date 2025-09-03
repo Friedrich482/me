@@ -1,5 +1,6 @@
 import { z } from "zod";
-import { slugSchema } from "src/common/dto";
+
+import { slugSchema } from "@repo/common/types-schemas";
 
 export const AddTagToPostDto = z.object({
   name: z.string().min(1),
