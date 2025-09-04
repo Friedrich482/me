@@ -37,32 +37,35 @@ const LoginForm = () => {
   const loginMutation = useMutation(trpc.auth.signIn.mutationOptions());
 
   const onSubmit = async (values: SignInUserDtoType) => {
-    try {
-      loginMutation.mutate({
+    loginMutation.mutate(
+      {
         email: values.email,
         password: values.password,
-      });
+      },
+      {
+        onError: (error) => {
+          const errorMessage = error.message;
+          if (
+            errorMessage.toLowerCase().includes("email") ||
+            errorMessage.toLowerCase().includes("user")
+          ) {
+            form.setError("email", { message: errorMessage });
+          } else if (errorMessage.includes("password")) {
+            form.setError("password", { message: errorMessage });
+          } else {
+            form.setError("root", { message: errorMessage });
+          }
+        },
+        onSuccess: async () => {
+          await queryClient.invalidateQueries({
+            queryKey: trpc.auth.getUser.queryKey(),
+            exact: true,
+          });
 
-      await queryClient.invalidateQueries({
-        queryKey: trpc.auth.getUser.queryKey(),
-        exact: true,
-      });
-
-      navigate("/");
-    } catch (error) {
-      let errorMessage = "An error occurred";
-
-      if (error instanceof Error) {
-        errorMessage = error.message;
-      }
-      if (errorMessage.includes("email")) {
-        form.setError("email", { message: errorMessage });
-      } else if (errorMessage.includes("password")) {
-        form.setError("password", { message: errorMessage });
-      } else {
-        form.setError("root", { message: errorMessage });
-      }
-    }
+          navigate("/");
+        },
+      },
+    );
   };
 
   return (
@@ -121,7 +124,7 @@ const LoginForm = () => {
           >
             Log in
           </Button>
-          <div className="h-4">
+          <div className="place-self-start">
             {form.formState.errors.root && (
               <FormMessage>{form.formState.errors.root.message}</FormMessage>
             )}
