@@ -1,13 +1,16 @@
 import { compare } from "bcrypt";
 import { JWTDtoType } from "src/common/dto";
 import { EnvService } from "src/env/env.service";
+import { TrpcContext } from "src/trpc/trpc.service";
 import { UsersService } from "src/users/users.service";
 
 import { Injectable } from "@nestjs/common";
 import { JwtService } from "@nestjs/jwt";
+import {
+  RegisterUserDtoType,
+  SignInUserDtoType,
+} from "@repo/common/types-schemas";
 import { TRPCError } from "@trpc/server";
-
-import { RegisterUserDtoType, SignInUserDtoType } from "./auth.dto";
 
 @Injectable()
 export class AuthService {
@@ -54,5 +57,31 @@ export class AuthService {
     const token = await this.jwtService.signAsync(payload);
 
     return token;
+  }
+
+  async checkAuthStatus(ctx: TrpcContext) {
+    return {
+      isAuthenticated: true,
+      user: ctx.user,
+    };
+  }
+
+  async getUser(ctx: TrpcContext) {
+    if (!ctx.user) {
+      throw new TRPCError({
+        code: "UNAUTHORIZED",
+        message: "User not found",
+      });
+    }
+
+    const { sub } = ctx.user;
+    const { email, id } = await this.usersService.findOne({
+      id: sub,
+    });
+
+    return {
+      email,
+      id,
+    };
   }
 }

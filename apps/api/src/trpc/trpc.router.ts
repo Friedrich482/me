@@ -5,7 +5,7 @@ import { TagsRouter } from "src/tags/tags.router";
 import { INestApplication, Injectable } from "@nestjs/common";
 import * as trpcExpress from "@trpc/server/adapters/express";
 
-import { createContext,TrpcService } from "./trpc.service";
+import { createContext, TrpcService } from "./trpc.service";
 
 @Injectable()
 export class TrpcRouter {

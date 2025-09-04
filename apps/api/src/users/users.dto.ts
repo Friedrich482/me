@@ -1,5 +1,6 @@
-import z from "zod";
-import { RegisterUserDto } from "src/common/dto";
+import { z } from "zod";
+
+import { RegisterUserDto } from "@repo/common/types-schemas";
 
 export const CreateUserDto = RegisterUserDto;
 

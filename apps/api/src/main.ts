@@ -1,3 +1,5 @@
+import cookieParser from "cookie-parser";
+
 import { NestFactory } from "@nestjs/core";
 
 import { AppModule } from "./app.module";
@@ -10,6 +12,8 @@ async function bootstrap() {
     origin: ALLOWED_CLIENTS,
     credentials: true,
   });
+  app.use(cookieParser());
+
   const trpc = app.get(TrpcRouter);
   trpc.applyMiddleware(app);
 

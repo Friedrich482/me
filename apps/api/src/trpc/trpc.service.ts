@@ -5,7 +5,7 @@ import { errorFormatter } from "src/filters/errorFormatter";
 
 import { Injectable } from "@nestjs/common";
 import { JwtService } from "@nestjs/jwt";
-import { initTRPC,TRPCError } from "@trpc/server";
+import { initTRPC, TRPCError } from "@trpc/server";
 import * as trpcExpress from "@trpc/server/adapters/express";
 
 export type TrpcContext = {
