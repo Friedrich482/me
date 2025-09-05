@@ -2,6 +2,7 @@ import { Link } from "react-router";
 
 import Logo from "@/assets/signature.svg?react";
 
+import AuthDropDown from "./AuthDropDown";
 import { ModeToggle } from "./ModeToggle";
 
 const Header = () => (
@@ -11,7 +12,10 @@ const Header = () => (
         <Logo />
       </div>
     </Link>
-    <ModeToggle />
+    <div className="flex items-center justify-center gap-2">
+      <ModeToggle />
+      <AuthDropDown />
+    </div>
   </header>
 );
 

@@ -53,6 +53,15 @@ export class AuthRouter {
       getUser: this.trpcService
         .protectedProcedure()
         .query(async ({ ctx }) => this.authService.getUser(ctx)),
+
+      logOut: this.trpcService.publicProcedure().mutation(async ({ ctx }) => {
+        // Remove the cookie
+        ctx.res.clearCookie(this.AUTH_COOKIE_NAME, {
+          httpOnly: true,
+          secure: true,
+          sameSite: "none",
+        });
+      }),
     }),
   };
 }

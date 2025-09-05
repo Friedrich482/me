@@ -1,4 +1,4 @@
-import { type LucideProps,Monitor, Moon, Sun } from "lucide-react";
+import { type LucideProps, Monitor, Moon, Sun } from "lucide-react";
 
 import type { Theme } from "#types-schemas.ts";
 
@@ -10,7 +10,7 @@ export const THEME_ITEMS: {
   text: string;
 }[] = [
   {
-    theme: "theme-light",
+    theme: "light",
     Icon: Sun,
     text: "Light",
   },

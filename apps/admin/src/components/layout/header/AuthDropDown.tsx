@@ -1,0 +1,87 @@
+import { Link, useNavigate } from "react-router";
+import { LogOut, User } from "lucide-react";
+
+import { AUTH_DROPDOWN_ITEMS } from "@/constants";
+import { useTRPC } from "@/utils/trpc";
+import { Button } from "@repo/ui/components/ui/button";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@repo/ui/components/ui/dropdown-menu";
+import { Skeleton } from "@repo/ui/components/ui/skeleton";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+
+import GravatarAvatar from "./GravatarAvatar";
+
+const AuthDropDown = () => {
+  const trpc = useTRPC();
+  const navigate = useNavigate();
+  const queryClient = useQueryClient();
+
+  const mutation = useMutation(trpc.auth.logOut.mutationOptions());
+
+  const { data, error, isLoading } = useQuery(trpc.auth.getUser.queryOptions());
+
+  if (isLoading) {
+    return <Skeleton className="size-10 self-center rounded-full" />;
+  }
+
+  if (!data || error) {
+    return (
+      <Link to="/login">
+        <Button size={"icon"}>
+          <User />
+        </Button>
+      </Link>
+    );
+  }
+
+  const { email } = data;
+
+  return (
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <GravatarAvatar email={email} />
+      </DropdownMenuTrigger>
+      <DropdownMenuContent className="flex w-44 -translate-x-2 flex-col gap-1 p-2">
+        <div className="flex flex-col px-2 py-1">
+          <p className="text-sm opacity-50">{email}</p>
+        </div>
+        <DropdownMenuSeparator className="w-full" />
+        {AUTH_DROPDOWN_ITEMS.map(({ Icon, text, url }) => (
+          <DropdownMenuItem
+            className="group cursor-pointer rounded-md py-1 text-base"
+            key={text}
+          >
+            <Link to={url} className="flex gap-2">
+              <Icon className="group-hover:text-primary-foreground size-5" />
+              <span>{text}</span>
+            </Link>
+          </DropdownMenuItem>
+        ))}
+        <DropdownMenuSeparator className="w-full" />
+        <DropdownMenuItem
+          className="cursor-pointer rounded-md py-1 text-base"
+          onClick={() => {
+            mutation.mutate(undefined, {
+              onSuccess: async () => {
+                await queryClient.invalidateQueries({
+                  queryKey: trpc.auth.getUser.queryKey(),
+                  exact: true,
+                });
+                navigate("/login");
+              },
+            });
+          }}
+        >
+          <LogOut />
+          Log Out{" "}
+        </DropdownMenuItem>
+      </DropdownMenuContent>
+    </DropdownMenu>
+  );
+};
+export default AuthDropDown;
