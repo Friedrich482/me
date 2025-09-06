@@ -6,7 +6,8 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["./src/*"],
+      "@repo/trpc/*": ["../../packages/trpc/src/*"]
     },
     "jsx": "react-jsx",
     "jsxImportSource": "react",
