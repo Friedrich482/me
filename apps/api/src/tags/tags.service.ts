@@ -10,6 +10,7 @@ import { TRPCError } from "@trpc/server";
 import {
   AddTagToPostDtoType,
   FindAllTagsForPostDtoType,
+  FindAllTagsForPublishedPost,
   RemoveTagFromPostDtoType,
 } from "./tags.dto";
 
@@ -71,9 +72,28 @@ export class TagsService {
   }
 
   async findAllTagsForPost(findAllTagsForPostDto: FindAllTagsForPostDtoType) {
-    const { postSlug } = findAllTagsForPostDto;
+    const { postSlug, authorId } = findAllTagsForPostDto;
 
-    const post = await this.postsService.findPost({ slug: postSlug });
+    const post = await this.postsService.findPost({ slug: postSlug, authorId });
+
+    const tagsForPost = await this.db
+      .select({
+        name: tags.name,
+        slug: tags.slug,
+      })
+      .from(tags)
+      .innerJoin(postTags, eq(tags.id, postTags.tagId))
+      .where(eq(postTags.postId, post.id));
+
+    return tagsForPost;
+  }
+
+  async findAllTagsForPublishedPost(
+    findAllTagsForPublishedPost: FindAllTagsForPublishedPost,
+  ) {
+    const { postSlug } = findAllTagsForPublishedPost;
+
+    const post = await this.postsService.findPublishedPost({ slug: postSlug });
 
     const tagsForPost = await this.db
       .select({
@@ -88,7 +108,7 @@ export class TagsService {
   }
 
   async removeTagFromPost(removeTagFromPostDto: RemoveTagFromPostDtoType) {
-    const { postSlug, tagSlug } = removeTagFromPostDto;
+    const { postSlug, tagSlug, authorId } = removeTagFromPostDto;
 
     const [tag] = await this.db
       .select({
@@ -103,7 +123,7 @@ export class TagsService {
       throw new TRPCError({ code: "NOT_FOUND", message: "Tag not found" });
     }
 
-    const post = await this.postsService.findPost({ slug: postSlug });
+    const post = await this.postsService.findPost({ slug: postSlug, authorId });
 
     await this.db
       .delete(postTags)

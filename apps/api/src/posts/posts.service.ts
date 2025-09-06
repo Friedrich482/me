@@ -10,7 +10,9 @@ import {
   CreatePostDtoType,
   DeletePostDtoType,
   FindAllPostsDtoType,
+  FindAllPublishedPostsDtoType,
   FindPostDtoType,
+  FindPublishedPostDto,
   UpdatePostDtoType,
 } from "./posts.dto";
 
@@ -60,7 +62,31 @@ export class PostsService {
   }
 
   async findAll(findAllPostsDto: FindAllPostsDtoType) {
-    const { status } = findAllPostsDto;
+    const { status, authorId } = findAllPostsDto;
+
+    const postsFromDb = await this.db
+      .select({
+        id: posts.id,
+        title: posts.title,
+        slug: posts.slug,
+        content: posts.content,
+        status: posts.status,
+        publishDate: posts.publishedAt,
+      })
+      .from(posts)
+      .where(
+        status
+          ? and(eq(posts.authorId, authorId), eq(posts.status, status))
+          : eq(posts.authorId, authorId),
+      );
+
+    return postsFromDb;
+  }
+
+  async findAllPublished(
+    findAllPublishedPostsDto: FindAllPublishedPostsDtoType,
+  ) {
+    const { status } = findAllPublishedPostsDto;
 
     const postsFromDb = await this.db
       .select({
@@ -78,7 +104,7 @@ export class PostsService {
   }
 
   async findPost(findPostDto: FindPostDtoType) {
-    const { slug } = findPostDto;
+    const { slug, authorId } = findPostDto;
 
     const [post] = await this.db
       .select({
@@ -90,7 +116,32 @@ export class PostsService {
         publishDate: posts.publishedAt,
       })
       .from(posts)
-      .where(and(eq(posts.slug, slug)));
+      .where(and(eq(posts.authorId, authorId), eq(posts.slug, slug)));
+
+    if (!post) {
+      throw new TRPCError({
+        code: "NOT_FOUND",
+        message: "Post not found",
+      });
+    }
+
+    return post;
+  }
+
+  async findPublishedPost(findPublishedPostDto: FindPublishedPostDto) {
+    const { slug } = findPublishedPostDto;
+
+    const [post] = await this.db
+      .select({
+        id: posts.id,
+        title: posts.title,
+        slug: posts.slug,
+        content: posts.content,
+        status: posts.status,
+        publishDate: posts.publishedAt,
+      })
+      .from(posts)
+      .where(and(eq(posts.slug, slug), eq(posts.status, "published")));
 
     if (!post) {
       throw new TRPCError({

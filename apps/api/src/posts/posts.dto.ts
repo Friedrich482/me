@@ -21,9 +21,13 @@ export const FindAllPostsDto = z.object({
   status: z.enum(STATUS_ENUM).optional(),
 });
 
+export const FindAllPublishedPostsDto = FindAllPostsDto;
+
 export const FindPostDto = z.object({
   slug: slugSchema,
 });
+
+export const FindPublishedPostDto = FindPostDto;
 
 export const UpdatePostDto = z.object({
   title: z.string().min(1).optional(),
@@ -41,9 +45,19 @@ export type CreatePostDtoType = z.infer<typeof CreatePostDto> & {
   authorId: string;
 };
 
-export type FindAllPostsDtoType = z.infer<typeof FindAllPostsDto>;
+export type FindAllPostsDtoType = z.infer<typeof FindAllPostsDto> & {
+  authorId: string;
+};
 
-export type FindPostDtoType = z.infer<typeof FindPostDto>;
+export type FindAllPublishedPostsDtoType = z.infer<
+  typeof FindAllPublishedPostsDto
+>;
+
+export type FindPostDtoType = z.infer<typeof FindPostDto> & {
+  authorId: string;
+};
+
+export type FindPublishedPostDto = z.infer<typeof FindPublishedPostDto>;
 
 export type UpdatePostDtoType = z.infer<typeof UpdatePostDto> & {
   authorId: string;

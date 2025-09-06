@@ -5,6 +5,7 @@ import { Injectable } from "@nestjs/common";
 import {
   AddTagToPostDto,
   FindAllTagsForPostDto,
+  FindAllTagsForPublishedPost,
   RemoveTagFromPost,
 } from "./tags.dto";
 import { TagsService } from "./tags.service";
@@ -33,6 +34,13 @@ export class TagsRouter {
             ...input,
             authorId: ctx.user.sub,
           }),
+        ),
+
+      findAllTagsForPublishedPost: this.trpcService
+        .publicProcedure()
+        .input(FindAllTagsForPublishedPost)
+        .query(async ({ input }) =>
+          this.tagsService.findAllTagsForPublishedPost({ ...input }),
         ),
 
       removeTagFromPost: this.trpcService
