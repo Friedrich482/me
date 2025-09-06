@@ -1,6 +1,7 @@
 import { pgEnum, pgTable, text, timestamp, varchar } from "drizzle-orm/pg-core";
 import { ulid } from "ulid";
-import { STATUS_ENUM } from "src/common/constants";
+
+import { STATUS_ENUM } from "@repo/common/constants";
 
 import { timestamps } from "../columns.helpers";
 import { users } from "./users";

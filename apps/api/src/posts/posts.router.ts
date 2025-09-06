@@ -1,9 +1,9 @@
 import { TrpcService } from "src/trpc/trpc.service";
 
 import { Injectable } from "@nestjs/common";
+import { CreatePostDto } from "@repo/common/types-schemas";
 
 import {
-  CreatePostDto,
   DeletePostDto,
   FindAllPostsDto,
   FindPostDto,

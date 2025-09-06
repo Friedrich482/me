@@ -1,5 +1,7 @@
 import z from "zod";
 
+import { STATUS_ENUM } from "./constants";
+
 export const slugSchema = z
   .string()
   .min(1, "Slug cannot be empty")
@@ -17,7 +19,20 @@ export const RegisterUserDto = z.object({
   email: z.email(),
   password: z.string().min(8, "Password must be at least 8 characters"),
 });
+export const AddTagToPostDto = z.object({
+  name: z.string().min(1),
+  slug: slugSchema,
+  postId: z.ulid(),
+});
+export const CreatePostDto = z.object({
+  title: z.string().min(1),
+  slug: slugSchema,
+  content: z.string().min(1),
+  status: z.enum(STATUS_ENUM),
+});
 
 export type SignInUserDtoType = z.infer<typeof SignInUserDto>;
 
 export type RegisterUserDtoType = z.infer<typeof RegisterUserDto>;
+
+export type AddTagToPostDtoType = z.infer<typeof AddTagToPostDto>;
