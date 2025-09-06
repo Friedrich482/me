@@ -1,5 +1,6 @@
 import { Pencil } from "lucide-react";
 
+import usePageTitle from "@/hooks/usePageTitle";
 import useSafeParams from "@/hooks/useSafeParams";
 import { ParamsSchema } from "@/types-schemas";
 import { useTRPC } from "@/utils/trpc";
@@ -12,6 +13,8 @@ const EditPost = () => {
   const { data: post } = useSuspenseQuery(
     trpc.posts.findPost.queryOptions({ slug }),
   );
+
+  usePageTitle(`Edit | ${post.title}`);
 
   return (
     <main className="flex flex-1 items-start justify-center py-2">

@@ -1,8 +1,11 @@
 import { Link } from "react-router";
 
+import usePageTitle from "@/hooks/usePageTitle";
 import { Button } from "@repo/ui/components/ui/button";
 
 const NotFound = () => {
+  usePageTitle("Not Found | Friedrich WT");
+
   return (
     <main className="flex flex-1 items-start justify-center py-2">
       <section className="flex w-1/2 flex-col items-center justify-center gap-12 max-md:w-5/6">

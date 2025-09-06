@@ -16,7 +16,7 @@ export async function getStaticPaths() {
 const { post } = Astro.props;
 ---
 
-<Layout>
+<Layout title={post.title}>
   <main
     class="flex flex-1 flex-col items-center justify-start py-2"
     transition:animate="slide"

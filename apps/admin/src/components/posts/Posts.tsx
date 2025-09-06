@@ -3,6 +3,7 @@ import { ErrorBoundary } from "react-error-boundary";
 import { Link } from "react-router";
 import { Plus } from "lucide-react";
 
+import usePageTitle from "@/hooks/usePageTitle";
 import type { Status } from "@/types-schemas";
 import { Button } from "@repo/ui/components/ui/button";
 
@@ -12,6 +13,8 @@ import PostsList from "./PostsList";
 import StatusDropDown from "./StatusDropDown";
 
 const Posts = () => {
+  usePageTitle("Admin Blog | Friedrich WT");
+
   const [status, setStatus] = useState<Status>(undefined);
 
   const handleStatusOptionClick = (status: Status) => setStatus(status);
@@ -33,7 +36,7 @@ const Posts = () => {
         </div>
 
         <div className="flex w-full items-center justify-start gap-2 rounded-sm">
-          <p>Posts to display:</p>
+          <p className="text-xl">Posts to display:</p>
           <StatusDropDown
             status={status}
             handleStatusOptionClick={handleStatusOptionClick}

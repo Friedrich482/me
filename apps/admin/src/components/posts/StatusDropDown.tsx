@@ -18,11 +18,17 @@ const StatusDropDown = ({
   status: Status;
   handleStatusOptionClick: (status: Status) => void;
 }) => {
+  const statusText =
+    STATUS_OPTIONS.find((entry) => entry.status === status)?.text ?? "All";
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="outline" className="text-primary hover:text-primary">
-          {status ? status : "All"}
+        <Button
+          variant="outline"
+          className="text-primary hover:text-primary flex w-28 items-center justify-between"
+        >
+          {status ? statusText : "All"}
           <ChevronDown />
           <span className="sr-only">Toggle Status</span>
         </Button>

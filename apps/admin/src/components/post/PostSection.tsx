@@ -1,5 +1,6 @@
 import { format } from "date-fns";
 
+import usePageTitle from "@/hooks/usePageTitle";
 import useSafeParams from "@/hooks/useSafeParams";
 import { ParamsSchema } from "@/types-schemas";
 import { useTRPC } from "@/utils/trpc";
@@ -12,6 +13,8 @@ const PostSection = () => {
   const { data: post } = useSuspenseQuery(
     trpc.posts.findPost.queryOptions({ slug }),
   );
+
+  usePageTitle(post.title);
 
   return (
     <section className="flex w-1/2 flex-col items-center justify-center gap-16 pt-8 max-md:w-5/6">

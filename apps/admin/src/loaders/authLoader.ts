@@ -10,7 +10,7 @@ export const protectedRouteLoader = async () => {
 
     return !isAuthenticated ? redirect("/login") : null;
   } catch {
-    return redirect("/login");
+    return null;
   }
 };
 

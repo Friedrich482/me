@@ -2,6 +2,7 @@ import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router";
 
 import useTogglePassword from "@/hooks/auth/useTogglePassword";
+import usePageTitle from "@/hooks/usePageTitle";
 import { useTRPC } from "@/utils/trpc";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
@@ -21,6 +22,8 @@ import { Input } from "@repo/ui/components/ui/input";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 const LoginForm = () => {
+  usePageTitle("Login | Admin Blog");
+
   const form = useForm<SignInUserDtoType>({
     resolver: zodResolver(SignInUserDto),
     defaultValues: {
