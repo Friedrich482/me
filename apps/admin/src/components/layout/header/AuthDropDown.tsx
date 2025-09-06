@@ -56,8 +56,8 @@ const AuthDropDown = () => {
             className="group cursor-pointer rounded-md py-1 text-base"
             key={text}
           >
-            <Link to={url} className="flex gap-2">
-              <Icon className="group-hover:text-primary-foreground size-5" />
+            <Link to={url} className="flex items-center gap-2">
+              <Icon className="size-5" />
               <span>{text}</span>
             </Link>
           </DropdownMenuItem>

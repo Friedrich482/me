@@ -34,11 +34,11 @@ const ModeToggleContent = ({
             onClick={() => handleThemeOptionClick(selectedTheme)}
             className={cn(
               "group cursor-pointer",
-              selectedTheme === theme && "border-primary border"
+              selectedTheme === theme && "border-primary border",
             )}
             key={text}
           >
-            <Icon className="group-hover:text-primary-foreground" />
+            <Icon />
             {text}
           </DropdownMenuItem>
         ))}
