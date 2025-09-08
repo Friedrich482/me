@@ -26,9 +26,7 @@ const PostSection = () => {
           </p>
         </div>
 
-        <article className="w-full text-[18px] opacity-75">
-          {post.content}
-        </article>
+        <article className="w-full text-lg opacity-75">{post.content}</article>
       </div>
     </section>
   );

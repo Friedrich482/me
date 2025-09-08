@@ -15,11 +15,11 @@ const PostsList = ({ status }: { status: Status }) => {
   return posts.length === 0 ? (
     <p className="text-xl">No posts yet.</p>
   ) : (
-    <ul className="text-foreground/60 w-full space-y-8 text-[18px]">
+    <ul className="text-foreground/60 w-full space-y-8 text-lg">
       {posts.map((post) => (
         <li
           key={post.id}
-          className="hover:text-primary/75 w-full cursor-pointer text-start text-[18px]"
+          className="hover:text-primary/75 w-full cursor-pointer text-start text-lg"
         >
           <Link to={`/posts/${post.slug}`} className="flex gap-2">
             <CircleSmall />

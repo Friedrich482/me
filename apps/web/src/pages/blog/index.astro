@@ -12,7 +12,7 @@ const posts = await trpc.posts.findAllPublished.query();
       class="flex w-3/6 flex-col items-center justify-center gap-16 pt-8 max-md:w-5/6"
     >
       <h1 class="w-full text-start text-4xl font-extrabold">Posts</h1>
-      <ul class="text-foreground/60 w-full space-y-8 text-[18px]">
+      <ul class="text-foreground/60 w-full space-y-8 text-lg">
         {
           posts.length === 0 ? (
             <p class="text-center">No posts yet</p>
