@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 
+import { useDebounce } from "@/hooks/useDebounce";
 import { type CreatePost, CreatePostSchema } from "@/types-schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@repo/ui/components/ui/button";
@@ -22,7 +23,7 @@ const PostForm = () => {
     resolver: zodResolver(CreatePostSchema),
     defaultValues: {
       post: {
-        content: "",
+        content: localStorage.getItem("post-content") || "",
         title: "",
         slug: "",
         status: "draft",
@@ -34,6 +35,12 @@ const PostForm = () => {
   const [viewMode, setViewMode] = useState<"write" | "preview">("write");
   const handleWriteButtonClick = () => setViewMode("write");
   const handlePreviewButtonClick = () => setViewMode("preview");
+
+  const debouncedContent = useDebounce(form.getValues().post.content, 1000);
+
+  useEffect(() => {
+    localStorage.setItem("post-content", debouncedContent);
+  }, [debouncedContent]);
 
   return (
     <Form {...form}>
