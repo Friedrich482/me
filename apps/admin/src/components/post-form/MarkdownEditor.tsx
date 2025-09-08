@@ -1,9 +1,16 @@
+import { useState } from "react";
 import { MarkdownHooks } from "react-markdown";
+import { Check, Copy } from "lucide-react";
 import rehypeHighlight from "rehype-highlight";
 import rehypeRaw from "rehype-raw";
 import remarkGfm from "remark-gfm";
+import z from "zod";
+
+import { Button } from "@repo/ui/components/ui/button";
 
 import "highlight.js/styles/hybrid.css";
+
+type IconType = "copy" | "check";
 
 const MarkdownEditor = ({ markdown }: { markdown: string }) => {
   return (
@@ -27,12 +34,47 @@ const MarkdownEditor = ({ markdown }: { markdown: string }) => {
         ),
         h2: (props) => <h2 className="mb-3 text-xl font-bold" {...props} />,
 
-        pre: (props) => (
-          <pre
-            className="bg-secondary/65 mb-4 overflow-x-auto rounded-sm p-2 text-lg"
-            {...props}
-          />
-        ),
+        pre: (props) => {
+          const [iconType, setIconType] = useState<IconType>("copy");
+
+          const handleCopyToClipBoardButtonClick = async (content: unknown) => {
+            let finalContent = "";
+
+            const parsedContent = z.string().safeParse(content);
+            if (!parsedContent.success) {
+              finalContent = "";
+            } else {
+              finalContent = parsedContent.data;
+            }
+
+            await navigator.clipboard.writeText(finalContent);
+            setIconType("check");
+            setTimeout(() => setIconType("copy"), 3000);
+          };
+
+          return (
+            <div className="relative">
+              <pre
+                className="bg-secondary/65 mb-4 overflow-x-auto rounded-sm p-2 text-lg"
+                {...props}
+              />
+              <Button
+                size="icon"
+                className="text-foreground hover:bg-input absolute top-3 right-3 bg-transparent"
+                title="Copy to clipboard"
+                onClick={() =>
+                  handleCopyToClipBoardButtonClick(
+                    (props.children as { props: { children: string } }).props
+                      .children,
+                  )
+                }
+                type="button"
+              >
+                {iconType === "copy" ? <Copy /> : <Check />}
+              </Button>
+            </div>
+          );
+        },
 
         code: (props) => {
           if (props.className?.includes("language-")) {
