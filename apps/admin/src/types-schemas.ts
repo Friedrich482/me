@@ -14,7 +14,13 @@ export const ParamsSchema = z.object({
 
 export const CreatePostSchema = z.object({
   post: CreatePostDto,
-  tags: z.array(AddTagToPostDto),
+  tags: z.array(AddTagToPostDto.pick({ name: true })),
+});
+
+export const LocalStoragePostDraftSchema = z.object({
+  title: z.string().min(1),
+  content: z.string().min(1),
+  tags: z.array(z.object({ name: z.string() })),
 });
 
 export type Status = Inputs["posts"]["findAll"]["status"];

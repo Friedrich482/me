@@ -1,8 +1,10 @@
-import { useEffect, useState } from "react";
-import { useForm } from "react-hook-form";
+import { useEffect } from "react";
+import { useFieldArray, useForm } from "react-hook-form";
+import { Plus, X } from "lucide-react";
 
 import { useDebounce } from "@/hooks/useDebounce";
 import { type CreatePost, CreatePostSchema } from "@/types-schemas";
+import getPostDraftFromLocalStorage from "@/utils/getPostDraftFromLocalStorage";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@repo/ui/components/ui/button";
 import {
@@ -13,34 +15,47 @@ import {
   FormMessage,
 } from "@repo/ui/components/ui/form";
 import { Input } from "@repo/ui/components/ui/input";
-import { Textarea } from "@repo/ui/components/ui/textarea";
-import { cn } from "@repo/ui/lib/utils";
 
-import MarkdownEditor from "./MarkdownEditor";
+import ContentField from "./ContentField";
 
 const PostForm = () => {
+  const postDraft = getPostDraftFromLocalStorage();
+
   const form = useForm<CreatePost>({
     resolver: zodResolver(CreatePostSchema),
     defaultValues: {
       post: {
-        content: localStorage.getItem("post-content") || "",
-        title: "",
+        content: postDraft.content,
+        title: postDraft.title,
         slug: "",
         status: "draft",
       },
-      tags: [],
+      tags: postDraft.tags,
     },
   });
 
-  const [viewMode, setViewMode] = useState<"write" | "preview">("write");
-  const handleWriteButtonClick = () => setViewMode("write");
-  const handlePreviewButtonClick = () => setViewMode("preview");
+  const {
+    fields: tags,
+    append,
+    remove,
+  } = useFieldArray({
+    control: form.control,
+    name: "tags",
+    rules: { maxLength: 5 },
+  });
 
-  const debouncedContent = useDebounce(form.getValues().post.content, 1000);
+  const debouncedPost = useDebounce(
+    {
+      title: form.watch().post.title,
+      content: form.watch().post.content,
+      tags: form.watch().tags,
+    },
+    1000,
+  );
 
   useEffect(() => {
-    localStorage.setItem("post-content", debouncedContent);
-  }, [debouncedContent]);
+    localStorage.setItem("post-draft", JSON.stringify(debouncedPost));
+  }, [debouncedPost]);
 
   return (
     <Form {...form}>
@@ -55,7 +70,7 @@ const PostForm = () => {
             <FormItem className="w-full">
               <FormControl>
                 <Input
-                  placeholder="Tags"
+                  placeholder="Title"
                   {...field}
                   className="border-border h-10 p-4 text-lg placeholder:text-lg placeholder:opacity-65 md:text-lg"
                 />
@@ -65,70 +80,39 @@ const PostForm = () => {
           )}
         />
 
-        <FormField
-          control={form.control}
-          name="post.title"
-          render={({ field }) => (
-            <FormItem className="w-full">
-              <FormControl>
+        <div className="flex min-h-44 w-full flex-col gap-2 rounded-md border px-2 py-4">
+          <ul className="grid h-4/5 flex-1 grid-cols-3 gap-3">
+            {tags.map((tag, index) => (
+              <div className="relative" key={tag.id} aria-label={tag.id}>
                 <Input
-                  placeholder="Post Title"
-                  {...field}
-                  className="border-border h-10 p-4 text-lg placeholder:text-lg placeholder:opacity-65 md:text-lg"
+                  className="border-border p-4 text-start text-lg placeholder:text-lg placeholder:opacity-65 md:text-lg"
+                  key={tag.id}
+                  {...form.register(`tags.${index}.name`)}
                 />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+                <Button
+                  className="absolute -top-3 right-1 size-5"
+                  size="icon"
+                  title={`Remove the tag ${form.watch(`tags.${index}`).name}`}
+                  variant="destructive"
+                  type="button"
+                  onClick={() => remove(index)}
+                >
+                  <X />
+                </Button>
+              </div>
+            ))}
+          </ul>
+          <Button
+            type="button"
+            onClick={() => append({ name: "" })}
+            className="flex items-center justify-center gap-3 self-center"
+          >
+            <span>Add a tag</span>
+            <Plus />
+          </Button>
+        </div>
 
-        <FormField
-          control={form.control}
-          name="post.content"
-          render={({ field }) => (
-            <FormItem className="w-full">
-              <FormControl>
-                <div className="dark:bg-input/30 flex min-h-[26.5rem] flex-col rounded-md bg-transparent">
-                  <div className="relative flex h-[13%] items-center justify-start gap-4 p-2">
-                    <Button
-                      variant="ghost"
-                      type="button"
-                      onClick={handleWriteButtonClick}
-                    >
-                      Write
-                    </Button>
-                    <Button
-                      variant="ghost"
-                      type="button"
-                      onClick={handlePreviewButtonClick}
-                    >
-                      Preview
-                    </Button>
-                    <div
-                      className={cn(
-                        "bg-primary absolute bottom-0 h-1 w-8 rounded-md transition duration-200",
-                        viewMode === "write" && "translate-x-4",
-                        viewMode === "preview" && "translate-x-[6.5rem]",
-                      )}
-                    />
-                  </div>
-                  {viewMode === "write" ? (
-                    <Textarea
-                      placeholder="Start writing..."
-                      className="field-sizing-fixed flex-1 rounded-t-none rounded-b-md border-0 text-lg placeholder:text-lg placeholder:opacity-65 focus-visible:border-none focus-visible:ring-0 md:text-lg"
-                      {...field}
-                    />
-                  ) : (
-                    <div className="bg-input/30 flex-1 rounded-t-none rounded-b-md border-0 p-4">
-                      <MarkdownEditor markdown={field.value} />
-                    </div>
-                  )}
-                </div>
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+        <ContentField form={form} />
 
         <Button
           variant="default"
