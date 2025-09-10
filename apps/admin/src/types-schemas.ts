@@ -13,7 +13,7 @@ export const ParamsSchema = z.object({
 });
 
 export const CreatePostSchema = z.object({
-  post: CreatePostDto,
+  post: CreatePostDto.omit({ slug: true }),
   tags: z.array(AddTagToPostDto.pick({ name: true })),
 });
 

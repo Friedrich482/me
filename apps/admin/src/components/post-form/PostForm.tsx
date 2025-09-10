@@ -1,10 +1,13 @@
 import { useEffect } from "react";
 import { useFieldArray, useForm } from "react-hook-form";
+import { useNavigate } from "react-router";
 import { Plus, X } from "lucide-react";
 
 import { useDebounce } from "@/hooks/useDebounce";
 import { type CreatePost, CreatePostSchema } from "@/types-schemas";
+import generateSlug from "@/utils/generateSlug";
 import getPostDraftFromLocalStorage from "@/utils/getPostDraftFromLocalStorage";
+import { useTRPC } from "@/utils/trpc";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@repo/ui/components/ui/button";
 import {
@@ -15,6 +18,7 @@ import {
   FormMessage,
 } from "@repo/ui/components/ui/form";
 import { Input } from "@repo/ui/components/ui/input";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 import ContentField from "./ContentField";
 
@@ -27,7 +31,6 @@ const PostForm = () => {
       post: {
         content: postDraft.content,
         title: postDraft.title,
-        slug: "",
         status: "draft",
       },
       tags: postDraft.tags,
@@ -57,10 +60,74 @@ const PostForm = () => {
     localStorage.setItem("post-draft", JSON.stringify(debouncedPost));
   }, [debouncedPost]);
 
+  const navigate = useNavigate();
+  const trpc = useTRPC();
+  const queryClient = useQueryClient();
+
+  const createPostMutation = useMutation(trpc.posts.create.mutationOptions());
+  const addTagToPostMutation = useMutation(
+    trpc.tags.addTagToPost.mutationOptions(),
+  );
+
+  const onSubmit = async (values: CreatePost) => {
+    createPostMutation.mutate(
+      {
+        title: values.post.title,
+        slug: generateSlug(values.post.title),
+        content: values.post.content,
+        status: values.post.status,
+      },
+      {
+        onError: (error) => {
+          const errorMessage = error.message;
+          if (errorMessage.toLowerCase().includes("slug")) {
+            form.setError("post.title", {
+              message: `${errorMessage}. It means that this title is already taken`,
+            });
+          }
+        },
+
+        onSuccess: async ({ id }) => {
+          // invalidate posts
+          await queryClient.invalidateQueries({
+            queryKey: trpc.posts.findAll.queryKey(),
+            exact: true,
+          });
+
+          // add all tags to the post
+          const tagPromises = values.tags.map((tag, index) =>
+            addTagToPostMutation
+              .mutateAsync({
+                name: tag.name,
+                slug: generateSlug(tag.name),
+                postId: id,
+              })
+              .catch((error) => {
+                const errorMessage = error.message;
+                if (errorMessage.toLowerCase().includes("tag")) {
+                  form.setError(`tags.${index}`, { message: errorMessage });
+                }
+                return { error, index };
+              }),
+          );
+
+          const results = await Promise.allSettled(tagPromises);
+          const hasErrors = results.some(
+            (result) => result.status === "fulfilled" && result.value?.error,
+          );
+
+          if (!hasErrors) {
+            navigate("/posts");
+          }
+        },
+      },
+    );
+  };
+
   return (
     <Form {...form}>
       <form
-        // onSubmit={form.handleSubmit(onSubmit)}
+        onSubmit={form.handleSubmit(onSubmit)}
         className="flex w-3/4 flex-col items-center justify-center gap-6 max-lg:w-full"
       >
         <FormField
