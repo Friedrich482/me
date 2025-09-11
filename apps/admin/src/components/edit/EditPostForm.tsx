@@ -1,6 +1,7 @@
 import { useFieldArray, useForm } from "react-hook-form";
 import { useNavigate } from "react-router";
 import { Plus, X } from "lucide-react";
+import { toast } from "sonner";
 
 import ContentField from "@/components/common/ContentField";
 import { type EditPost, EditPostSchema } from "@/types-schemas";
@@ -138,8 +139,7 @@ const EditPostForm = ({
           );
 
           if (!hasErrors) {
-            // TODO use a toast here
-            alert("Saved");
+            toast("Saved");
           }
         },
       },

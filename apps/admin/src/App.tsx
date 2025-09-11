@@ -3,11 +3,11 @@ import { Outlet } from "react-router";
 import superjson from "superjson";
 
 import type { AppRouter } from "@repo/trpc/router";
+import { ThemeProvider } from "@repo/ui/providers/themeProvider";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { createTRPCClient, httpBatchLink } from "@trpc/client";
 
-import { ThemeProvider } from "./providers/themeProvider";
 import { TRPCProvider } from "./utils/trpc";
 
 function makeQueryClient() {
