@@ -6,9 +6,9 @@ export const FindAllTagsForPostDto = z.object({
   postSlug: slugSchema,
 });
 
-export const FindAllTagsForPublishedPost = FindAllTagsForPostDto;
+export const FindAllTagsForPublishedPostDto = FindAllTagsForPostDto;
 
-export const RemoveTagFromPost = z.object({
+export const RemoveTagFromPostDto = z.object({
   tagSlug: slugSchema,
   postSlug: slugSchema,
 });
@@ -17,10 +17,10 @@ export type FindAllTagsForPostDtoType = z.infer<
   typeof FindAllTagsForPostDto
 > & { authorId: string };
 
-export type FindAllTagsForPublishedPost = z.infer<
-  typeof FindAllTagsForPublishedPost
+export type FindAllTagsForPublishedPostDtoType = z.infer<
+  typeof FindAllTagsForPublishedPostDto
 >;
 
-export type RemoveTagFromPostDtoType = z.infer<typeof RemoveTagFromPost> & {
+export type RemoveTagFromPostDtoType = z.infer<typeof RemoveTagFromPostDto> & {
   authorId: string;
 };

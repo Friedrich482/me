@@ -14,7 +14,9 @@ export const FindAllPostsDto = z.object({
   status: z.enum(STATUS_ENUM).optional(),
 });
 
-export const FindAllPublishedPostsDto = FindAllPostsDto;
+export const FindAllPublishedPostsDto = z.object({
+  status: z.enum(STATUS_ENUM),
+});
 
 export const FindPostDto = z.object({
   slug: slugSchema,

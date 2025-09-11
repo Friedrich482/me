@@ -10,7 +10,7 @@ import { TRPCError } from "@trpc/server";
 
 import {
   FindAllTagsForPostDtoType,
-  FindAllTagsForPublishedPost,
+  FindAllTagsForPublishedPostDtoType,
   RemoveTagFromPostDtoType,
 } from "./tags.dto";
 
@@ -89,7 +89,7 @@ export class TagsService {
   }
 
   async findAllTagsForPublishedPost(
-    findAllTagsForPublishedPost: FindAllTagsForPublishedPost,
+    findAllTagsForPublishedPost: FindAllTagsForPublishedPostDtoType,
   ) {
     const { postSlug } = findAllTagsForPublishedPost;
 

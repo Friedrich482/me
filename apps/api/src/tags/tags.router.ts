@@ -5,8 +5,8 @@ import { AddTagToPostDto } from "@repo/common/types-schemas";
 
 import {
   FindAllTagsForPostDto,
-  FindAllTagsForPublishedPost,
-  RemoveTagFromPost,
+  FindAllTagsForPublishedPostDto,
+  RemoveTagFromPostDto,
 } from "./tags.dto";
 import { TagsService } from "./tags.service";
 
@@ -38,14 +38,14 @@ export class TagsRouter {
 
       findAllTagsForPublishedPost: this.trpcService
         .publicProcedure()
-        .input(FindAllTagsForPublishedPost)
+        .input(FindAllTagsForPublishedPostDto)
         .query(async ({ input }) =>
           this.tagsService.findAllTagsForPublishedPost({ ...input }),
         ),
 
       removeTagFromPost: this.trpcService
         .protectedProcedure()
-        .input(RemoveTagFromPost)
+        .input(RemoveTagFromPostDto)
         .mutation(async ({ ctx, input }) =>
           this.tagsService.removeTagFromPost({
             ...input,

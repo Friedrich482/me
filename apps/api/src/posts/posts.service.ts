@@ -98,7 +98,7 @@ export class PostsService {
         publishDate: posts.publishedAt,
       })
       .from(posts)
-      .where(status ? eq(posts.status, status) : undefined);
+      .where(eq(posts.status, status));
 
     return postsFromDb;
   }

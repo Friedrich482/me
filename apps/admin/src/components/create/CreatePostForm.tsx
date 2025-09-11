@@ -3,6 +3,7 @@ import { useFieldArray, useForm } from "react-hook-form";
 import { useNavigate } from "react-router";
 import { Plus, X } from "lucide-react";
 
+import ContentField from "@/components/common/ContentField";
 import { useDebounce } from "@/hooks/useDebounce";
 import { type CreatePost, CreatePostSchema } from "@/types-schemas";
 import generateSlug from "@/utils/generateSlug";
@@ -20,9 +21,7 @@ import {
 import { Input } from "@repo/ui/components/ui/input";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
-import ContentField from "./ContentField";
-
-const PostForm = () => {
+const CreatePostForm = () => {
   const postDraft = getPostDraftFromLocalStorage();
 
   const form = useForm<CreatePost>({
@@ -150,7 +149,7 @@ const PostForm = () => {
         <div className="flex min-h-44 w-full flex-col gap-2 rounded-md border px-2 py-4">
           <ul className="grid h-4/5 flex-1 grid-cols-3 gap-3">
             {tags.map((tag, index) => (
-              <div className="relative" key={tag.id} aria-label={tag.id}>
+              <div className="relative" key={tag.id}>
                 <Input
                   className="border-border p-4 text-start text-lg placeholder:text-lg placeholder:opacity-65 md:text-lg"
                   key={tag.id}
@@ -179,7 +178,7 @@ const PostForm = () => {
           </Button>
         </div>
 
-        <ContentField form={form} />
+        <ContentField form={form} name="post.content" />
 
         <Button
           variant="default"
@@ -194,4 +193,4 @@ const PostForm = () => {
   );
 };
 
-export default PostForm;
+export default CreatePostForm;

@@ -10,6 +10,8 @@ export const slugSchema = z
     "Slug must be lowercase, alphanumeric, and may contain hyphens (no spaces, no special characters)"
   );
 
+export const isoDateSchema = z.iso.datetime();
+
 export const SignInUserDto = z.object({
   email: z.email(),
   password: z.string().min(1, "Password is required"),
@@ -19,11 +21,13 @@ export const RegisterUserDto = z.object({
   email: z.email(),
   password: z.string().min(8, "Password must be at least 8 characters"),
 });
+
 export const AddTagToPostDto = z.object({
   name: z.string().trim().min(1),
   slug: slugSchema,
   postId: z.ulid(),
 });
+
 export const CreatePostDto = z.object({
   title: z.string().trim().min(1),
   slug: slugSchema,

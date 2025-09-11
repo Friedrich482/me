@@ -1,7 +1,6 @@
 import { useState } from "react";
-import { useForm } from "react-hook-form";
+import { type FieldValues, type Path, useForm } from "react-hook-form";
 
-import type { CreatePost } from "@/types-schemas";
 import { Button } from "@repo/ui/components/ui/button";
 import {
   FormControl,
@@ -14,10 +13,12 @@ import { cn } from "@repo/ui/lib/utils";
 
 import MarkdownEditor from "./MarkdownEditor";
 
-const ContentField = ({
+const ContentField = <T extends FieldValues, TFieldName extends Path<T>>({
   form,
+  name,
 }: {
-  form: ReturnType<typeof useForm<CreatePost>>;
+  form: ReturnType<typeof useForm<T>>;
+  name: TFieldName;
 }) => {
   const [viewMode, setViewMode] = useState<"write" | "preview">("write");
   const handleWriteButtonClick = () => setViewMode("write");
@@ -26,7 +27,7 @@ const ContentField = ({
   return (
     <FormField
       control={form.control}
-      name="post.content"
+      name={name}
       render={({ field }) => (
         <FormItem className="w-full">
           <FormControl>
