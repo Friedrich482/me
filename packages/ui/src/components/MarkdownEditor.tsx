@@ -25,7 +25,7 @@ const MarkdownEditor = ({ markdown }: { markdown: string }) => {
           <ol className="mb-4 ml-6 list-decimal text-lg" {...props} />
         ),
         a: (props) => (
-          <a className="text-primary mb-3 text-lg underline" {...props}></a>
+          <a className="text-primary mb-3 text-lg underline" {...props} />
         ),
         li: (props) => <li className="mb-1 text-lg" {...props} />,
         p: (props) => <p className="mb-3 text-lg" {...props} />,

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { type FieldValues, type Path, useForm } from "react-hook-form";
 
+import MarkdownEditor from "@repo/ui/components/MarkdownEditor";
 import { Button } from "@repo/ui/components/ui/button";
 import {
   FormControl,
@@ -10,8 +11,6 @@ import {
 } from "@repo/ui/components/ui/form";
 import { Textarea } from "@repo/ui/components/ui/textarea";
 import { cn } from "@repo/ui/lib/utils";
-
-import MarkdownEditor from "./MarkdownEditor";
 
 const ContentField = <T extends FieldValues, TFieldName extends Path<T>>({
   form,
