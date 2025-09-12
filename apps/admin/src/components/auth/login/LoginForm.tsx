@@ -3,6 +3,7 @@ import { useNavigate } from "react-router";
 
 import useTogglePassword from "@/hooks/auth/useTogglePassword";
 import usePageTitle from "@/hooks/usePageTitle";
+import setFormRootError from "@/utils/setFormRootError";
 import { useTRPC } from "@/utils/trpc";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
@@ -56,7 +57,7 @@ const LoginForm = () => {
           } else if (errorMessage.includes("password")) {
             form.setError("password", { message: errorMessage });
           } else {
-            form.setError("root", { message: errorMessage });
+            setFormRootError(form, errorMessage);
           }
         },
         onSuccess: async () => {

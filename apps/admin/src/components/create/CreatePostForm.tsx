@@ -8,6 +8,7 @@ import { useDebounce } from "@/hooks/useDebounce";
 import { type CreatePost, CreatePostSchema } from "@/types-schemas";
 import generateSlug from "@/utils/generateSlug";
 import getPostDraftFromLocalStorage from "@/utils/getPostDraftFromLocalStorage";
+import setFormRootError from "@/utils/setFormRootError";
 import { useTRPC } from "@/utils/trpc";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@repo/ui/components/ui/button";
@@ -83,6 +84,8 @@ const CreatePostForm = () => {
             form.setError("post.title", {
               message: `${errorMessage}. It means that this title is already taken`,
             });
+          } else {
+            setFormRootError(form, errorMessage);
           }
         },
 
@@ -95,29 +98,34 @@ const CreatePostForm = () => {
 
           // add all tags to the post
           const tagPromises = values.tags.map((tag, index) =>
-            addTagToPostMutation
-              .mutateAsync({
+            addTagToPostMutation.mutateAsync(
+              {
                 name: tag.name,
                 slug: generateSlug(tag.name),
                 postId: id,
-              })
-              .catch((error) => {
-                const errorMessage = error.message;
-                if (errorMessage.toLowerCase().includes("tag")) {
-                  form.setError(`tags.${index}`, { message: errorMessage });
-                }
-                return { error, index };
-              }),
+              },
+              {
+                onError: (error) => {
+                  const errorMessage = error.message;
+                  if (errorMessage.toLowerCase().includes("tag")) {
+                    form.setError(`tags.${index}`, { message: errorMessage });
+                  } else {
+                    setFormRootError(form, errorMessage);
+                  }
+                },
+                onSuccess: async () => {
+                  await queryClient.invalidateQueries({
+                    queryKey: trpc.tags.findAllTagsForPost.queryKey(),
+                    exact: true,
+                  });
+
+                  navigate("/posts");
+                },
+              },
+            ),
           );
 
-          const results = await Promise.allSettled(tagPromises);
-          const hasErrors = results.some(
-            (result) => result.status === "fulfilled" && result.value?.error,
-          );
-
-          if (!hasErrors) {
-            navigate("/posts");
-          }
+          await Promise.allSettled(tagPromises);
         },
       },
     );

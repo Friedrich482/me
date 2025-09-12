@@ -6,6 +6,7 @@ import { toast } from "sonner";
 import ContentField from "@/components/common/ContentField";
 import { type EditPost, EditPostSchema } from "@/types-schemas";
 import generateSlug from "@/utils/generateSlug";
+import setFormRootError from "@/utils/setFormRootError";
 import { type Outputs, useTRPC } from "@/utils/trpc";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@repo/ui/components/ui/button";
@@ -32,7 +33,7 @@ const EditPostForm = ({
       post: {
         content: post.content,
         title: post.title,
-        status: "draft",
+        status: post.status || "draft",
         publishedAt: null,
       },
       tags: tagsForPost,
@@ -77,9 +78,7 @@ const EditPostForm = ({
               message: `${errorMessage}. It means that this title is already taken`,
             });
           } else {
-            form.setError("root", {
-              message: errorMessage,
-            });
+            setFormRootError(form, errorMessage);
           }
         },
 
@@ -99,48 +98,67 @@ const EditPostForm = ({
 
           // add all new tags to the post
           const newAddedTagsPromises = newAddedTags.map((tag, index) =>
-            addTagToPostMutation
-              .mutateAsync({
+            addTagToPostMutation.mutateAsync(
+              {
                 name: tag.name,
                 slug: generateSlug(tag.name),
                 postId: id,
-              })
-              .catch((error) => {
-                const errorMessage = error.message;
-                if (errorMessage.toLowerCase().includes("tag")) {
-                  form.setError(`tags.${index}`, { message: errorMessage });
-                }
-                return { error, index };
-              }),
+              },
+              {
+                onError: (error) => {
+                  const errorMessage = error.message;
+                  if (errorMessage.toLowerCase().includes("tag")) {
+                    form.setError(`tags.${index}`, { message: errorMessage });
+                  } else {
+                    setFormRootError(form, errorMessage);
+                  }
+                },
+
+                onSuccess: async () => {
+                  await queryClient.invalidateQueries({
+                    queryKey: trpc.tags.findAllTagsForPost.queryKey(),
+                    exact: true,
+                  });
+
+                  toast("Saved");
+                },
+              },
+            ),
           );
 
           // delete all removed tags
           const deletedTagsPromises = deletedTags.map((tag, index) =>
-            removeTagFromPostMutation
-              .mutateAsync({
+            removeTagFromPostMutation.mutateAsync(
+              {
                 tagSlug: generateSlug(tag.name),
                 postSlug: slug,
-              })
-              .catch((error) => {
-                const errorMessage = error.message;
-                if (errorMessage.toLowerCase().includes("tag")) {
-                  form.setError(`tags.${index}`, { message: errorMessage });
-                }
-                return { error, index };
-              }),
+              },
+              {
+                onError: (error) => {
+                  const errorMessage = error.message;
+                  if (errorMessage.toLowerCase().includes("tag")) {
+                    form.setError(`tags.${index}`, { message: errorMessage });
+                  } else {
+                    setFormRootError(form, errorMessage);
+                  }
+                },
+
+                onSuccess: async () => {
+                  await queryClient.invalidateQueries({
+                    queryKey: trpc.tags.findAllTagsForPost.queryKey(),
+                    exact: true,
+                  });
+
+                  toast("Saved");
+                },
+              },
+            ),
           );
 
-          const results = await Promise.allSettled([
+          await Promise.allSettled([
             ...newAddedTagsPromises,
             ...deletedTagsPromises,
           ]);
-          const hasErrors = results.some(
-            (result) => result.status === "fulfilled" && result.value?.error,
-          );
-
-          if (!hasErrors) {
-            toast("Saved");
-          }
         },
       },
     );
@@ -165,9 +183,7 @@ const EditPostForm = ({
               message: `${errorMessage}. It means that this title is already taken`,
             });
           } else {
-            form.setError("root", {
-              message: errorMessage,
-            });
+            setFormRootError(form, errorMessage);
           }
         },
 
