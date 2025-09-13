@@ -21,9 +21,12 @@ const Posts = () => {
 
   return (
     <main className="flex flex-1 items-start justify-center py-2">
-      <section className="flex w-3/6 flex-col items-center justify-center gap-7 pt-8 max-md:w-5/6">
-        <div className="flex w-full items-center justify-between gap-y-4 max-[24rem]:flex-col max-[24rem]:items-start">
-          <h1 className="text-start text-4xl font-bold">Posts List</h1>
+      <section className="flex w-1/2 flex-col items-center justify-center gap-12 pt-8 max-xl:w-2/3">
+        <div className="flex w-full items-center justify-between">
+          <h1 className="w-full text-start text-4xl font-extrabold">
+            Posts List
+          </h1>
+
           <Button asChild>
             <Link
               to="/create"
@@ -36,7 +39,7 @@ const Posts = () => {
         </div>
 
         <div className="flex w-full items-center justify-start gap-2 rounded-sm">
-          <p className="text-xl">Posts to display:</p>
+          <p className="text-xl">Display:</p>
           <StatusDropDown
             status={status}
             handleStatusOptionClick={handleStatusOptionClick}
@@ -52,7 +55,7 @@ const Posts = () => {
             />
           )}
         >
-          <SuspenseBoundary className="h-80 w-5/6 self-start">
+          <SuspenseBoundary className="h-80 w-full">
             <PostsList status={status} />
           </SuspenseBoundary>
         </ErrorBoundary>

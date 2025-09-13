@@ -9,25 +9,25 @@ const posts = await trpc.posts.findAllPublished.query();
 <Layout title="Blog | Friedrich WT">
   <main class="flex flex-1 items-start justify-center py-2">
     <section
-      class="flex w-3/6 flex-col items-center justify-center gap-16 pt-8 max-md:w-5/6"
+      class="flex w-1/2 flex-col items-center justify-center gap-12 pt-8 max-xl:w-2/3"
     >
-      <h1 class="w-full text-start text-4xl font-extrabold">Posts</h1>
-      <ul class="text-foreground/60 w-full space-y-8 text-lg">
-        {
-          posts.length === 0 ? (
-            <p class="text-center">No posts yet</p>
-          ) : (
-            posts.map((post) => (
+      <h1 class="text-4xl text-start w-full font-extrabold">Posts</h1>
+      {
+        posts.length === 0 ? (
+          <p class="text-center text-xl">No posts yet</p>
+        ) : (
+          <ul class="text-foreground/60 space-y-8 text-lg">
+            {posts.map((post) => (
               <li class="hover:text-primary/75 w-full cursor-pointer text-start">
                 <a class="flex gap-2" href={`/blog/${post.slug}`}>
-                  <CircleSmall />
+                  <CircleSmall className="shrink-0" />
                   <span>{post.title}</span>
                 </a>
               </li>
-            ))
-          )
-        }
-      </ul>
+            ))}
+          </ul>
+        )
+      }
     </section>
   </main>
 </Layout>

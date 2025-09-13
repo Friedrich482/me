@@ -19,10 +19,10 @@ const PostsList = ({ status }: { status: Status }) => {
       {posts.map((post) => (
         <li
           key={post.id}
-          className="hover:text-primary/75 w-full cursor-pointer text-start text-lg"
+          className="hover:text-primary/75 w-full cursor-pointer text-start"
         >
           <Link to={`/posts/${post.slug}`} className="flex gap-2">
-            <CircleSmall />
+            <CircleSmall className="shrink-0" />
             <span>{post.title}</span>
           </Link>
         </li>

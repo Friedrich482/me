@@ -3,8 +3,7 @@ import Layout from "@/layouts/main.astro";
 import trpc from "@/trpc/client";
 import { ArrowLeft } from "lucide-react";
 import { format } from "date-fns";
-import MarkdownEditor from "@repo/ui/components/MarkdownEditor"
-
+import MarkdownEditor from "@repo/ui/components/MarkdownEditor";
 
 export async function getStaticPaths() {
   const posts = await trpc.posts.findAllPublished.query();
@@ -16,41 +15,58 @@ export async function getStaticPaths() {
 }
 
 const { post } = Astro.props;
-const postTags = await trpc.tags.findAllTagsForPublishedPost.query({postSlug: post.slug})
+const postTags = await trpc.tags.findAllTagsForPublishedPost.query({
+  postSlug: post.slug,
+});
 ---
 
 <Layout title={post.title}>
   <main
-    class="flex flex-1 flex-col items-center justify-start py-2"
+    class="flex flex-1 flex-col items-center justify-center py-2"
     transition:animate="slide"
   >
     <section
-      class="flex w-3/6 flex-col items-start justify-center gap-8 pt-2 text-start max-md:w-5/6"
+      class="flex w-1/2 flex-col items-center justify-center gap-8 pt-8 max-xl:w-2/3"
     >
       <a
         href="/blog"
-        class="hover:text-primary flex items-center justify-center gap-1 text-base opacity-60 hover:underline"
-      >
+        class="hover:text-primary flex items-center justify-center gap-1 text-base opacity-60 hover:underline self-start"
+      > 
         <ArrowLeft size={16} />
-        <span> Back to posts </span>
+        <span>Back to posts</span>
       </a>
 
       <article class="flex flex-col gap-7">
-        <div class="flex flex-col"> 
-          <MarkdownEditor markdown={`# ${post.title}\n ${post.publishDate ? format(post.publishDate, "MMM dd, yyyy"):""}`} classNames={{p: "text-neutral-500"}} client:load />
+        <div>
+          <MarkdownEditor
+            markdown={`# ${post.title}\n ${post.publishDate ? format(post.publishDate, "MMM dd, yyyy") : ""}`}
+            classNames={{ p: "text-neutral-500" }}
+            client:load
+          />
         </div>
 
         <div class="flex flex-col gap-5">
           <div class="flex flex-col opacity-95">
-            <MarkdownEditor markdown={`${post.content}`} classNames={{inlineCode: "bg-input/40"}} client:load  />            
+            <MarkdownEditor
+              markdown={`${post.content}`}
+              classNames={{ inlineCode: "bg-input/70" }}
+              client:load
+            />
           </div>
 
-          <div class="flex gap-3 items-center justify-start flex-wrap">
-            {postTags.map((tag)=> <a class="text-lg bg-input/40 rounded-md px-2 py-1" href={`/blog#${tag.slug}`}>{tag.name}</a>)}
-          </div>
+          <ul class="flex gap-3 items-center justify-start flex-wrap">
+            {
+              postTags.map((tag) => (
+                <li class="text-lg bg-input/40 rounded-md px-2 py-1">
+                  <a href={`/blog#${tag.slug}`} class="size-full">
+                    {tag.name}
+                  </a>
+                </li>
+              ))
+            }
+          </ul>
         </div>
       </article>
-
     </section>
   </main>
 </Layout>

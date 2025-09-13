@@ -196,7 +196,7 @@ const EditPostForm = ({
 
   return (
     <Form {...form}>
-      <form className="flex w-3/4 flex-col items-center justify-center gap-6 max-lg:w-full">
+      <form className="flex w-full flex-col items-center justify-center gap-6">
         <FormField
           control={form.control}
           name="post.title"

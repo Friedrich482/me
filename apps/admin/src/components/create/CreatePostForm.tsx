@@ -135,7 +135,7 @@ const CreatePostForm = () => {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="flex w-3/4 flex-col items-center justify-center gap-6 max-lg:w-full"
+        className="flex w-full flex-col items-center justify-center gap-6"
       >
         <FormField
           control={form.control}
