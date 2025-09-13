@@ -12,7 +12,7 @@ const Layout = () => {
       <Header />
       <Outlet />
       <ScrollToTopButton />
-      <Toaster />
+      <Toaster richColors />
       <Footer />
     </>
   );

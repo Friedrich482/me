@@ -1,6 +1,6 @@
 import { useFieldArray, useForm } from "react-hook-form";
 import { useNavigate } from "react-router";
-import { Plus, X } from "lucide-react";
+import { Check, Plus, X } from "lucide-react";
 import { toast } from "sonner";
 
 import ContentField from "@/components/common/ContentField";
@@ -108,6 +108,14 @@ const EditPostForm = () => {
             (tag) => !values.tags.find((entry) => entry.name === tag.name),
           );
 
+          const havePostTagsChanged =
+            newAddedTags.length !== 0 || deletedTags.length !== 0;
+
+          if (!havePostTagsChanged) {
+            toast("Saved", { icon: <Check /> });
+            return;
+          }
+
           // add all new tags to the post
           const newAddedTagsPromises = newAddedTags.map((tag, index) =>
             addTagToPostMutation.mutateAsync(
@@ -132,7 +140,7 @@ const EditPostForm = () => {
                     exact: true,
                   });
 
-                  toast("Saved");
+                  toast("Saved", { icon: <Check /> });
                 },
               },
             ),
@@ -161,7 +169,9 @@ const EditPostForm = () => {
                     exact: true,
                   });
 
-                  toast("Saved");
+                  toast("Saved", {
+                    icon: <Check className="text-primary size-3/4" />,
+                  });
                 },
               },
             ),
