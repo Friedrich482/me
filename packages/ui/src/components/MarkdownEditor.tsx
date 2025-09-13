@@ -9,30 +9,69 @@ import z from "zod";
 import { Button } from "@repo/ui/components/ui/button";
 
 import "highlight.js/styles/hybrid.css";
+import { cn } from "#lib/utils.ts";
 
 type IconType = "copy" | "check";
 
-const MarkdownEditor = ({ markdown }: { markdown: string }) => {
+const MarkdownEditor = ({
+  markdown,
+  classNames = {},
+}: {
+  markdown: string;
+  classNames?: {
+    h1?: string;
+    h2?: string;
+    p?: string;
+    ul?: string;
+    ol?: string;
+    li?: string;
+    a?: string;
+    pre?: string;
+    code?: string;
+    inlineCode?: string;
+  };
+}) => {
   return (
     <MarkdownHooks
       remarkPlugins={[remarkGfm]}
       rehypePlugins={[rehypeRaw, rehypeHighlight]}
       components={{
         ul: (props) => (
-          <ul className="mb-4 ml-6 list-disc text-lg" {...props} />
+          <ul
+            className={cn("mb-4 ml-6 list-disc text-lg", classNames.ul)}
+            {...props}
+          />
         ),
         ol: (props) => (
-          <ol className="mb-4 ml-6 list-decimal text-lg" {...props} />
+          <ol
+            className={cn("mb-4 ml-6 list-decimal text-lg", classNames.ol)}
+            {...props}
+          />
         ),
         a: (props) => (
-          <a className="text-primary mb-3 text-lg underline" {...props} />
+          <a
+            className={cn("text-primary mb-3 text-lg underline", classNames.a)}
+            {...props}
+          />
         ),
-        li: (props) => <li className="mb-1 text-lg" {...props} />,
-        p: (props) => <p className="mb-3 text-lg" {...props} />,
+        li: (props) => (
+          <li className={cn("mb-1 text-lg", classNames.li)} {...props} />
+        ),
+        p: (props) => (
+          <p className={cn("mb-3 text-lg", classNames.p)} {...props} />
+        ),
         h1: (props) => (
-          <h1 className="mb-4 text-4xl font-extrabold" {...props} />
+          <h1
+            className={cn("mb-2 text-4xl font-extrabold", classNames.h1)}
+            {...props}
+          />
         ),
-        h2: (props) => <h2 className="mb-3 text-xl font-bold" {...props} />,
+        h2: (props) => (
+          <h2
+            className={cn("mb-3 text-xl font-bold", classNames.h2)}
+            {...props}
+          />
+        ),
 
         pre: (props) => {
           const [iconType, setIconType] = useState<IconType>("copy");
@@ -55,7 +94,10 @@ const MarkdownEditor = ({ markdown }: { markdown: string }) => {
           return (
             <div className="relative">
               <pre
-                className="bg-secondary/65 mb-4 overflow-x-auto rounded-sm p-2 text-lg"
+                className={cn(
+                  "hljs mb-4 overflow-x-auto rounded-sm p-2 text-lg",
+                  classNames.pre,
+                )}
                 {...props}
               />
               <Button
@@ -78,11 +120,16 @@ const MarkdownEditor = ({ markdown }: { markdown: string }) => {
 
         code: (props) => {
           if (props.className?.includes("language-")) {
-            return <code className="text-lg" {...props} />;
+            return (
+              <code className={cn("text-lg", classNames.code)} {...props} />
+            );
           }
           return (
             <code
-              className="bg-secondary/50 rounded-sm px-2 py-1 text-lg"
+              className={cn(
+                "bg-secondary/50 inline rounded-sm px-2 py-1 text-lg",
+                classNames.inlineCode,
+              )}
               {...props}
             />
           );

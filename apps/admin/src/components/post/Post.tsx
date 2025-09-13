@@ -14,7 +14,7 @@ const Post = () => {
   const { slug } = useSafeParams(ParamsSchema);
 
   return (
-    <main className="flex flex-1 flex-col items-center py-2">
+    <main className="flex flex-1 flex-col items-center gap-4 py-2">
       <div className="flex w-1/2 items-center justify-between gap-y-4 max-md:w-5/6 max-[18rem]:flex-col max-[18rem]:items-start">
         <Link
           to="/posts"
