@@ -23,14 +23,14 @@ const PostArticle = () => {
 
   return (
     <article className="flex w-full flex-col items-start justify-center gap-7 text-start">
-      <div className="flex flex-col">
+      <div className="flex w-full flex-col">
         <MarkdownEditor
           markdown={`# ${post.title}\n ${post.publishDate ? format(post.publishDate, "MMM dd, yyyy") : ""}`}
           classNames={{ p: "opacity-40" }}
         />
       </div>
 
-      <div className="flex flex-col gap-5">
+      <div className="flex w-full flex-col gap-5">
         <div className="flex flex-col opacity-85">
           <MarkdownEditor
             markdown={post.content}

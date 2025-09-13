@@ -4,10 +4,12 @@ import { Plus, X } from "lucide-react";
 import { toast } from "sonner";
 
 import ContentField from "@/components/common/ContentField";
-import { type EditPost, EditPostSchema } from "@/types-schemas";
+import usePageTitle from "@/hooks/usePageTitle";
+import useSafeParams from "@/hooks/useSafeParams";
+import { type EditPost, EditPostSchema, ParamsSchema } from "@/types-schemas";
 import generateSlug from "@/utils/generateSlug";
 import setFormRootError from "@/utils/setFormRootError";
-import { type Outputs, useTRPC } from "@/utils/trpc";
+import { useTRPC } from "@/utils/trpc";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@repo/ui/components/ui/button";
 import {
@@ -18,15 +20,26 @@ import {
   FormMessage,
 } from "@repo/ui/components/ui/form";
 import { Input } from "@repo/ui/components/ui/input";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import {
+  useMutation,
+  useQueryClient,
+  useSuspenseQuery,
+} from "@tanstack/react-query";
 
-const EditPostForm = ({
-  post,
-  tagsForPost,
-}: {
-  post: Outputs["posts"]["findPost"];
-  tagsForPost: Outputs["tags"]["findAllTagsForPost"];
-}) => {
+const EditPostForm = () => {
+  const { slug } = useSafeParams(ParamsSchema);
+
+  const trpc = useTRPC();
+
+  const { data: post } = useSuspenseQuery(
+    trpc.posts.findPost.queryOptions({ slug }),
+  );
+  const { data: tagsForPost } = useSuspenseQuery(
+    trpc.tags.findAllTagsForPost.queryOptions({ postSlug: post.slug }),
+  );
+
+  usePageTitle(`Edit | ${post.title}`);
+
   const form = useForm<EditPost>({
     resolver: zodResolver(EditPostSchema),
     defaultValues: {
@@ -51,7 +64,6 @@ const EditPostForm = ({
   });
 
   const navigate = useNavigate();
-  const trpc = useTRPC();
   const queryClient = useQueryClient();
 
   const editPostMutation = useMutation(trpc.posts.update.mutationOptions());

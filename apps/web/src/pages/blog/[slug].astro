@@ -36,7 +36,7 @@ const postTags = await trpc.tags.findAllTagsForPublishedPost.query({
         <span>Back to posts</span>
       </a>
 
-      <article class="flex flex-col gap-7">
+      <article class="flex flex-col gap-7 w-full">
         <div>
           <MarkdownEditor
             markdown={`# ${post.title}\n ${post.publishDate ? format(post.publishDate, "MMM dd, yyyy") : ""}`}

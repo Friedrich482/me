@@ -1,5 +1,6 @@
 import { Outlet } from "react-router";
 
+import ScrollToTopButton from "@repo/ui/components/ScrollToTopButton";
 import { Toaster } from "@repo/ui/components/ui/sonner";
 
 import Footer from "./Footer";
@@ -10,6 +11,7 @@ const Layout = () => {
     <>
       <Header />
       <Outlet />
+      <ScrollToTopButton />
       <Toaster />
       <Footer />
     </>
