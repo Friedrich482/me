@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { type FieldValues, type Path, useForm } from "react-hook-form";
+import { ClipLoader } from "react-spinners";
 import { Info } from "lucide-react";
 
 import usePostContentFileDrop from "@/hooks/usePostContentFileDrop";
@@ -82,7 +83,10 @@ const ContentField = <T extends FieldValues, TFieldName extends Path<T>>({
                 className="flex h-10 translate-x-2 items-center justify-start gap-1 p-1 opacity-50"
               >
                 {isPending ? (
-                  <span>Uploading image...</span>
+                  <>
+                    <ClipLoader color="#c4c4c4" size={20} />
+                    <span>Uploading image...</span>
+                  </>
                 ) : (
                   <>
                     <Info size={20} />
