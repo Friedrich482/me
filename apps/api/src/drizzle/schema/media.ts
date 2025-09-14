@@ -17,11 +17,12 @@ export const media = pgTable("media", {
     .$defaultFn(() => ulid().toLowerCase()),
   filename: text("filename").notNull(),
   path: text("path").notNull(),
+  url: text("url").notNull(),
   size: integer("size").notNull(),
   mimeType: varchar("mime_type", { length: 100 }).notNull(),
   uploadedAt: timestamp("uploaded_at").defaultNow(),
-  postId: varchar("post_id", { length: 26 })
-    .notNull()
-    .references(() => posts.id, { onDelete: "cascade" }),
+  postId: varchar("post_id", { length: 26 }).references(() => posts.id, {
+    onDelete: "cascade",
+  }),
   ...timestamps,
 });
