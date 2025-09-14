@@ -8,7 +8,9 @@
     "esModuleInterop": true,
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["./src/*"],
+      "@repo/trpc/*": ["../../packages/trpc/src/*"],
+      "@repo/common/*": ["../../packages/common/src/*"]
     }
   }
 }

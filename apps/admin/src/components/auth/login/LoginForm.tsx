@@ -130,7 +130,9 @@ const LoginForm = () => {
           </Button>
           <div className="place-self-start">
             {form.formState.errors.root && (
-              <FormMessage>{form.formState.errors.root.message}</FormMessage>
+              <FormMessage className="text-lg">
+                {form.formState.errors.root.message}
+              </FormMessage>
             )}
           </div>
         </form>

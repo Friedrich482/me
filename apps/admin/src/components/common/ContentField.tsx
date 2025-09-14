@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { type FieldValues, type Path, useForm } from "react-hook-form";
+import { Info } from "lucide-react";
 
+import usePostContentFileDrop from "@/hooks/usePostContentFileDrop";
 import MarkdownEditor from "@repo/ui/components/MarkdownEditor";
 import { Button } from "@repo/ui/components/ui/button";
 import {
@@ -23,33 +25,7 @@ const ContentField = <T extends FieldValues, TFieldName extends Path<T>>({
   const handleWriteButtonClick = () => setViewMode("write");
   const handlePreviewButtonClick = () => setViewMode("preview");
 
-  // TODO extract in a useHandleDragAndDrop hook
-  const [, setUploading] = useState(false);
-  const handleDrop = async (e: React.DragEvent<HTMLDivElement>) => {
-    e.preventDefault();
-    const files = Array.from(e.dataTransfer?.files || []);
-    const images = files.filter((file) => file.type.startsWith("image/"));
-
-    if (images.length === 0) return;
-
-    setUploading(true);
-
-    // for (const image of images) {
-    //   try {
-    //     // Upload to R2
-    //     const url = await uploadToR2(image);
-
-    //     // Insert markdown at cursor position
-    //     const imageMarkdown = `![${image.name}](${url})`;
-    //     const newValue = value + '\n\n' + imageMarkdown;
-    //     onChange(newValue);
-    //   } catch (error) {
-    //     console.error('Upload failed:', error);
-    //   }
-    // }
-
-    setUploading(false);
-  };
+  const { handleDrop, isPending } = usePostContentFileDrop(form, name);
 
   return (
     <FormField
@@ -58,8 +34,8 @@ const ContentField = <T extends FieldValues, TFieldName extends Path<T>>({
       render={({ field }) => (
         <FormItem className="w-full">
           <FormControl>
-            <div className="dark:bg-input/30 flex min-h-[26.5rem] flex-col rounded-md bg-transparent">
-              <div className="relative flex h-[13%] items-center justify-start gap-4 p-2">
+            <div className="dark:bg-input/30 flex min-h-[30rem] flex-col rounded-md bg-transparent">
+              <div className="relative flex h-16 items-center justify-start gap-4 p-2">
                 <Button
                   variant="ghost"
                   type="button"
@@ -84,21 +60,36 @@ const ContentField = <T extends FieldValues, TFieldName extends Path<T>>({
               </div>
               {viewMode === "write" ? (
                 <div
-                  onDrop={(e) => handleDrop(e)}
+                  onDrop={handleDrop}
                   onDragOver={(e) => e.preventDefault()}
                   className="flex-1 rounded-t-none rounded-b-md border-0"
                 >
                   <Textarea
                     placeholder="Start writing..."
-                    className="field-sizing-fixed size-full flex-1 rounded-t-none rounded-b-md border-0 text-lg placeholder:text-lg placeholder:opacity-65 focus-visible:border-none focus-visible:ring-0 md:text-lg"
+                    className="field-sizing-fixed size-full flex-1 rounded-t-none rounded-b-none border-0 text-lg placeholder:text-lg placeholder:opacity-65 focus-visible:border-none focus-visible:ring-0 md:text-lg"
                     {...field}
                   />
                 </div>
               ) : (
-                <div className="bg-input/30 flex-1 rounded-t-none rounded-b-md border-0 p-4">
+                <div className="bg-input/30 flex-1 rounded-t-none border-0 p-4">
                   <MarkdownEditor markdown={field.value} />
                 </div>
               )}
+              <div
+                id="content-drop-hint"
+                role="status"
+                aria-live="polite"
+                className="flex h-10 translate-x-2 items-center justify-start gap-1 p-1 opacity-50"
+              >
+                {isPending ? (
+                  <span>Uploading image...</span>
+                ) : (
+                  <>
+                    <Info size={20} />
+                    <span>You can drag and drop images</span>
+                  </>
+                )}
+              </div>
             </div>
           </FormControl>
           <FormMessage />

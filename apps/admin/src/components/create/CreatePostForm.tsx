@@ -6,11 +6,11 @@ import { Plus, X } from "lucide-react";
 import ContentField from "@/components/common/ContentField";
 import { useDebounce } from "@/hooks/useDebounce";
 import { type CreatePost, CreatePostSchema } from "@/types-schemas";
-import generateSlug from "@/utils/generateSlug";
 import getPostDraftFromLocalStorage from "@/utils/getPostDraftFromLocalStorage";
 import setFormRootError from "@/utils/setFormRootError";
 import { useTRPC } from "@/utils/trpc";
 import { zodResolver } from "@hookform/resolvers/zod";
+import generateSlug from "@repo/common/generateSlug";
 import { Button } from "@repo/ui/components/ui/button";
 import {
   Form,
@@ -196,6 +196,13 @@ const CreatePostForm = () => {
         >
           Create
         </Button>
+        <div className="place-self-start">
+          {form.formState.errors.root && (
+            <FormMessage className="text-lg">
+              {form.formState.errors.root.message}
+            </FormMessage>
+          )}
+        </div>
       </form>
     </Form>
   );

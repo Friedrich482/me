@@ -7,6 +7,7 @@ import {
   S3Client,
 } from "@aws-sdk/client-s3";
 import { Injectable } from "@nestjs/common";
+import generateSlug from "@repo/common/generateSlug";
 
 import {
   DeleteFileFromBucketDtoType,
@@ -39,7 +40,8 @@ export class CloudflareService {
     const now = Date.now();
     const uploadedAt = new Date(now);
 
-    const filename = `images/${now}-${file.name}.webp`;
+    const name = generateSlug(file.name);
+    const filename = `images/${now}-${name}.webp`;
     const mimeType = "image/webp";
 
     await this.r2.send(
@@ -51,7 +53,7 @@ export class CloudflareService {
       }),
     );
 
-    const imageUrl = `${this.envService.get("R2_PUBLIC_DOMAIN")}/${filename}`;
+    const imageUrl = `${this.envService.get("R2_PUBLIC_DOMAIN")}/${this.envService.get("R2_BUCKET_NAME")}/${filename}`;
 
     return { filename, imageUrl, uploadedAt, mimeType };
   }

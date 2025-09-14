@@ -1,11 +1,20 @@
 import z from "zod";
 
-export const CreateMediaDto = z
-  .object({
+export const CreateMediaDto = z.instanceof(FormData).transform((data) => {
+  const file = data.get("file");
+  const parsedPostId = z.string().parse(data.get("postId"));
+
+  const postId = JSON.parse(parsedPostId);
+
+  const schema = z.object({
     file: z.file(),
     postId: z.ulid().nullable(),
-  })
-  .refine(({ file }) => file.type.startsWith("image/"));
+  });
+
+  const parsedContent = schema.parse({ file, postId });
+
+  return parsedContent;
+});
 
 export const UpdateMediaDto = z.object({
   filename: z.string().min(1),

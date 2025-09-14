@@ -6,7 +6,13 @@ import type { AppRouter } from "@repo/trpc/router";
 import { ThemeProvider } from "@repo/ui/providers/themeProvider";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-import { createTRPCClient, httpBatchLink } from "@trpc/client";
+import {
+  createTRPCClient,
+  httpBatchLink,
+  httpLink,
+  isNonJsonSerializable,
+  splitLink,
+} from "@trpc/client";
 
 import { TRPCProvider } from "./utils/trpc";
 
@@ -36,16 +42,28 @@ const App = () => {
   const [trpcClient] = useState(() =>
     createTRPCClient<AppRouter>({
       links: [
-        // trpc reads the http only cookie
-        httpBatchLink({
-          url: import.meta.env.VITE_API_URL,
-          fetch(url, options) {
-            return fetch(url, {
-              ...options,
-              credentials: "include",
-            });
-          },
-          transformer: superjson,
+        splitLink({
+          condition: (op) => isNonJsonSerializable(op.input),
+          true: httpLink({
+            url: import.meta.env.VITE_API_URL,
+            transformer: superjson,
+            fetch(url, options) {
+              return fetch(url, {
+                ...options,
+                credentials: "include",
+              });
+            },
+          }),
+          false: httpBatchLink({
+            url: import.meta.env.VITE_API_URL,
+            fetch(url, options) {
+              return fetch(url, {
+                ...options,
+                credentials: "include",
+              });
+            },
+            transformer: superjson,
+          }),
         }),
       ],
     }),
