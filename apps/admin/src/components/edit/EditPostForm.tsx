@@ -169,9 +169,7 @@ const EditPostForm = () => {
                     exact: true,
                   });
 
-                  toast("Saved", {
-                    icon: <Check className="text-primary size-3/4" />,
-                  });
+                  toast("Saved", { icon: <Check /> });
                 },
               },
             ),
@@ -270,13 +268,13 @@ const EditPostForm = () => {
 
         <ContentField form={form} name="post.content" />
 
-        <div className="flex w-full items-center justify-between">
+        <div className="flex w-full items-center justify-between max-[25rem]:flex-col max-[25rem]:gap-3">
           <Button
             variant="outline"
             type="submit"
             disabled={form.formState.isSubmitting}
             onClick={form.handleSubmit(onEdit)}
-            className="shadow-primary/50 h-11 w-32 self-start rounded-lg shadow-lg"
+            className="shadow-primary/50 h-11 w-32 rounded-lg shadow-lg"
           >
             Save
           </Button>
@@ -285,7 +283,7 @@ const EditPostForm = () => {
             type="submit"
             onClick={form.handleSubmit(onSubmit)}
             disabled={form.formState.isSubmitting}
-            className="shadow-primary/50 h-11 w-32 self-end rounded-lg shadow-lg"
+            className="shadow-primary/50 h-11 w-32 rounded-lg shadow-lg"
           >
             Publish
           </Button>

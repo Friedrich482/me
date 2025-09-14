@@ -1,5 +1,7 @@
 import { AuthModule } from "src/auth/auth.module";
 import { AuthRouter } from "src/auth/auth.router";
+import { CloudflareModule } from "src/cloudflare/cloudflare.module";
+import { CloudflareRouter } from "src/cloudflare/cloudflare.router";
 import { EnvService } from "src/env/env.service";
 import { PostsModule } from "src/posts/posts.module";
 import { PostsRouter } from "src/posts/posts.router";
@@ -14,7 +16,7 @@ import { TrpcService } from "./trpc.service";
 
 @Global()
 @Module({
-  imports: [AuthModule, PostsModule, TagsModule],
+  imports: [AuthModule, PostsModule, TagsModule, CloudflareModule],
   providers: [
     TrpcService,
     TrpcRouter,
@@ -23,6 +25,7 @@ import { TrpcService } from "./trpc.service";
     AuthRouter,
     PostsRouter,
     TagsRouter,
+    CloudflareRouter,
   ],
   exports: [TrpcService],
 })

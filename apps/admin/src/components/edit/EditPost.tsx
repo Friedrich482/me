@@ -30,7 +30,7 @@ const EditPost = () => (
           />
         )}
       >
-        <SuspenseBoundary className="h-[22rem] w-full max-xl:w-2/3">
+        <SuspenseBoundary className="h-[22rem] w-full">
           <EditPostForm />
         </SuspenseBoundary>
       </ErrorBoundary>
