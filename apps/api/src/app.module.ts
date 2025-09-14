@@ -9,6 +9,7 @@ import { DrizzleModule } from "./drizzle/drizzle.module";
 import { envSchema } from "./env";
 import { EnvModule } from "./env/env.module";
 import { EnvService } from "./env/env.service";
+import { MediaModule } from './media/media.module';
 import { PostsModule } from "./posts/posts.module";
 import { TagsModule } from "./tags/tags.module";
 import { TrpcModule } from "./trpc/trpc.module";
@@ -28,6 +29,7 @@ import { UsersModule } from "./users/users.module";
     PostsModule,
     TagsModule,
     CloudflareModule,
+    MediaModule,
   ],
   controllers: [AppController],
   providers: [AppService, EnvService],

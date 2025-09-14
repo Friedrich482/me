@@ -29,37 +29,42 @@ export class CloudflareService {
     });
   }
 
-  async getUploadUrl(getUploadUrlDto: GetUploadUrlDtoType) {
+  async uploadFileInBucket(getUploadUrlDto: GetUploadUrlDtoType) {
     const file = getUploadUrlDto.file;
+
     const arrayBuffer = await file.arrayBuffer();
     const buffer = Buffer.from(arrayBuffer);
     const optimized = await sharp(buffer).webp({ quality: 90 }).toBuffer();
 
-    const fileName = `images/${Date.now()}-${file.name}.webp`;
+    const now = Date.now();
+    const uploadedAt = new Date(now);
+
+    const filename = `images/${now}-${file.name}.webp`;
+    const mimeType = "image/webp";
 
     await this.r2.send(
       new PutObjectCommand({
         Bucket: this.bucketName,
-        Key: fileName,
+        Key: filename,
         Body: optimized,
-        ContentType: "image/webp",
+        ContentType: mimeType,
       }),
     );
 
-    const imageUrl = `${this.envService.get("R2_PUBLIC_DOMAIN")}/${fileName}`;
+    const imageUrl = `${this.envService.get("R2_PUBLIC_DOMAIN")}/${filename}`;
 
-    return imageUrl;
+    return { filename, imageUrl, uploadedAt, mimeType };
   }
 
   async deleteFileFromBucket(
     deleteFileFromBucketDto: DeleteFileFromBucketDtoType,
   ) {
-    const { fileName } = deleteFileFromBucketDto;
+    const { filename } = deleteFileFromBucketDto;
 
     await this.r2.send(
       new DeleteObjectCommand({
         Bucket: this.envService.get("R2_BUCKET_NAME"),
-        Key: fileName,
+        Key: filename,
       }),
     );
   }

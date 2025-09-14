@@ -1,5 +1,5 @@
 import { AuthRouter } from "src/auth/auth.router";
-import { CloudflareRouter } from "src/cloudflare/cloudflare.router";
+import { MediaRouter } from "src/media/media.router";
 import { PostsRouter } from "src/posts/posts.router";
 import { TagsRouter } from "src/tags/tags.router";
 
@@ -15,14 +15,14 @@ export class TrpcRouter {
     private readonly authRouter: AuthRouter,
     private readonly postsRouter: PostsRouter,
     private readonly tagsRouter: TagsRouter,
-    private readonly cloudflareRouter: CloudflareRouter,
+    private readonly mediaRouter: MediaRouter,
   ) {}
 
   appRouter = this.trpcService.trpc.router({
     ...this.authRouter.procedures,
     ...this.postsRouter.procedures,
     ...this.tagsRouter.procedures,
-    ...this.cloudflareRouter.procedures,
+    ...this.mediaRouter.procedures,
   });
 
   async applyMiddleware(app: INestApplication) {

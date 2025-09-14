@@ -16,6 +16,7 @@ export const media = pgTable("media", {
     .notNull()
     .$defaultFn(() => ulid().toLowerCase()),
   filename: text("filename").notNull(),
+  originalFilename: text("original_filename"),
   path: text("path").notNull(),
   url: text("url").notNull(),
   size: integer("size").notNull(),

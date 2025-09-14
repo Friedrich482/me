@@ -1,11 +1,14 @@
 import { z } from "zod";
 
-export const GetUploadUrlDto = z.object({
-  file: z.file(),
-});
+// for the moment we only allow images
+export const GetUploadUrlDto = z
+  .object({
+    file: z.file(),
+  })
+  .refine(({ file }) => file.type.startsWith("image/"));
 
 export const DeleteFileFromBucketDto = z.object({
-  fileName: z.string().min(1),
+  filename: z.string().min(1),
 });
 
 export type GetUploadUrlDtoType = z.infer<typeof GetUploadUrlDto>;

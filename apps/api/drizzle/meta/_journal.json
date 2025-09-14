@@ -29,6 +29,13 @@
       "when": 1757859715543,
       "tag": "0003_empty_mercury",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1757863103969,
+      "tag": "0004_perpetual_marauders",
+      "breakpoints": true
     }
   ]
 }

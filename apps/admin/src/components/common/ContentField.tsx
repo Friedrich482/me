@@ -23,6 +23,34 @@ const ContentField = <T extends FieldValues, TFieldName extends Path<T>>({
   const handleWriteButtonClick = () => setViewMode("write");
   const handlePreviewButtonClick = () => setViewMode("preview");
 
+  // TODO extract in a useHandleDragAndDrop hook
+  const [, setUploading] = useState(false);
+  const handleDrop = async (e: React.DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    const files = Array.from(e.dataTransfer?.files || []);
+    const images = files.filter((file) => file.type.startsWith("image/"));
+
+    if (images.length === 0) return;
+
+    setUploading(true);
+
+    // for (const image of images) {
+    //   try {
+    //     // Upload to R2
+    //     const url = await uploadToR2(image);
+
+    //     // Insert markdown at cursor position
+    //     const imageMarkdown = `![${image.name}](${url})`;
+    //     const newValue = value + '\n\n' + imageMarkdown;
+    //     onChange(newValue);
+    //   } catch (error) {
+    //     console.error('Upload failed:', error);
+    //   }
+    // }
+
+    setUploading(false);
+  };
+
   return (
     <FormField
       control={form.control}
@@ -55,11 +83,17 @@ const ContentField = <T extends FieldValues, TFieldName extends Path<T>>({
                 />
               </div>
               {viewMode === "write" ? (
-                <Textarea
-                  placeholder="Start writing..."
-                  className="field-sizing-fixed flex-1 rounded-t-none rounded-b-md border-0 text-lg placeholder:text-lg placeholder:opacity-65 focus-visible:border-none focus-visible:ring-0 md:text-lg"
-                  {...field}
-                />
+                <div
+                  onDrop={(e) => handleDrop(e)}
+                  onDragOver={(e) => e.preventDefault()}
+                  className="flex-1 rounded-t-none rounded-b-md border-0"
+                >
+                  <Textarea
+                    placeholder="Start writing..."
+                    className="field-sizing-fixed size-full flex-1 rounded-t-none rounded-b-md border-0 text-lg placeholder:text-lg placeholder:opacity-65 focus-visible:border-none focus-visible:ring-0 md:text-lg"
+                    {...field}
+                  />
+                </div>
               ) : (
                 <div className="bg-input/30 flex-1 rounded-t-none rounded-b-md border-0 p-4">
                   <MarkdownEditor markdown={field.value} />
