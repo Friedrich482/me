@@ -2,6 +2,7 @@
 import Layout from "@/layouts/main.astro";
 import { CircleSmall } from "lucide-react";
 import trpc from "@/trpc/client";
+import { format } from "date-fns";
 
 const posts = await trpc.posts.findAllPublished.query();
 ---
@@ -21,7 +22,14 @@ const posts = await trpc.posts.findAllPublished.query();
               <li class="hover:text-primary/75 w-full cursor-pointer text-start">
                 <a class="flex gap-2" href={`/blog/${post.slug}`}>
                   <CircleSmall className="shrink-0" />
-                  <span>{post.title}</span>
+                  <div class="space-x-4">
+                    <span>{post.title}</span>
+                    <span class="opacity-50">
+                      {post.publishDate
+                        ? format(post.publishDate, "MMM dd, yyyy")
+                        : ""}
+                    </span>
+                  </div>
                 </a>
               </li>
             ))}

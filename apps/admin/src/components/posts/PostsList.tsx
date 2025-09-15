@@ -1,4 +1,5 @@
 import { Link } from "react-router";
+import { format } from "date-fns";
 import { CircleSmall } from "lucide-react";
 
 import type { Status } from "@/types-schemas";
@@ -23,7 +24,16 @@ const PostsList = ({ status }: { status: Status }) => {
         >
           <Link to={`/posts/${post.slug}`} className="flex gap-2">
             <CircleSmall className="shrink-0" />
-            <span>{post.title}</span>
+            <div className="space-x-4">
+              <span>{post.title}</span>
+              <span className="opacity-50">
+                {post.publishDate
+                  ? format(post.publishDate, "MMM dd, yyyy")
+                  : post.status === "draft" && status !== "draft"
+                    ? "(draft)"
+                    : ""}
+              </span>
+            </div>
           </Link>
         </li>
       ))}
