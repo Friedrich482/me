@@ -16,19 +16,27 @@ export const CreateMediaDto = z.instanceof(FormData).transform((data) => {
   return parsedContent;
 });
 
-export const UpdateMediaDto = z.object({
-  filename: z.string().min(1),
+export const FindAllMediaDto = z.object({
+  postId: z.ulid().nullable(),
+});
+
+export const AttachMediaToPostDto = z.object({
+  fileUrl: z.url(),
   postId: z.ulid(),
 });
 
 export const DeleteMediaDto = z.object({
-  filename: z.string().min(1),
+  fileUrl: z.url(),
   postId: z.ulid(),
 });
 
 export type CreateMediaDtoType = z.infer<typeof CreateMediaDto>;
 
-export type UpdateMediaDtoType = z.infer<typeof UpdateMediaDto> & {
+export type FindAllMediaDtoType = z.infer<typeof FindAllMediaDto> & {
+  authorId: string;
+};
+
+export type AttachMediaToPostDtoType = z.infer<typeof AttachMediaToPostDto> & {
   authorId: string;
 };
 

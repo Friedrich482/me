@@ -2,7 +2,12 @@ import { TrpcService } from "src/trpc/trpc.service";
 
 import { Injectable } from "@nestjs/common";
 
-import { CreateMediaDto, DeleteMediaDto, UpdateMediaDto } from "./media.dto";
+import {
+  AttachMediaToPostDto,
+  CreateMediaDto,
+  DeleteMediaDto,
+  FindAllMediaDto,
+} from "./media.dto";
 import { MediaService } from "./media.service";
 
 @Injectable()
@@ -19,11 +24,21 @@ export class MediaRouter {
         .input(CreateMediaDto)
         .mutation(async ({ input }) => this.mediaService.create({ ...input })),
 
-      update: this.trpcService
+      findAll: this.trpcService
         .protectedProcedure()
-        .input(UpdateMediaDto)
+        .input(FindAllMediaDto)
+        .query(async ({ ctx, input }) =>
+          this.mediaService.findAll({ ...input, authorId: ctx.user.sub }),
+        ),
+
+      attachMediaToPost: this.trpcService
+        .protectedProcedure()
+        .input(AttachMediaToPostDto)
         .mutation(async ({ ctx, input }) =>
-          this.mediaService.update({ ...input, authorId: ctx.user.sub }),
+          this.mediaService.attachMediaToPost({
+            ...input,
+            authorId: ctx.user.sub,
+          }),
         ),
 
       delete: this.trpcService

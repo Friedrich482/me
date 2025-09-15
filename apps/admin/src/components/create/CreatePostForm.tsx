@@ -7,6 +7,7 @@ import ContentField from "@/components/common/ContentField";
 import { useDebounce } from "@/hooks/useDebounce";
 import { type CreatePost, CreatePostSchema } from "@/types-schemas";
 import getPostDraftFromLocalStorage from "@/utils/getPostDraftFromLocalStorage";
+import handlePostMedias from "@/utils/handlePostMedias";
 import setFormRootError from "@/utils/setFormRootError";
 import { useTRPC } from "@/utils/trpc";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -95,6 +96,8 @@ const CreatePostForm = () => {
             queryKey: trpc.posts.findAll.queryKey(),
             exact: true,
           });
+
+          await handlePostMedias(values.post.content, id);
 
           // add all tags to the post
           const tagPromises = values.tags.map((tag, index) =>
@@ -192,7 +195,7 @@ const CreatePostForm = () => {
           variant="default"
           type="submit"
           disabled={form.formState.isSubmitting}
-          className="shadow-primary/50 h-11 w-32 self-start rounded-lg shadow-lg"
+          className="shadow-primary/50 h-11 w-32 self-end rounded-lg shadow-lg"
         >
           Create
         </Button>

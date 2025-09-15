@@ -7,6 +7,7 @@ import ContentField from "@/components/common/ContentField";
 import usePageTitle from "@/hooks/usePageTitle";
 import useSafeParams from "@/hooks/useSafeParams";
 import { type EditPost, EditPostSchema, ParamsSchema } from "@/types-schemas";
+import handlePostMedias from "@/utils/handlePostMedias";
 import setFormRootError from "@/utils/setFormRootError";
 import { useTRPC } from "@/utils/trpc";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -66,7 +67,15 @@ const EditPostForm = () => {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
 
-  const editPostMutation = useMutation(trpc.posts.update.mutationOptions());
+  // we don't want to batch this mutation because we use it to update the post on edit and also on publish
+  // since both of those mutations can have opposed effects, (e.g  the post while editing can still be a draft)
+  // if the mutation is batched it leads to race conditions where a post that have already been published
+  // is marked as draft again
+  const editPostMutation = useMutation(
+    trpc.posts.update.mutationOptions({
+      trpc: { context: { skipBatching: true } },
+    }),
+  );
   const addTagToPostMutation = useMutation(
     trpc.tags.addTagToPost.mutationOptions(),
   );
@@ -100,6 +109,8 @@ const EditPostForm = () => {
             queryKey: trpc.posts.findAll.queryKey(),
             exact: true,
           });
+
+          await handlePostMedias(values.post.content, id);
 
           const newAddedTags = values.tags.filter(
             (tag) => !tagsForPost.find((entry) => entry.name === tag.name),
@@ -282,7 +293,9 @@ const EditPostForm = () => {
             variant="default"
             type="submit"
             onClick={form.handleSubmit(onSubmit)}
-            disabled={form.formState.isSubmitting}
+            disabled={
+              post.status === "published" || form.formState.isSubmitting
+            }
             className="shadow-primary/50 h-11 w-32 rounded-lg shadow-lg"
           >
             Publish

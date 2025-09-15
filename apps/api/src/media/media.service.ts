@@ -1,4 +1,4 @@
-import { and, eq } from "drizzle-orm";
+import { and, eq, isNull } from "drizzle-orm";
 import { NodePgDatabase } from "drizzle-orm/node-postgres";
 import { CloudflareService } from "src/cloudflare/cloudflare.service";
 import { DrizzleAsyncProvider } from "src/drizzle/drizzle.provider";
@@ -8,9 +8,10 @@ import { Inject, Injectable } from "@nestjs/common";
 import { TRPCError } from "@trpc/server";
 
 import {
+  AttachMediaToPostDtoType,
   CreateMediaDtoType,
   DeleteMediaDtoType,
-  UpdateMediaDtoType,
+  FindAllMediaDtoType,
 } from "./media.dto";
 
 @Injectable()
@@ -48,8 +49,19 @@ export class MediaService {
     return createdMedia;
   }
 
-  async update(updateMediaDto: UpdateMediaDtoType) {
-    const { filename, postId, authorId } = updateMediaDto;
+  async findAll(findAllMediaDto: FindAllMediaDtoType) {
+    const { postId } = findAllMediaDto;
+
+    const mediasFromDb = await this.db
+      .select({ filename: media.filename, url: media.url })
+      .from(media)
+      .where(postId !== null ? eq(media.postId, postId) : isNull(media.postId));
+
+    return mediasFromDb;
+  }
+
+  async attachMediaToPost(attachMediaToPostDto: AttachMediaToPostDtoType) {
+    const { fileUrl, postId, authorId } = attachMediaToPostDto;
 
     const [existingPost] = await this.db
       .select()
@@ -63,7 +75,7 @@ export class MediaService {
     const [updatedMedia] = await this.db
       .update(media)
       .set({ postId })
-      .where(eq(media.filename, filename))
+      .where(eq(media.url, fileUrl))
       .returning({ filename: media.filename, url: media.url });
 
     if (!updatedMedia) {
@@ -77,7 +89,7 @@ export class MediaService {
   }
 
   async delete(deleteMediaDto: DeleteMediaDtoType) {
-    const { filename, postId, authorId } = deleteMediaDto;
+    const { fileUrl, postId, authorId } = deleteMediaDto;
 
     const [existingPost] = await this.db
       .select()
@@ -88,11 +100,24 @@ export class MediaService {
       throw new TRPCError({ code: "NOT_FOUND", message: "Post not found" });
     }
 
-    await this.cloudflareService.deleteFileFromBucket({ filename });
+    const [existingMedia] = await this.db
+      .select({
+        filename: media.filename,
+      })
+      .from(media)
+      .where(eq(media.url, fileUrl));
+
+    if (!existingMedia) {
+      throw new TRPCError({ code: "NOT_FOUND", message: "Media not found" });
+    }
+
+    await this.cloudflareService.deleteFileFromBucket({
+      filename: existingMedia.filename,
+    });
 
     const [deletedMedia] = await this.db
       .delete(media)
-      .where(and(eq(media.postId, postId), eq(media.filename, filename)))
+      .where(eq(media.filename, existingMedia.filename))
       .returning({
         filename: media.filename,
       });

@@ -46,13 +46,13 @@ const App = () => {
           condition: (op) => isNonJsonSerializable(op.input),
           true: httpLink({
             url: import.meta.env.VITE_API_URL,
-            transformer: superjson,
             fetch(url, options) {
               return fetch(url, {
                 ...options,
                 credentials: "include",
               });
             },
+            transformer: superjson,
           }),
           false: httpBatchLink({
             url: import.meta.env.VITE_API_URL,
