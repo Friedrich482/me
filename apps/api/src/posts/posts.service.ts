@@ -156,7 +156,7 @@ export class PostsService {
   }
 
   async update(updatePostDto: UpdatePostDtoType) {
-    const { slug, authorId, ...maybeFields } = updatePostDto;
+    const { slug, id, authorId, ...maybeFields } = updatePostDto;
 
     const setFields = Object.fromEntries(
       Object.entries(maybeFields).filter(([, value]) => value !== undefined),
@@ -170,8 +170,8 @@ export class PostsService {
 
     const [updated] = await this.db
       .update(posts)
-      .set(setFields)
-      .where(and(eq(posts.authorId, authorId), eq(posts.slug, slug)))
+      .set({ ...setFields, slug })
+      .where(and(eq(posts.authorId, authorId), eq(posts.id, id)))
       .returning({
         id: posts.id,
         title: posts.title,

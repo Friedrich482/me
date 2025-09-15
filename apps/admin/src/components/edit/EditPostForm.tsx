@@ -90,6 +90,7 @@ const EditPostForm = () => {
   const onEdit = async (values: EditPost) => {
     editPostMutation.mutate(
       {
+        id: post.id,
         title: values.post.title,
         slug: generateSlug(values.post.title),
         content: values.post.content,
@@ -204,6 +205,7 @@ const EditPostForm = () => {
 
     editPostMutation.mutate(
       {
+        id: post.id,
         title: values.post.title,
         slug: generateSlug(values.post.title),
         content: values.post.content,

@@ -25,6 +25,7 @@ export const FindPostDto = z.object({
 export const FindPublishedPostDto = FindPostDto;
 
 export const UpdatePostDto = z.object({
+  id: z.ulid(),
   title: z.string().min(1).optional(),
   slug: slugSchema,
   content: z.string().min(1).optional(),
