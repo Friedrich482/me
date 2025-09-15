@@ -4,6 +4,7 @@ import trpc from "@/trpc/client";
 import { ArrowLeft } from "lucide-react";
 import { format } from "date-fns";
 import MarkdownEditor from "@repo/ui/components/MarkdownEditor";
+import TagsList from "@/components/TagsList";
 
 export async function getStaticPaths() {
   const posts = await trpc.posts.findAllPublished.query();
@@ -15,6 +16,7 @@ export async function getStaticPaths() {
 }
 
 const { post } = Astro.props;
+
 const postTags = await trpc.tags.findAllTagsForPublishedPost.query({
   postSlug: post.slug,
 });
@@ -54,17 +56,7 @@ const postTags = await trpc.tags.findAllTagsForPublishedPost.query({
             />
           </div>
 
-          <ul class="flex gap-3 items-center justify-start flex-wrap">
-            {
-              postTags.map((tag) => (
-                <li class="text-lg bg-input/40 rounded-md px-2 py-1">
-                  <a href={`/blog#${tag.slug}`} class="size-full">
-                    {tag.name}
-                  </a>
-                </li>
-              ))
-            }
-          </ul>
+          <TagsList postTags={postTags} client:load />
         </div>
       </article>
     </section>

@@ -73,7 +73,11 @@ const EditPostForm = () => {
   // is marked as draft again
   const editPostMutation = useMutation(
     trpc.posts.update.mutationOptions({
-      trpc: { context: { skipBatching: true } },
+      trpc: {
+        context: {
+          skipBatch: true,
+        },
+      },
     }),
   );
   const addTagToPostMutation = useMutation(

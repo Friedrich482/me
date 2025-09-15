@@ -1,4 +1,4 @@
-import { and, eq } from "drizzle-orm";
+import { and, desc, eq } from "drizzle-orm";
 import { NodePgDatabase } from "drizzle-orm/node-postgres";
 import { DrizzleAsyncProvider } from "src/drizzle/drizzle.provider";
 import { posts } from "src/drizzle/schema";
@@ -78,7 +78,8 @@ export class PostsService {
         status
           ? and(eq(posts.authorId, authorId), eq(posts.status, status))
           : eq(posts.authorId, authorId),
-      );
+      )
+      .orderBy(desc(posts.publishedAt));
 
     return postsFromDb;
   }
@@ -98,7 +99,8 @@ export class PostsService {
         publishDate: posts.publishedAt,
       })
       .from(posts)
-      .where(eq(posts.status, status));
+      .where(eq(posts.status, status))
+      .orderBy(desc(posts.publishedAt));
 
     return postsFromDb;
   }

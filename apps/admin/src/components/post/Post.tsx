@@ -40,12 +40,12 @@ const Post = () => {
           FallbackComponent={({ error, resetErrorBoundary }) => (
             <FallBackRender
               error={error}
-              className="w-1/2 self-center pt-8 max-xl:w-2/3"
+              className="w-1/2 self-center pt-8"
               resetErrorBoundary={resetErrorBoundary}
             />
           )}
         >
-          <SuspenseBoundary className="h-[22rem] w-full max-xl:w-2/3">
+          <SuspenseBoundary className="h-[22rem] w-full">
             <PostArticle />
           </SuspenseBoundary>
         </ErrorBoundary>
