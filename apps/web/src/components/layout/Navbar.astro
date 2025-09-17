@@ -1,13 +1,17 @@
 ---
 import { NAVBAR_LINKS } from "@/constants";
 import { cn } from "@repo/ui/lib/utils";
-const pathName = Astro.url.pathname;
+const pathname = Astro.url.pathname;
 
+console.log("Pathname is :", pathname, pathname === "/");
 const navItems = NAVBAR_LINKS.map((entry) => ({
   ...entry,
   className: cn(
     "hover:text-foreground",
-    pathName.includes(entry.link) && "text-primary hover:text-primary",
+    entry.link !== "/" &&
+      pathname.includes(entry.link) &&
+      "text-primary hover:text-primary",
+    entry.link === "/" && pathname === "/" && "text-primary hover:text-primary",
   ),
 }));
 ---

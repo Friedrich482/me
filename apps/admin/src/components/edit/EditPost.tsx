@@ -8,7 +8,7 @@ import EditPostForm from "./EditPostForm";
 
 const EditPost = () => (
   <main className="flex flex-1 items-start justify-center py-2">
-    <section className="flex w-1/2 flex-col items-center justify-center gap-12 pt-8 max-xl:w-2/3">
+    <section className="flex w-1/2 flex-col items-center justify-center gap-12 pt-8 max-xl:w-2/3 max-sm:w-[90%]">
       <div className="flex w-full flex-col gap-8">
         <Link
           to="/posts"
@@ -25,7 +25,7 @@ const EditPost = () => (
         FallbackComponent={({ error, resetErrorBoundary }) => (
           <FallBackRender
             error={error}
-            className="w-1/2 self-center pt-8 max-xl:w-2/3"
+            className="w-1/2 self-center pt-8 max-xl:w-2/3 max-sm:w-[90%]"
             resetErrorBoundary={resetErrorBoundary}
           />
         )}

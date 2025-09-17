@@ -15,7 +15,7 @@ const Post = () => {
 
   return (
     <main className="flex flex-1 flex-col items-center py-2">
-      <section className="flex w-1/2 flex-col items-center justify-center gap-8 pt-8 max-xl:w-2/3">
+      <section className="flex w-1/2 flex-col items-center justify-center gap-8 pt-8 max-xl:w-2/3 max-sm:w-[90%]">
         <div className="flex w-full items-center justify-between">
           <Link
             to="/posts"

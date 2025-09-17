@@ -1,11 +1,54 @@
 ---
-import { Button } from "@repo/ui/components/ui/button";
+import { CONTACT_LINKS } from "@/constants";
 import Layout from "@/layouts/main.astro";
 ---
 
-<Layout title="Friedrich WT | Blog">
-  <main class="flex h-screen flex-col items-center justify-center">
-    <p class="text-4xl">Content</p>
-    <Button className="">Shadcn</Button>
+<Layout title="Friedrich WT">
+  <main class="flex flex-1 items-start justify-center py-2">
+    <section
+      class="flex w-1/2 flex-col items-start justify-center gap-8 pt-8 max-xl:w-2/3 max-sm:w-[90%]"
+    >
+      <div class="flex flex-col items-start justify-center gap-2">
+        <h1 class="w-full text-start text-4xl font-extrabold">
+          Friedrich WEKENON TOKPONTO
+        </h1>
+
+        <p class="text-bold w-3/4 text-base opacity-80">
+          Engineering Student | Web and App Developer
+        </p>
+      </div>
+
+      <p class="text-lg">
+        Welcome traveler, I'm Friedrich WEKENON TOKPONTO, a developer working
+        mostly with TypeScript who likes building refined web applications to
+        solve real world issues. This is my corner of the internet. Join me as I
+        share the knowledge I gain in my coding journey and valuable lessons
+        learned along the way.
+      </p>
+      <hr class="border-primary w-1/5 self-center border-t-[0.005px]" />
+
+      <div class="flex flex-col items-start justify-center gap-3">
+        <h2 class="text-2xl">Links</h2>
+
+        <div class="flex flex-wrap items-center justify-start gap-3 pl-2">
+          {
+            CONTACT_LINKS.map((entry) => (
+              <a
+                href={entry.link}
+                target={
+                  ["/blog", "/portfolio"].includes(entry.link)
+                    ? "_self"
+                    : "_blank"
+                }
+                class="bg-primary text-primary-foreground flex items-center justify-center gap-2 rounded-md px-3 py-1.5"
+              >
+                <entry.Icon />
+                <span class="font-bold">{entry.title}</span>
+              </a>
+            ))
+          }
+        </div>
+      </div>
+    </section>
   </main>
 </Layout>

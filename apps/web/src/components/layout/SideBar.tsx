@@ -6,7 +6,7 @@ import useOutsideClick from "@/hooks/useOutsideClick";
 import { Button } from "@repo/ui/components/ui/button";
 import { cn } from "@repo/ui/lib/utils";
 
-const SideBar = ({ pathName }: { pathName: string }) => {
+const SideBar = ({ pathname }: { pathname: string }) => {
   const [isOpen, setIsOpen] = useState(false);
   const handleClick = () => setIsOpen((prev) => !prev);
   const handleCloseButtonClick = () => setIsOpen(false);
@@ -46,7 +46,12 @@ const SideBar = ({ pathName }: { pathName: string }) => {
             <li
               className={cn(
                 "hover:text-foreground border-primary w-full rounded-md border p-2 text-center",
-                pathName === entry.link && "text-primary hover:text-primary",
+                entry.link !== "/" &&
+                  pathname.includes(entry.link) &&
+                  "text-primary hover:text-primary",
+                entry.link === "/" &&
+                  pathname === "/" &&
+                  "text-primary hover:text-primary",
               )}
               key={entry.text}
             >

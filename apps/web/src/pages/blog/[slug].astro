@@ -28,21 +28,21 @@ const postTags = await trpc.tags.findAllTagsForPublishedPost.query({
     transition:animate="slide"
   >
     <section
-      class="flex w-1/2 flex-col items-center justify-center gap-8 pt-8 max-xl:w-2/3"
+      class="flex w-1/2 flex-col items-center justify-center gap-8 pt-8 max-xl:w-2/3 max-sm:w-[90%]"
     >
       <a
         href="/blog"
-        class="hover:text-primary flex items-center justify-center gap-1 text-base opacity-60 hover:underline self-start"
+        class="hover:text-primary flex items-center justify-center gap-1 self-start text-base opacity-60 hover:underline"
       >
         <ArrowLeft size={16} />
         <span>Back to posts</span>
       </a>
 
-      <article class="flex flex-col gap-7 w-full">
+      <article class="flex w-full flex-col gap-7">
         <div>
           <MarkdownEditor
             markdown={`# ${post.title}\n ${post.publishDate ? format(post.publishDate, "MMM dd, yyyy") : ""}`}
-            classNames={{ p: "text-neutral-500" }}
+            classNames={{ p: "text-neutral-500", h1: "max-sm:text-3xl" }}
             client:load
           />
         </div>
