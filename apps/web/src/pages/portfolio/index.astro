@@ -1,6 +1,6 @@
 ---
 import Layout from "@/layouts/main.astro";
-import { PROJECTS } from "@/constants";
+import { PROJECTS, SKILLS } from "@/constants";
 import ProjectCard from "@/components/Project";
 ---
 
@@ -9,13 +9,28 @@ import ProjectCard from "@/components/Project";
     <section
       class="flex w-1/2 flex-col items-start justify-center gap-8 pt-8 max-xl:w-2/3 max-sm:w-[90%]"
     >
-      <h1 class="w-full text-start text-4xl font-extrabold">Projects</h1>
+      <h2 class="w-full text-start text-4xl font-extrabold">Projects</h2>
       <div class="flex flex-col gap-5">
         {
           PROJECTS.map((project) => (
             <ProjectCard project={project} client:load />
           ))
         }
+      </div>
+
+      <h2 class="w-full text-start text-4xl font-extrabold">Skills</h2>
+
+      <div class="w-full">
+        <ul class="flex w-full flex-wrap items-center justify-start gap-3">
+          {
+            SKILLS.map(({ tech, logo: Logo }) => (
+              <li class="bg-secondary flex items-center justify-center gap-2 rounded-md border p-2">
+                <Logo class="size-[22px]" />
+                <span>{tech}</span>
+              </li>
+            ))
+          }
+        </ul>
       </div>
     </section>
   </main>

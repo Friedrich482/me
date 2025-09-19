@@ -1,5 +1,21 @@
 import { Briefcase, Linkedin, Mail, PenTool } from "lucide-react";
 
+import DockerLogo from "@/assets/tech/docker.svg";
+import DrizzleORMLogo from "@/assets/tech/drizzle.svg";
+import ExpressLogo from "@/assets/tech/express.svg";
+import FigmaLogo from "@/assets/tech/figma.svg";
+import MongoDBLogo from "@/assets/tech/mongodb.svg";
+import NestJSLogo from "@/assets/tech/nestjs.svg";
+import NextJSLogo from "@/assets/tech/nextjs.svg";
+import NodeJSLogo from "@/assets/tech/nodejs.svg";
+import PostgreSQLLogo from "@/assets/tech/postgresql.svg";
+import PrismaLogo from "@/assets/tech/prisma.svg";
+import ReactLogo from "@/assets/tech/react.svg";
+import ReactRouterLogo from "@/assets/tech/react-router.svg";
+import ShadcnLogo from "@/assets/tech/shadcn-ui.svg";
+import TailwindCSSLogo from "@/assets/tech/tailwind-css.svg";
+import TypeScriptLogo from "@/assets/tech/typescript.svg";
+import ViteLogo from "@/assets/tech/vite.svg";
 import {
   type IconType,
   SiDailydotdev,
@@ -134,4 +150,26 @@ export const PROJECTS: Project[] = [
       "https://github.com/Friedrich482/react-houses-cars-motorbikes-sell",
     previewLink: "https://react-houses-cars-motorbikes-sell.vercel.app",
   },
+];
+
+export const SKILLS: {
+  logo: ((_props: astroHTML.JSX.SVGAttributes) => any) & ImageMetadata;
+  tech: string;
+}[] = [
+  { tech: "TypeScript", logo: TypeScriptLogo },
+  { tech: "React", logo: ReactLogo },
+  { tech: "Next.js", logo: NextJSLogo },
+  { tech: "Vite", logo: ViteLogo },
+  { tech: "React Router", logo: ReactRouterLogo },
+  { tech: "Tailwind CSS", logo: TailwindCSSLogo },
+  { tech: "shadcn/ui", logo: ShadcnLogo },
+  { tech: "Node.js", logo: NodeJSLogo },
+  { tech: "Express.js", logo: ExpressLogo },
+  { tech: "Nest.js", logo: NestJSLogo },
+  { tech: "Prisma", logo: PrismaLogo },
+  { tech: "Drizzle ORM", logo: DrizzleORMLogo },
+  { tech: "Docker", logo: DockerLogo },
+  { tech: "PostgreSQL", logo: PostgreSQLLogo },
+  { tech: "MongoDB", logo: MongoDBLogo },
+  { tech: "Figma", logo: FigmaLogo },
 ];
