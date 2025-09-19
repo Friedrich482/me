@@ -1,9 +1,10 @@
-import { Briefcase, Linkedin, Mail, PenTool } from "lucide-react";
+import { Briefcase, Mail, PenTool } from "lucide-react";
 
 import DockerLogo from "@/assets/tech/docker.svg";
 import DrizzleORMLogo from "@/assets/tech/drizzle.svg";
 import ExpressLogo from "@/assets/tech/express.svg";
 import FigmaLogo from "@/assets/tech/figma.svg";
+import LinkedIn from "@/assets/tech/linkedin.svg";
 import MongoDBLogo from "@/assets/tech/mongodb.svg";
 import NestJSLogo from "@/assets/tech/nestjs.svg";
 import NextJSLogo from "@/assets/tech/nextjs.svg";
@@ -54,7 +55,9 @@ export const NAVBAR_LINKS: { text: string; link: string }[] = [
 ];
 
 export const CONTACT_LINKS: {
-  Icon: IconType;
+  Icon:
+    | IconType
+    | (((_props: astroHTML.JSX.SVGAttributes) => any) & ImageMetadata);
   link: string;
   title: string;
 }[] = [
@@ -79,7 +82,7 @@ export const CONTACT_LINKS: {
     title: "Mail",
   },
   {
-    Icon: Linkedin,
+    Icon: LinkedIn,
     link: "https://www.linkedin.com/in/friedrich-wekenon-tokponto-106789283/",
     title: "LinkedIn",
   },
