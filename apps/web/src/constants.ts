@@ -7,6 +7,8 @@ import {
   SiX,
 } from "@icons-pack/react-simple-icons";
 
+import type { Project } from "./types-schemas";
+
 export const HEADER_LINKS: {
   Icon: IconType;
   link: string;
@@ -74,5 +76,62 @@ export const CONTACT_LINKS: {
     Icon: SiDailydotdev,
     link: "https://app.daily.dev/friedrich",
     title: "Daily.dev",
+  },
+];
+
+export const PROJECTS: Project[] = [
+  {
+    title: "MoonCode",
+    description:
+      "A modern application that tracks and monitors your coding time with a detailed summary of languages used, files and projects you're working on. Powered by a vscode extension.",
+    technologies: [
+      "TypeScript",
+      "React",
+      "Next.js",
+      "Vite",
+      "React Router",
+      "Shadcn/ui",
+      "Turborepo",
+      "tRPC",
+      "Nest.js",
+      "Drizzle ORM",
+      "PostgreSQL",
+      "Docker",
+      "Dokploy",
+    ],
+    githubLink: "https://github.com/Friedrich482/mooncode",
+    previewLink: "https://api.mooncode.cc",
+  },
+  {
+    title: "MangaXR",
+    description:
+      "A modern platform to read manga for free and endlessly. Powered by a Web Scrapper of popular manga sites.",
+    technologies: [
+      "TypeScript",
+      "React",
+      "Next.js",
+      "Prisma",
+      "MongoDB",
+      "Docker",
+      "Puppeteer",
+      "Browserless",
+      "Vitest",
+    ],
+    githubLink: "https://github.com/Friedrich482/manga-xr",
+    previewLink: "https://mangaxr.glacifer.com/",
+  },
+  {
+    title: "Friedrich Sell's",
+    description: "A React application for houses, cars and motorbikes selling",
+    technologies: [
+      "TypeScript",
+      "React",
+      "Vite",
+      "React Router",
+      "Tailwind CSS",
+    ],
+    githubLink:
+      "https://github.com/Friedrich482/react-houses-cars-motorbikes-sell",
+    previewLink: "https://react-houses-cars-motorbikes-sell.vercel.app",
   },
 ];
