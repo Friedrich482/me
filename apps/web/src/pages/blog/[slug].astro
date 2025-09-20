@@ -42,7 +42,7 @@ const postTags = await trpc.tags.findAllTagsForPublishedPost.query({
         <div>
           <MarkdownEditor
             markdown={`# ${post.title}\n ${post.publishDate ? format(post.publishDate, "MMM dd, yyyy") : ""}`}
-            classNames={{ p: "text-neutral-500", h1: "max-sm:text-3xl" }}
+            classNames={{ p: "opacity-70", h1: "max-sm:text-3xl" }}
             client:load
           />
         </div>
@@ -51,7 +51,7 @@ const postTags = await trpc.tags.findAllTagsForPublishedPost.query({
           <div class="flex flex-col opacity-95">
             <MarkdownEditor
               markdown={`${post.content}`}
-              classNames={{ inlineCode: "bg-input/70" }}
+              classNames={{ inlineCode: "dark:bg-muted/70 bg-muted" }}
               client:load
             />
           </div>

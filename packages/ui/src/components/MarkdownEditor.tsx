@@ -102,7 +102,7 @@ const MarkdownEditor = ({
               />
               <Button
                 size="icon"
-                className="text-foreground hover:bg-input absolute top-3 right-3 bg-transparent"
+                className="dark:text-primary dark:hover:bg-muted absolute top-3 right-3 bg-transparent"
                 title="Copy to clipboard"
                 onClick={() =>
                   handleCopyToClipBoardButtonClick(

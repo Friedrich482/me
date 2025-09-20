@@ -26,22 +26,22 @@ const PostArticle = () => {
       <div className="flex w-full flex-col">
         <MarkdownEditor
           markdown={`# ${post.title}\n ${post.publishDate ? format(post.publishDate, "MMM dd, yyyy") : ""}`}
-          classNames={{ p: "opacity-40" }}
+          classNames={{ p: "opacity-70", h1: "max-sm:text-3xl" }}
         />
       </div>
 
       <div className="flex w-full flex-col gap-5">
-        <div className="flex flex-col opacity-85">
+        <div className="flex flex-col opacity-95">
           <MarkdownEditor
             markdown={post.content}
-            classNames={{ inlineCode: "bg-input/70" }}
+            classNames={{ inlineCode: "dark:bg-muted/70 bg-muted" }}
           />
         </div>
         <div className="flex flex-wrap items-center justify-start gap-3">
           {postTags.map((tag) => (
             <Link
               key={tag.slug}
-              className="bg-input/40 rounded-md px-2 py-1 text-lg"
+              className="dark:bg-muted/40 bg-muted/75 rounded-md px-2 py-1 text-lg"
               to={`/posts#${tag.slug}`}
             >
               {tag.name}

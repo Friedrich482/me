@@ -35,7 +35,7 @@ const ContentField = <T extends FieldValues, TFieldName extends Path<T>>({
       render={({ field }) => (
         <FormItem className="w-full">
           <FormControl>
-            <div className="dark:bg-input/30 flex min-h-[30rem] flex-col rounded-md bg-transparent">
+            <div className="bg-muted/30 flex min-h-[30rem] flex-col rounded-md">
               <div className="relative flex h-16 items-center justify-start gap-4 p-2">
                 <Button
                   variant="ghost"
@@ -72,7 +72,7 @@ const ContentField = <T extends FieldValues, TFieldName extends Path<T>>({
                   />
                 </div>
               ) : (
-                <div className="bg-input/30 flex-1 rounded-t-none border-0 p-4">
+                <div className="bg-muted/30 flex-1 rounded-t-none border-0 p-4">
                   <MarkdownEditor markdown={field.value} />
                 </div>
               )}
