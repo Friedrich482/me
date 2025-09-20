@@ -1,0 +1,6 @@
+packages/ui/node_modules
+**/.env*
+.env
+.dockerignore
+**/Dockerfile
+**/compose.yaml 
