@@ -1,0 +1,68 @@
+services:
+  api:
+    build:
+      context: .
+      dockerfile: apps/api/Dockerfile
+    ports:
+      - "127.0.0.1:3002:3000"
+    depends_on:
+      - database
+    env_file:
+      - apps/api/.env.production
+    container_name: me-api-container
+    networks:
+      - me-network
+
+  admin:
+    build:
+      context: .
+      dockerfile: apps/admin/Dockerfile 
+      args: 
+        - VITE_API_URL=http://localhost:3002/trpc
+    ports:
+      - "127.0.0.1:5174:80"
+    env_file:
+      - apps/admin/.env.production
+    depends_on:
+      - api
+    container_name: me-admin-container
+    networks:
+      - me-network
+
+  web:
+    build:
+      context: .
+      dockerfile: apps/web/Dockerfile
+      args:
+        - PUBLIC_API_URL=http://localhost:3002/trpc
+      network: host
+    env_file:
+      - apps/web/.env.production
+    depends_on:
+      - api
+    container_name: me-web-container
+    networks:
+      - me-network
+
+
+  database:
+    image: postgres:17-alpine
+    container_name: me-postgres-db
+    networks:
+      - me-network
+    ports:
+      - "127.0.0.1:5433:5432"
+    volumes:
+      - me-postgres-db:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=me
+
+volumes:
+  me-postgres-db:
+    driver: local
+
+networks:
+  me-network:
+    name: me-network

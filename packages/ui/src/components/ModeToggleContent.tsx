@@ -10,7 +10,7 @@ import {
 
 import { THEME_ITEMS } from "#constants.ts";
 import { cn } from "#lib/utils.ts";
-import { Theme } from "#types-schemas.ts";
+import { type Theme } from "#types-schemas.ts";
 
 const ModeToggleContent = ({
   theme,
