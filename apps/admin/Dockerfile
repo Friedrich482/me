@@ -42,7 +42,7 @@ WORKDIR /app
 RUN apk update && apk add nginx
 
 RUN echo 'server { \
-    listen 80; \
+    listen 5174; \
     server_name localhost; \
     root /usr/share/nginx/html; \
     index index.html; \
@@ -60,5 +60,5 @@ COPY --from=builder /app/apps/admin/package*.json ./
 COPY --from=deps /app/node_modules ./node_modules
 
 
-EXPOSE 80
+EXPOSE 5174
 CMD ["nginx","-g","daemon off;"]
