@@ -16,49 +16,10 @@ RUN npm install
 
 COPY . .
 
-
 RUN npm run build --workspace=admin
-RUN npm run build --workspace=@repo/common
-RUN npm run build --workspace=@repo/trpc
 
-FROM node:22-alpine AS deps
-
-WORKDIR /app
-
-COPY package*.json ./
-COPY turbo.json ./
-
-COPY apps/admin/package*.json ./apps/admin/
-COPY packages/common/package*.json ./packages/common/
-COPY packages/trpc/package*.json ./packages/trpc/
-COPY packages/ui/package*.json ./packages/ui/
-
-RUN npm ci --omit=dev
-
-FROM node:22-alpine AS production
-
-WORKDIR /app
-
-RUN apk update && apk add nginx
-
-RUN echo 'server { \
-    listen 5174; \
-    server_name localhost; \
-    root /usr/share/nginx/html; \
-    index index.html; \
-    location / { \
-        try_files $uri $uri/ /index.html; \
-    } \
-}' > /etc/nginx/http.d/default.conf
+FROM nginxinc/nginx-unprivileged:stable-alpine3.21-slim AS production
 
 COPY --from=builder /app/apps/admin/dist /usr/share/nginx/html/
 
-COPY --from=builder /app/packages ./packages
-
-COPY --from=builder /app/apps/admin/package*.json ./
-
-COPY --from=deps /app/node_modules ./node_modules
-
-
-EXPOSE 5174
-CMD ["nginx","-g","daemon off;"]
+EXPOSE 8080

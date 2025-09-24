@@ -20,7 +20,7 @@ services:
       args:
         - VITE_API_URL=${ADMIN_API_URL}
     ports:
-      - "127.0.0.1:5174:5174"
+      - "127.0.0.1:5174:8080"
     env_file:
       - apps/admin/.env.production
     depends_on:
@@ -37,7 +37,7 @@ services:
         - PUBLIC_API_URL=${WEB_API_URL}
       network: host
     ports:
-      - "127.0.0.1:4322:4322"
+      - "127.0.0.1:4322:8080"
     env_file:
       - apps/web/.env.production
     depends_on:
