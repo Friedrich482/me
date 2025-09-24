@@ -2,7 +2,7 @@ import { LocalStoragePostDraftSchema } from "@/types-schemas";
 
 const getPostDraftFromLocalStorage = () => {
   const parsedPost = LocalStoragePostDraftSchema.safeParse(
-    JSON.parse(localStorage.getItem("post-draft") || ""),
+    JSON.parse(localStorage.getItem("post-draft") || "{}"),
   );
 
   if (!parsedPost.success) {
