@@ -49,14 +49,34 @@ const { title } = Astro.props;
 </script>
 
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="generator" content={Astro.generator} />
-    <title>{title}</title>
-    <ClientRouter />
-  </head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <meta name="generator" content={Astro.generator} />
+  <meta name="description" content="Friedrich Wekenon Tokponto" />
+
+  <!--Open Graph tags-->
+  <meta property="og:title" content="Friedrich WT" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://friedrichwt.dev" />
+  <meta
+    property="og:description"
+    content="Friedrich Wekenon Tokponto's Portfolio"
+  />
+  <meta property="og:image" content="https://friedrichwt.dev/og.jpg" />
+  <meta
+    property="og:image:alt"
+    content="Friedrich Wekenon Tokponto's Portfolio"
+  />
+  <meta property="twitter:image" content="https://friedrichwt.dev/og.jpg" />
+  <meta
+    property="twitter:description"
+    content="Friedrich Wekenon Tokponto's Portfolio"
+  />
+  <meta property="twitter:card" content="summary_large_image" />
+  <title>{title}</title>
+
+  <ClientRouter />
   <body class="flex h-dvh w-svw flex-col overflow-x-hidden">
     <Header />
     <slot />

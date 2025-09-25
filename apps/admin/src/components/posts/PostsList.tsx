@@ -16,7 +16,7 @@ const PostsList = ({ status }: { status: Status }) => {
   return posts.length === 0 ? (
     <p className="text-xl">No posts yet.</p>
   ) : (
-    <ul className="text-foreground/75 dark:text-foreground/60 space-y-8 text-lg">
+    <ul className="text-foreground/75 dark:text-foreground/60 flex flex-col gap-y-8 self-start text-lg">
       {posts.map((post) => (
         <li
           key={post.id}
