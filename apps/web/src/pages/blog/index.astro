@@ -17,14 +17,14 @@ const posts = await trpc.posts.findAllPublished.query();
         posts.length === 0 ? (
           <p class="text-center text-xl">No posts yet</p>
         ) : (
-          <ul class="text-foreground/75 dark:text-foreground/60 flex flex-col gap-y-8 text-lg self-start">
+          <ul class="text-foreground/75 dark:text-foreground/60 flex flex-col gap-y-8 self-start text-lg">
             {posts.map((post) => (
               <li class="hover:text-primary/95 dark:hover:text-primary/75 w-full cursor-pointer text-start">
-                <a class="flex gap-2" href={`/blog/${post.slug}`}>
+                <a class="flex gap-2" href={`/blog/${post.slug}/`}>
                   <CircleSmall className="shrink-0" />
                   <div class="space-x-4">
                     <span>{post.title}</span>
-                    <span class="dark:opacity-50 opacity-70">
+                    <span class="opacity-70 dark:opacity-50">
                       {post.publishDate
                         ? format(post.publishDate, "MMM dd, yyyy")
                         : ""}
