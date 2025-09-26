@@ -5,7 +5,11 @@
     "outDir": "dist",
     "rootDir": "src",
     "composite": true,
-    "incremental": true
+    "incremental": true,
+    "esModuleInterop": true,
+    "paths": {
+      "@repo/typescript-config/*": ["../typescript-config/*"]
+    }
   },
   "include": ["src"],
   "exclude": ["node_modules", "dist"]

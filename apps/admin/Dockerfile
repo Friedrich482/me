@@ -8,6 +8,7 @@ COPY package*.json ./
 COPY turbo.json ./
 
 COPY apps/admin/package*.json ./apps/admin/
+COPY apps/api/package*.json ./apps/api/
 COPY packages/common/package*.json ./packages/common/
 COPY packages/trpc/package*.json ./packages/trpc/
 COPY packages/ui/package*.json ./packages/ui/
@@ -16,6 +17,8 @@ RUN npm install
 
 COPY . .
 
+RUN npm run build --workspace=@repo/common
+RUN npm run build --workspace=api
 RUN npm run build --workspace=admin
 
 FROM nginxinc/nginx-unprivileged:stable-alpine3.21-slim AS production

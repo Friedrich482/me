@@ -1,3 +1,8 @@
+dist
+**/dist
+tsconfig.tsbuildinfo
+**/tsconfig.tsbuildinfo
+.log
 packages/ui/node_modules
 **/.env*
 .env
