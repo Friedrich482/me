@@ -50,8 +50,8 @@ export const HEADER_LINKS: {
 
 export const NAVBAR_LINKS: { text: string; link: string }[] = [
   { text: "Home", link: "/" },
-  { text: "Blog", link: "/blog" },
-  { text: "Portfolio", link: "/portfolio" },
+  { text: "Blog", link: "/blog/" },
+  { text: "Portfolio", link: "/portfolio/" },
 ];
 
 export const CONTACT_LINKS: {
@@ -63,12 +63,12 @@ export const CONTACT_LINKS: {
 }[] = [
   {
     Icon: Briefcase,
-    link: "/portfolio",
+    link: "/portfolio/",
     title: "Portfolio",
   },
   {
     Icon: PenTool,
-    link: "/blog",
+    link: "/blog/",
     title: "Blog",
   },
   {
