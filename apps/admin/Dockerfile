@@ -21,22 +21,20 @@ RUN npm run build --workspace=@repo/common
 RUN npm run build --workspace=api
 RUN npm run build --workspace=admin
 
-FROM node:22-alpine AS production
-WORKDIR /app
-
-RUN apk update && apk add nginx
+FROM nginx:1.29-alpine AS production
 
 RUN echo 'server { \
-    listen 5174; \
-    server_name localhost; \
-    root /usr/share/nginx/html; \
-    index index.html; \
-    location / { \
-        try_files $uri $uri/ /index.html; \
-    } \
-}' > /etc/nginx/http.d/default.conf
+  listen 5174; \
+  server_name localhost; \
+  root /usr/share/nginx/html; \
+  index index.html; \
+  location / { \
+    try_files $uri /index.html =404; \
+  } \
+}' > /etc/nginx/conf.d/default.conf
 
 COPY --from=builder /app/apps/admin/dist /usr/share/nginx/html/
 
 EXPOSE 5174
-CMD ["nginx","-g","daemon off;"]
+
+ENTRYPOINT ["nginx", "-g", "daemon off;"]
