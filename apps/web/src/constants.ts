@@ -1,5 +1,8 @@
 import { Briefcase, Mail, PenTool } from "lucide-react";
 
+import FriedrichSellsPreviewDarkImage from "@/assets/projects/friedrich-sells-preview-dark.webp";
+import MangaXRPreviewDarkImage from "@/assets/projects/mangaxr-preview-dark.webp";
+import MoonCodePreviewDarkImage from "@/assets/projects/mooncode-preview-dark.webp";
 import DockerLogo from "@/assets/tech/docker.svg";
 import DrizzleORMLogo from "@/assets/tech/drizzle.svg";
 import ExpressLogo from "@/assets/tech/express.svg";
@@ -101,6 +104,7 @@ export const CONTACT_LINKS: {
 export const PROJECTS: Project[] = [
   {
     title: "MoonCode",
+    image: { src: MoonCodePreviewDarkImage.src, alt: "MoonCode preview image" },
     description:
       "A modern application that tracks and monitors your coding time with a detailed summary of languages used, files and projects you're working on. Powered by a vscode extension.",
     technologies: [
@@ -123,6 +127,7 @@ export const PROJECTS: Project[] = [
   },
   {
     title: "MangaXR",
+    image: { src: MangaXRPreviewDarkImage.src, alt: "MangaXR preview image" },
     description:
       "A modern platform to read manga for free and endlessly. Powered by a Web Scrapper of popular manga sites.",
     technologies: [
@@ -141,6 +146,10 @@ export const PROJECTS: Project[] = [
   },
   {
     title: "Friedrich Sell's",
+    image: {
+      src: FriedrichSellsPreviewDarkImage.src,
+      alt: "Friedrich Sells preview image",
+    },
     description: "A React application for houses, cars and motorbikes selling",
     technologies: [
       "TypeScript",

@@ -26,7 +26,7 @@ const handleCardLeave = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
 const ProjectCard = ({ project }: { project: Project }) => (
   <div className="duration-300 perspective-[800px] transform-3d">
     <div
-      className="border-border hover:shadow-primary flex w-full scale-3d flex-col gap-3 rounded-md border-1 p-3 shadow-2xl duration-300 will-change-transform transform-3d dark:hover:shadow-inner"
+      className="border-border hover:shadow-primary group flex w-full scale-3d flex-col gap-3 rounded-md border-1 p-3 shadow-2xl duration-300 will-change-transform transform-3d dark:hover:shadow-inner"
       onMouseMove={handleCardHover}
       onMouseLeave={handleCardLeave}
     >
@@ -51,6 +51,11 @@ const ProjectCard = ({ project }: { project: Project }) => (
           </a>
         </div>
       </div>
+      <img
+        src={project.image.src}
+        alt={project.image.alt}
+        className="group-hover:border-primary/90 rounded-md border"
+      />
       <p className="opacity-75">{project.description}</p>
       <ul className="flex flex-wrap gap-1.5">
         {project.technologies.map((techno) => (

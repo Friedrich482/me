@@ -28,7 +28,7 @@ const SideBar = ({ pathname }: { pathname: string }) => {
       {/* Sidebar */}
       <div
         className={cn(
-          "border-primary bg-background fixed top-0 z-50 hidden h-[105%] w-64 translate-x-40 flex-col gap-20 rounded-sm border p-8 transition duration-200 ease-in max-[28.25rem]:flex",
+          "border-primary bg-background fixed top-0 z-[100] hidden h-[105%] w-64 translate-x-40 flex-col gap-20 rounded-sm border p-8 transition duration-200 ease-in max-[28.25rem]:flex",
           isOpen && "-translate-x-44",
         )}
         ref={ref}
@@ -45,17 +45,17 @@ const SideBar = ({ pathname }: { pathname: string }) => {
           {NAVBAR_LINKS.map((entry) => (
             <li
               className={cn(
-                "hover:text-foreground border-primary w-full rounded-md border p-2 text-center",
+                "hover:text-foreground flex w-full cursor-pointer items-center justify-center rounded-md border p-2",
                 entry.link !== "/" &&
                   pathname.includes(entry.link) &&
-                  "text-primary hover:text-primary",
+                  "text-primary hover:text-primary border-primary",
                 entry.link === "/" &&
                   pathname === "/" &&
-                  "text-primary hover:text-primary",
+                  "text-primary hover:text-primary border-primary",
               )}
               key={entry.text}
             >
-              <a href={entry.link} className="h-full">
+              <a href={entry.link} className="size-full text-center">
                 {entry.text}
               </a>
             </li>
@@ -65,19 +65,21 @@ const SideBar = ({ pathname }: { pathname: string }) => {
         {/* Socials */}
         <div className="flex flex-col gap-4 pt-8">
           <h2 className="text-2xl">Socials</h2>
-          <div className="flex flex-col gap-2">
+          <div className="flex flex-col items-start gap-2">
             {HEADER_LINKS.map(({ Icon, link, title }) => (
               <a
                 href={link}
                 target="_blank"
-                className="hover:border-primary group border-border flex w-auto gap-3 rounded-md border p-1.5"
+                className="hover:border-primary group border-border flex gap-3 rounded-md border p-1.5"
                 key={link}
               >
                 <Icon
                   size={20}
                   className="hover:text-primary group-hover:text-primary"
                 />
-                <span>{title}</span>
+                <span className="hover:text-primary group-hover:text-primary">
+                  {title}
+                </span>
               </a>
             ))}
           </div>
