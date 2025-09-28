@@ -70,6 +70,7 @@ const SideBar = ({ pathname }: { pathname: string }) => {
               <a
                 href={link}
                 target="_blank"
+                rel="noopener noreferrer"
                 className="hover:border-primary group border-border flex gap-3 rounded-md border p-1.5"
                 key={link}
               >

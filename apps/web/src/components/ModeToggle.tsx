@@ -1,31 +1,48 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
+import { appTheme } from "@/store/themeStore";
+import { useStore } from "@nanostores/react";
 import ModeToggleContent from "@repo/ui/components/ModeToggleContent";
-import type { Theme } from "@repo/ui/types-schemas";
+import type { ResolvedTheme, Theme } from "@repo/ui/types-schemas";
 
 export function ModeToggle() {
-  const [theme, setTheme] = useState<Theme>("light");
+  const $themeData = useStore(appTheme);
 
   const handleThemeOptionClick = (theme: Theme) => {
-    setTheme(theme);
+    appTheme.set({ ...$themeData, theme });
   };
 
   useEffect(() => {
     const isDarkMode = document.documentElement.classList.contains("dark");
-    setTheme(isDarkMode ? "dark" : "light");
+    appTheme.set(
+      isDarkMode
+        ? { ...$themeData, theme: "dark" }
+        : { ...$themeData, theme: "light" },
+    );
   }, []);
 
   useEffect(() => {
-    const isDark =
-      theme === "dark" ||
-      (theme === "system" &&
-        window.matchMedia("(prefers-color-scheme: dark)").matches);
-    document.documentElement.classList[isDark ? "add" : "remove"]("dark");
-  }, [theme]);
+    const root = window.document.documentElement;
+
+    root.classList.remove("light", "dark");
+
+    let newTheme: ResolvedTheme;
+
+    if ($themeData.theme === "system") {
+      newTheme = window.matchMedia("(prefers-color-scheme: dark)").matches
+        ? "dark"
+        : "light";
+    } else {
+      newTheme = $themeData.theme;
+    }
+
+    root.classList.add(newTheme);
+    appTheme.set({ ...$themeData, resolvedTheme: newTheme });
+  }, [$themeData.theme]);
 
   return (
     <ModeToggleContent
-      theme={theme}
+      theme={$themeData.theme}
       handleThemeOptionClick={handleThemeOptionClick}
     />
   );

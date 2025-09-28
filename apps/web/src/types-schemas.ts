@@ -1,7 +1,8 @@
 export type Project = {
   title: string;
   image: {
-    src: string;
+    srcLight: string;
+    srcDark: string;
     alt: string;
   };
   description: string;

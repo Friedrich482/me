@@ -1,8 +1,11 @@
 import { Briefcase, Mail, PenTool } from "lucide-react";
 
-import FriedrichSellsPreviewDarkImage from "@/assets/projects/friedrich-sells-preview-dark.webp";
-import MangaXRPreviewDarkImage from "@/assets/projects/mangaxr-preview-dark.webp";
-import MoonCodePreviewDarkImage from "@/assets/projects/mooncode-preview-dark.webp";
+import FriedrichSellsPreviewDarkImage from "@/assets/projects/dark/friedrich-sells-preview-dark.webp";
+import MangaXRPreviewDarkImage from "@/assets/projects/dark/mangaxr-preview-dark.webp";
+import MoonCodePreviewDarkImage from "@/assets/projects/dark/mooncode-preview-dark.webp";
+import FriedrichSellsPreviewLightImage from "@/assets/projects/light/friedrich-sells-preview-light.webp";
+import MangaXRPreviewLightImage from "@/assets/projects/light/mangaxr-preview-light.webp";
+import MoonCodePreviewLightImage from "@/assets/projects/light/mooncode-preview-light.webp";
 import DockerLogo from "@/assets/tech/docker.svg";
 import DrizzleORMLogo from "@/assets/tech/drizzle.svg";
 import ExpressLogo from "@/assets/tech/express.svg";
@@ -104,7 +107,11 @@ export const CONTACT_LINKS: {
 export const PROJECTS: Project[] = [
   {
     title: "MoonCode",
-    image: { src: MoonCodePreviewDarkImage.src, alt: "MoonCode preview image" },
+    image: {
+      srcDark: MoonCodePreviewDarkImage.src,
+      srcLight: MoonCodePreviewLightImage.src,
+      alt: "MoonCode preview image",
+    },
     description:
       "A modern application that tracks and monitors your coding time with a detailed summary of languages used, files and projects you're working on. Powered by a vscode extension.",
     technologies: [
@@ -127,7 +134,11 @@ export const PROJECTS: Project[] = [
   },
   {
     title: "MangaXR",
-    image: { src: MangaXRPreviewDarkImage.src, alt: "MangaXR preview image" },
+    image: {
+      srcDark: MangaXRPreviewDarkImage.src,
+      srcLight: MangaXRPreviewLightImage.src,
+      alt: "MangaXR preview image",
+    },
     description:
       "A modern platform to read manga for free and endlessly. Powered by a Web Scrapper of popular manga sites.",
     technologies: [
@@ -147,7 +158,8 @@ export const PROJECTS: Project[] = [
   {
     title: "Friedrich Sell's",
     image: {
-      src: FriedrichSellsPreviewDarkImage.src,
+      srcDark: FriedrichSellsPreviewDarkImage.src,
+      srcLight: FriedrichSellsPreviewLightImage.src,
       alt: "Friedrich Sells preview image",
     },
     description: "A React application for houses, cars and motorbikes selling",

@@ -69,7 +69,7 @@ const App = () => {
     }),
   );
   return (
-    <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
+    <ThemeProvider defaultTheme="dark" storageKey="theme">
       <QueryClientProvider client={queryClient}>
         <ReactQueryDevtools initialIsOpen={false} position="bottom" />
         <TRPCProvider trpcClient={trpcClient} queryClient={queryClient}>
