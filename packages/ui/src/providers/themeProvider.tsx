@@ -1,6 +1,6 @@
 import { createContext, useContext, useEffect, useState } from "react";
 
-import { ResolvedTheme, Theme } from "#types-schemas.ts";
+import { type ResolvedTheme, type Theme } from "#types-schemas.ts";
 
 type ThemeProviderProps = {
   children: React.ReactNode;
