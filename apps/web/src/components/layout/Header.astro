@@ -12,6 +12,8 @@ const pathname = Astro.url.pathname;
     <Logo class="hover:text-primary size-12" />
   </a>
   <Navbar />
-  <SideBar client:load pathname={pathname} />
-  <HeaderIcons />
+  <div class="flex items-center gap-3">
+    <HeaderIcons />
+    <SideBar client:load pathname={pathname} />
+  </div>
 </header>

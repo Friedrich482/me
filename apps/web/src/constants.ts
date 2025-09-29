@@ -110,7 +110,7 @@ export const PROJECTS: Project[] = [
     image: {
       srcDark: MoonCodePreviewDarkImage.src,
       srcLight: MoonCodePreviewLightImage.src,
-      alt: "MoonCode preview image",
+      alt: "MoonCode preview",
     },
     description:
       "A modern application that tracks and monitors your coding time with a detailed summary of languages used, files and projects you're working on. Powered by a vscode extension.",
@@ -137,7 +137,7 @@ export const PROJECTS: Project[] = [
     image: {
       srcDark: MangaXRPreviewDarkImage.src,
       srcLight: MangaXRPreviewLightImage.src,
-      alt: "MangaXR preview image",
+      alt: "MangaXR preview",
     },
     description:
       "A modern platform to read manga for free and endlessly. Powered by a Web Scrapper of popular manga sites.",
@@ -160,7 +160,7 @@ export const PROJECTS: Project[] = [
     image: {
       srcDark: FriedrichSellsPreviewDarkImage.src,
       srcLight: FriedrichSellsPreviewLightImage.src,
-      alt: "Friedrich Sells preview image",
+      alt: "Friedrich Sell's preview",
     },
     description: "A React application for houses, cars and motorbikes selling",
     technologies: [

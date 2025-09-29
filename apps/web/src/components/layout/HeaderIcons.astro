@@ -1,15 +1,17 @@
 ---
-import { ModeToggle } from "../ModeToggle";
+import ModeToggle from "../ModeToggle";
 import { HEADER_LINKS } from "@/constants";
 ---
 
-<div class="flex items-center justify-center gap-4 max-[28.25rem]:hidden">
-  {
-    HEADER_LINKS.map(({ Icon, link }) => (
-      <a href={link} target="_blank" rel="noopener noreferrer">
-        <Icon size={20} className="hover:text-primary" />
-      </a>
-    ))
-  }
+<div class="flex items-center justify-center gap-4">
+  <div class="flex items-center justify-center gap-4 max-[28.25rem]:hidden">
+    {
+      HEADER_LINKS.map(({ Icon, link }) => (
+        <a href={link} target="_blank" rel="noopener noreferrer">
+          <Icon size={20} className="hover:text-primary" />
+        </a>
+      ))
+    }
+  </div>
   <ModeToggle client:load />
 </div>

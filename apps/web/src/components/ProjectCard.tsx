@@ -63,7 +63,9 @@ const ProjectCard = ({ project }: { project: Project }) => {
               : project.image.srcLight
           }
           alt={project.image.alt}
-          className="group-hover:border-primary/90 rounded-md border"
+          className="group-hover:border-primary/90 w-full rounded-md border"
+          loading="lazy"
+          decoding="async"
         />
         <p className="opacity-75">{project.description}</p>
         <ul className="flex flex-wrap gap-1.5">

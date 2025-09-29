@@ -5,7 +5,7 @@ import { useStore } from "@nanostores/react";
 import ModeToggleContent from "@repo/ui/components/ModeToggleContent";
 import type { ResolvedTheme, Theme } from "@repo/ui/types-schemas";
 
-export function ModeToggle() {
+const ModeToggle = () => {
   const $themeData = useStore(appTheme);
 
   const handleThemeOptionClick = (theme: Theme) => {
@@ -41,9 +41,13 @@ export function ModeToggle() {
   }, [$themeData.theme]);
 
   return (
-    <ModeToggleContent
-      theme={$themeData.theme}
-      handleThemeOptionClick={handleThemeOptionClick}
-    />
+    <div className="flex">
+      <ModeToggleContent
+        theme={$themeData.theme}
+        handleThemeOptionClick={handleThemeOptionClick}
+      />
+    </div>
   );
-}
+};
+
+export default ModeToggle;
