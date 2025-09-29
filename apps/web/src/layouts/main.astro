@@ -51,13 +51,15 @@ const { title } = Astro.props;
 <html lang="en">
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width" />
-  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   <meta name="generator" content={Astro.generator} />
   <meta name="description" content="Friedrich Wekenon Tokponto" />
   <meta
     http-equiv="Content-Security-Policy"
     content="upgrade-insecure-requests"
   />
+  <link rel="icon" href="/favicon.ico" />
+  <link rel="canonical" href={new URL(Astro.url.pathname, Astro.site).href} />
+  <link rel="sitemap" href="/sitemap-index.xml" />
 
   <!--Open Graph tags-->
   <meta property="og:title" content="Friedrich WT" />
@@ -74,12 +76,19 @@ const { title } = Astro.props;
     property="og:image:alt"
     content="Friedrich Wekenon Tokponto's Portfolio"
   />
-  <meta property="twitter:image" content="https://friedrichwt.dev/og.png" />
+  <meta name="twitter:title" content="Friedrich WT" />
+  <meta name="twitter:image" content="https://friedrichwt.dev/og.png" />
   <meta
-    property="twitter:description"
+    name="twitter:image:alt"
     content="Friedrich Wekenon Tokponto's Portfolio"
   />
-  <meta property="twitter:card" content="summary_large_image" />
+  <meta name="twitter:creator" content="@FriedrichC109" />
+
+  <meta
+    name="twitter:description"
+    content="Friedrich Wekenon Tokponto's Portfolio"
+  />
+  <meta name="twitter:card" content="summary_large_image" />
 
   <title>{title}</title>
 

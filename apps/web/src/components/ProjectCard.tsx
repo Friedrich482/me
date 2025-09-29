@@ -62,6 +62,8 @@ const ProjectCard = ({ project }: { project: Project }) => {
               ? project.image.srcDark
               : project.image.srcLight
           }
+          width="1000"
+          height="1000"
           alt={project.image.alt}
           className="group-hover:border-primary/90 w-full rounded-md border"
           loading="lazy"
