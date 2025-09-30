@@ -26,14 +26,14 @@ const AuthDropDown = () => {
   const { data, error, isLoading } = useQuery(trpc.auth.getUser.queryOptions());
 
   if (isLoading) {
-    return <Skeleton className="size-10 self-center rounded-full" />;
+    return <Skeleton className="size-9 self-center rounded-full" />;
   }
 
   if (!data || error) {
     return (
-      <Link to="/login">
-        <Button size={"icon"}>
-          <User />
+      <Link to="/login" className="size-9">
+        <Button size="icon" variant="ghost">
+          <User className="size-3/4" />
         </Button>
       </Link>
     );

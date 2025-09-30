@@ -14,9 +14,9 @@ const GravatarAvatar = React.forwardRef<
   const gravatarUrl = `https://www.gravatar.com/avatar/${hash}?d=${defaultType}`;
 
   return (
-    <div className="hover:bg-muted shrink-0 self-center rounded-full p-1">
+    <div className="hover:bg-muted shrink-0 self-center rounded-full p-0">
       <img
-        className="hover:bg-muted size-8 cursor-pointer rounded-full"
+        className="hover:bg-muted size-9 cursor-pointer rounded-full"
         src={gravatarUrl}
         alt="User Avatar"
         ref={ref}
