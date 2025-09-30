@@ -2,7 +2,7 @@
 import Layout from "@/layouts/main.astro";
 import { PROJECTS, SKILLS } from "@/constants";
 import ProjectCard from "@/components/ProjectCard";
-import { ThemeProvider } from "@repo/ui/providers/themeProvider";
+import TextFade from "@/components/motion/TextFade";
 ---
 
 <Layout title="Portfolio | Friedrich WT">
@@ -11,27 +11,31 @@ import { ThemeProvider } from "@repo/ui/providers/themeProvider";
       class="flex w-1/2 flex-col items-start justify-center gap-8 pt-8 max-xl:w-2/3 max-sm:w-[90%]"
     >
       <h2 class="w-full text-start text-4xl font-extrabold">Projects</h2>
-      <div class="flex flex-col gap-8">
-        {
-          PROJECTS.map((project) => (
-            <ProjectCard project={project} client:load />
-          ))
-        }
-      </div>
+      <TextFade client:load direction="up" staggerChildren={0.15}>
+        <div class="flex flex-col gap-8">
+          {
+            PROJECTS.map((project) => (
+              <ProjectCard project={project} client:load />
+            ))
+          }
+        </div>
+      </TextFade>
 
       <h2 class="w-full text-start text-4xl font-extrabold">Skills</h2>
 
       <div class="w-full">
-        <ul class="flex w-full flex-wrap items-center justify-start gap-3">
-          {
-            SKILLS.map(({ tech, logo: Logo }) => (
-              <li class="flex items-center justify-center gap-2 rounded-md border p-2">
-                <Logo class="size-[22px]" />
-                <span>{tech}</span>
-              </li>
-            ))
-          }
-        </ul>
+        <TextFade client:load direction="up" staggerChildren={0.15}>
+          <ul class="flex w-full flex-wrap items-center justify-start gap-3">
+            {
+              SKILLS.map(({ tech, logo: Logo }) => (
+                <li class="flex items-center justify-center gap-2 rounded-md border p-2">
+                  <Logo class="size-[22px]" />
+                  <span>{tech}</span>
+                </li>
+              ))
+            }
+          </ul>
+        </TextFade>
       </div>
     </section>
   </main>

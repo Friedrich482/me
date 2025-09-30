@@ -5,7 +5,7 @@ import commonLintConfig from "@repo/eslint-config/lint";
 export default [
   ...commonLintConfig,
   {
-    ignores: ["**/eslint.config.mjs", "**/*.astro"],
+    ignores: ["**/eslint.config.ts", "**/*.astro", "./dist/**"],
   },
 
   // Astro files configuration
