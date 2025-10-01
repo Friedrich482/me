@@ -6,6 +6,7 @@ import MoonCodePreviewDarkImage from "@/assets/projects/dark/mooncode-preview-da
 import FriedrichSellsPreviewLightImage from "@/assets/projects/light/friedrich-sells-preview-light.webp";
 import MangaXRPreviewLightImage from "@/assets/projects/light/mangaxr-preview-light.webp";
 import MoonCodePreviewLightImage from "@/assets/projects/light/mooncode-preview-light.webp";
+import AstroLogo from "@/assets/tech/astro.svg";
 import DockerLogo from "@/assets/tech/docker.svg";
 import DrizzleORMLogo from "@/assets/tech/drizzle.svg";
 import ExpressLogo from "@/assets/tech/express.svg";
@@ -193,6 +194,7 @@ export const SKILLS: {
   { tech: "Next.js", logo: NextJSLogo },
   { tech: "Vite", logo: ViteLogo },
   { tech: "React Router", logo: ReactRouterLogo },
+  { tech: "Astro", logo: AstroLogo },
   { tech: "Tailwind CSS", logo: TailwindCSSLogo },
   { tech: "shadcn/ui", logo: ShadcnLogo },
   { tech: "Node.js", logo: NodeJSLogo },

@@ -1,5 +1,6 @@
 import { createContext, useContext, useEffect, useState } from "react";
 
+import { getInitialTheme } from "#lib/utils.ts";
 import { type ResolvedTheme, type Theme } from "#types-schemas.ts";
 
 type ThemeProviderProps = {
@@ -11,7 +12,7 @@ type ThemeProviderProps = {
 type ThemeProviderState = {
   theme: Theme;
   setTheme: (theme: Theme) => void;
-  resolvedTheme: "dark" | "light";
+  resolvedTheme: ResolvedTheme;
 };
 
 const initialState: ThemeProviderState = {
@@ -28,13 +29,9 @@ export function ThemeProvider({
   storageKey = "theme",
   ...props
 }: ThemeProviderProps) {
-  const [theme, setTheme] = useState<Theme>(() => {
-    if (typeof localStorage !== "undefined") {
-      return (localStorage.getItem(storageKey) as Theme) || defaultTheme;
-    }
-
-    return defaultTheme;
-  });
+  const [theme, setTheme] = useState<Theme>(
+    getInitialTheme(defaultTheme, storageKey),
+  );
 
   const [resolvedTheme, setResolvedTheme] = useState<ResolvedTheme>("light");
 
