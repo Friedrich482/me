@@ -8,7 +8,7 @@ import TextFade from "@/components/motion/TextFade";
 const posts = await trpc.posts.findAllPublished.query();
 ---
 
-<Layout title="Blog | Friedrich WT">
+<Layout title="Blog | Friedrich WT" isBackgroundDots={false}>
   <main class="flex flex-1 items-start justify-center py-2">
     <section
       class="flex w-1/2 flex-col items-center justify-center gap-12 pt-8 max-xl:w-2/3 max-sm:w-[90%]"

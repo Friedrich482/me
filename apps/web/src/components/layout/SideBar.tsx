@@ -14,7 +14,7 @@ const SideBar = ({ pathname }: { pathname: string }) => {
   const ref = useOutsideClick(setIsOpen);
 
   return (
-    <div className="relative hidden max-[28.25rem]:flex">
+    <div className="relative hidden max-[32rem]:flex">
       {/* Side bar trigger */}
       <Button
         size="icon"
