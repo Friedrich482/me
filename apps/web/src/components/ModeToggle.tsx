@@ -13,6 +13,15 @@ const ModeToggle = () => {
   };
 
   useEffect(() => {
+    const isDarkMode = document.documentElement.classList.contains("dark");
+    appTheme.set(
+      isDarkMode
+        ? { ...$themeData, theme: "dark" }
+        : { ...$themeData, theme: "light" },
+    );
+  }, []);
+
+  useEffect(() => {
     const root = window.document.documentElement;
 
     root.classList.remove("light", "dark");
