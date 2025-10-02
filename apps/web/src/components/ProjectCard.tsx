@@ -1,9 +1,11 @@
+import { useEffect, useState } from "react";
 import { ExternalLink } from "lucide-react";
 
 import { appTheme } from "@/store/themeStore";
 import type { Project } from "@/types-schemas";
 import { SiGithub } from "@icons-pack/react-simple-icons";
 import { useStore } from "@nanostores/react";
+import { Skeleton } from "@repo/ui/components/ui/skeleton";
 
 const handleCardHover = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
   const card = e.currentTarget;
@@ -26,7 +28,18 @@ const handleCardLeave = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
 };
 
 const ProjectCard = ({ project }: { project: Project }) => {
+  const [isMounted, setIsMounted] = useState(false);
+
+  // prevents hydration errors and forces the component to be only rendered on the client
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
   const { resolvedTheme } = useStore(appTheme);
+
+  if (!isMounted) {
+    return <Skeleton className="h-[28rem] w-full" />;
+  }
 
   return (
     <div className="duration-300 perspective-[800px] transform-3d">
