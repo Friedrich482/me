@@ -48,9 +48,21 @@ export class AuthService {
 
   async register(registerDto: RegisterUserDtoType) {
     const { email, password } = registerDto;
+
+    const existingAdminUser = await this.usersService.findAdminUser();
+
+    if (existingAdminUser) {
+      throw new TRPCError({
+        code: "UNAUTHORIZED",
+        message: "You are not allowed to perform that operation",
+      });
+    }
+
+    // only one user is allowed to exist (me) and it is an admin
     const createdUser = await this.usersService.create({
       email,
       password,
+      role: "admin",
     });
 
     const payload: Pick<JWTDtoType, "sub"> = { sub: createdUser.id };

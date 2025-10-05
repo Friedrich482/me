@@ -91,6 +91,19 @@ export class UsersService {
     return user;
   }
 
+  async findAdminUser() {
+    const [adminUser] = await this.db
+      .select({
+        id: users.id,
+        email: users.email,
+      })
+      .from(users)
+      .where(eq(users.role, "admin"))
+      .limit(1);
+
+    return adminUser;
+  }
+
   async update(updateUserDto: UpdateUserDtoType) {
     const { id, ...maybeUpdatedFields } = updateUserDto;
 
