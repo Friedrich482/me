@@ -1,7 +1,11 @@
 {
   "singleQuote": false,
   "trailingComma": "all",
-  "plugins": ["prettier-plugin-tailwindcss", "prettier-plugin-astro"],
+  "plugins": [
+    "prettier-plugin-sh",
+    "prettier-plugin-tailwindcss",
+    "prettier-plugin-astro"
+  ],
   "overrides": [
     {
       "files": "*.astro",
