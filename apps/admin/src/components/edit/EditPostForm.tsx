@@ -7,6 +7,7 @@ import ContentField from "@/components/common/ContentField";
 import usePageTitle from "@/hooks/usePageTitle";
 import useSafeParams from "@/hooks/useSafeParams";
 import { type EditPost, EditPostSchema, ParamsSchema } from "@/types-schemas";
+import extractImagesUrls from "@/utils/extractImagesUrls";
 import handlePostMedias from "@/utils/handlePostMedias";
 import setFormRootError from "@/utils/setFormRootError";
 import { useTRPC } from "@/utils/trpc";
@@ -26,6 +27,8 @@ import {
   useQueryClient,
   useSuspenseQuery,
 } from "@tanstack/react-query";
+
+import DeletePostAlert from "./DeletePostAlert";
 
 const EditPostForm = () => {
   const { slug } = useSafeParams(ParamsSchema);
@@ -87,6 +90,15 @@ const EditPostForm = () => {
     trpc.tags.removeTagFromPost.mutationOptions(),
   );
 
+  const deletePostMutation = useMutation(
+    trpc.posts.deletePost.mutationOptions(),
+  );
+
+  const deletePostMediaMutation = useMutation(
+    trpc.media.delete.mutationOptions(),
+  );
+
+  // submit handler when the post is edited
   const onEdit = async (values: EditPost) => {
     editPostMutation.mutate(
       {
@@ -200,6 +212,7 @@ const EditPostForm = () => {
     );
   };
 
+  // submit handler when the post is published
   const onSubmit = async (values: EditPost) => {
     await onEdit(values);
 
@@ -225,6 +238,54 @@ const EditPostForm = () => {
         },
 
         onSuccess: async () => {
+          navigate("/posts");
+        },
+      },
+    );
+  };
+
+  // submit handler when the post is deleted
+  const onDelete = async (values: EditPost) => {
+    const extractedImagesUrls = extractImagesUrls(values.post.content);
+
+    const deletePostImagesMutations = extractedImagesUrls.map((image) =>
+      deletePostMediaMutation.mutateAsync(
+        {
+          fileUrl: image,
+          postId: post.id,
+        },
+        {
+          onError: (error) => {
+            setFormRootError(form, error.message);
+          },
+        },
+      ),
+    );
+
+    const result = await Promise.allSettled(deletePostImagesMutations);
+    const statuses = result.map((result) => result.status);
+
+    if (statuses.some((status) => status === "rejected")) {
+      return;
+    }
+
+    deletePostMutation.mutate(
+      {
+        slug: post.slug,
+      },
+      {
+        onError: (error) => {
+          const errorMessage = error.message;
+          setFormRootError(form, errorMessage);
+        },
+
+        onSuccess: async ({ title }) => {
+          await queryClient.invalidateQueries({
+            queryKey: trpc.posts.findAll.queryKey(),
+            exact: true,
+          });
+
+          toast(`Post deleted: ${title}`, { icon: <Check /> });
           navigate("/posts");
         },
       },
@@ -306,6 +367,9 @@ const EditPostForm = () => {
           >
             Publish
           </Button>
+        </div>
+        <div className="flex w-full items-center justify-between max-[25rem]:flex-col max-[25rem]:gap-3">
+          <DeletePostAlert form={form} onDelete={onDelete} />
         </div>
         <div className="place-self-start">
           {form.formState.errors.root && (
