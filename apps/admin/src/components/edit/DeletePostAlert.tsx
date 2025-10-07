@@ -26,8 +26,9 @@ const DeletePostAlert = <T extends FieldValues>({
       <AlertDialogTrigger asChild>
         <Button
           variant="destructive"
+          type="button"
           disabled={form.formState.isSubmitting}
-          className="shadow-primary/50 h-11 w-32 rounded-lg shadow-lg"
+          className="h-11 w-32 rounded-lg"
         >
           Delete
         </Button>
@@ -49,13 +50,14 @@ const DeletePostAlert = <T extends FieldValues>({
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
-          <AlertDialogCancel className="focus-visible">
+          <AlertDialogCancel>
             <X />
             Cancel
           </AlertDialogCancel>
           <AlertDialogAction asChild>
             <Button
               variant="destructive"
+              type="submit"
               disabled={form.formState.isSubmitting}
               onClick={form.handleSubmit(onDelete)}
             >

@@ -162,7 +162,7 @@ export const PROJECTS: Project[] = [
       "Vitest",
     ],
     githubLink: "https://github.com/Friedrich482/manga-xr",
-    previewLink: "https://mangaxr.glacifer.com/",
+    previewLink: "https://mangaxr.app/",
   },
   {
     title: "Friedrich Sell's",
