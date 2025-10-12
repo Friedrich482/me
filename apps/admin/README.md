@@ -1,69 +1,76 @@
-# React + TypeScript + Vite
+<p align="center">
+  <img width="200" height="200" alt="Friedrich WEKENON TOKPONTO's signature" src="https://github.com/user-attachments/assets/843cbb02-439c-468b-bcc6-101ff74cc17b" />
+</p>
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+<h1 align="center">Me Admin Dashboard</h1>
+<p align="center">The dashboard for my personal website, portfolio and blog<br/>
+</p>
 
-Currently, two official plugins are available:
+<p align="center">
+  <img src="https://img.shields.io/badge/version-0.0.1-05df72" >  
+  <img src="https://img.shields.io/badge/LICENSE-MIT-05df72">
+</p>
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Description
 
-## Expanding the ESLint configuration
+This project is the admin dashboard used to manage the blog posts for my blog. Built on top of [Vite](https://vite.dev/) and powered by [tRPC](https://trpc.io/).
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### Features
+- Rich markdown editor to create and edit blog posts
+- Support for images uploading (stored in a Cloudflare bucket)
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## Project setup
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+To run the admin dashboard, you need to first clone the repository:
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+git clone https://github.com/Friedrich482/me.git
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+Then `cd` in the admin dashboard:
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+cd apps/admin
 ```
+
+Then install dependencies:
+
+```bash
+npm install
+```
+
+### Development
+
+Before continuing you'll need some environment variables.
+Create a `.env.development` :
+
+```bash
+VITE_API_URL="http://localhost:3010/trpc"
+```
+
+So to properly run the dashboard in development, the [API](../api) must be also running. Then run
+
+```bash
+npm run dev
+```
+
+and open [http://localhost:5173](http://localhost:5173).
+
+### Production
+
+To build for production:
+Create a `.env.production`:
+
+```bash
+VITE_API_URL=...
+```
+
+Then build with:
+
+```bash
+npm run build
+```
+
+## License
+
+[MIT](/LICENSE) License &copy; 2025
