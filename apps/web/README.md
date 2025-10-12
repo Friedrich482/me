@@ -68,6 +68,10 @@ Then build with:
 npm run build
 ```
 
+## Deployment
+
+The website is currently deployed on [friedrichwt.dev](https://friedrichwt.dev)
+
 ## Containerization
 
 To dockerize the application, you need to place yourself at the root of the monorepo, then
