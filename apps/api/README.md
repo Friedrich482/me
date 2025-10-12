@@ -15,7 +15,7 @@
 ## Description
 
 This project is the API used to power the other main packages in the monorepo: [admin dashboard](../admin) and [web](../web).
-It is built on top of [Nestjs](https://nestjs.com/) and powered by [trpc](https://trpc.io/).
+It is built on top of [Nestjs](https://nestjs.com/) and powered by [tRPC](https://trpc.io/).
 
 ## Project setup
 
