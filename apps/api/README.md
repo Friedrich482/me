@@ -65,15 +65,15 @@ Before continuing you'll need some environment variables.
   
 - `ADMIN_DASHBOARD_URL`:
 
-```bash
-ADMIN_DASHBOARD_URL=http://localhost:5173
-```
+  ```bash
+  ADMIN_DASHBOARD_URL=http://localhost:5173
+  ```
 
 - `WEB_APP_URL`:
 
-```bash
-WEB_APP_URL=http://localhost:4321
-```
+  ```bash
+  WEB_APP_URL=http://localhost:4321
+  ```
 
 - `R2_ACCESS_KEY_ID`, `R2_SECRET_ACCESS_KEY`, `R2_BUCKET_NAME`, `R2_ACCOUNT_ID`, `R2_PUBLIC_DOMAIN` and `R2_ENDPOINT`:
 
