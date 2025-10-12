@@ -71,6 +71,20 @@ Then build with:
 npm run build
 ```
 
+## Containerization
+
+To dockerize the application, you need to place yourself at the root of the monorepo, then
+
+```bash
+docker build -t me-admin -f apps/admin/Dockerfile --progress=plain .
+```
+
+And to run a container called `me-admin-container` :
+
+```bash
+docker run -p 5174:5174 --name me-admin-container --env-file apps/admin/.env.production me-admin:latest
+```
+
 ## License
 
 [MIT](/LICENSE) License &copy; 2025
