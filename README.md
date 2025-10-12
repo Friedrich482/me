@@ -45,7 +45,25 @@ This project is the monorepo for my personal website, portfolio and blog.
 
 To start the dev server of all apps at the same time, run
 
-```
+```bash
 > cd me
 > turbo dev # or npm run dev
+```
+
+Or you can use docker compose to run all services: `admin dashboard`, `api` and `web` simultaneously
+
+```bash
+docker compose up -d --remove-orphans
+```
+### Build
+
+Since the web site is a static astro site, it needs the api to be up to be able to build. So a normal compose file won't do it. But the [build.sh](./build.sh) script makes sure to start the API service before building the remaining:
+
+```bash
+chmod +x build.sh
+```
+Then:
+
+```bash
+./build.sh
 ```
