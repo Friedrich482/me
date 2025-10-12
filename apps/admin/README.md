@@ -71,6 +71,10 @@ Then build with:
 npm run build
 ```
 
+## Deployment
+
+The admin dahsboard is currently deployed on [admin.friedrichwt.dev](https://admin.friedrichwt.dev)
+
 ## Containerization
 
 To dockerize the application, you need to place yourself at the root of the monorepo, then
