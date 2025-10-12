@@ -1,7 +1,7 @@
 # My Personal Website and Blog
 
  <p align="center">
-  <img width="200" height="200" alt="Moon" src="https://github.com/user-attachments/assets/843cbb02-439c-468b-bcc6-101ff74cc17b" />
+  <img width="200" height="200" alt="Friedrich WEKENON TOKPONTO's signature" src="https://github.com/user-attachments/assets/843cbb02-439c-468b-bcc6-101ff74cc17b" />
 </p>
 
 <p align="center">My personal website (portfolio) and blog<br/>
