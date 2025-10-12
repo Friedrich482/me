@@ -1,13 +1,88 @@
-# Astro with Tailwind
+<p align="center">
+  <img width="200" height="200" alt="Friedrich WEKENON TOKPONTO's signature" src="https://github.com/user-attachments/assets/843cbb02-439c-468b-bcc6-101ff74cc17b" />
+</p>
 
-```sh
-npm create astro@latest -- --template with-tailwindcss
+<h1 align="center">me Web</h1>
+<p align="center">My personal website, portfolio and blog<br/>
+<a href="https://friedrichwt.dev">friedrichwt.dev</a>
+</p>
+
+<p align="center">
+  <img src="https://img.shields.io/badge/version-0.0.1-05df72" >  
+  <img src="https://img.shields.io/badge/LICENSE-MIT-05df72">
+</p>
+
+## Description
+
+This project is my personal website, portfolio and blog, all in one place.
+It is built on top of [Astro](https://astro.build/) and powered by [tRPC](https://trpc.io/).
+
+## Project setup
+
+To run the website, you need to first clone the repository
+
+```bash
+git clone https://github.com/Friedrich482/me.git
 ```
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/withastro/astro/tree/latest/examples/with-tailwindcss)
-[![Open with CodeSandbox](https://assets.codesandbox.io/github/button-edit-lime.svg)](https://codesandbox.io/p/sandbox/github/withastro/astro/tree/latest/examples/with-tailwindcss)
-[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/withastro/astro?devcontainer_path=.devcontainer/with-tailwindcss/devcontainer.json)
+Then `cd` in the web site folder
 
-Astro comes with [Tailwind](https://tailwindcss.com) support out of the box. This example showcases how to style your Astro project with Tailwind.
+```bash
+cd apps/web
+```
+Then install dependencies
 
-For complete setup instructions, please see our [Tailwind Integration Guide](https://docs.astro.build/en/guides/integrations-guide/tailwind).
+```bash
+npm install
+```
+
+### Development
+
+Before continuing you'll need some environment variables.
+Create a `.env.development` :
+
+```bash
+PUBLIC_API_URL=http://localhost:3010/trpc
+```
+
+So to properly run the dashboard in development, the [API](../api) must be also running. Then run
+
+```bash
+npm run dev
+```
+
+and open [http://localhost:4321](http://localhost:4321).
+
+### Production
+
+To build for production:
+Create a `.env.production`:
+
+```bash
+PUBLIC_API_URL=...
+```
+
+Then build with:
+
+```bash
+npm run build
+```
+
+## Containerization
+
+To dockerize the application, you need to place yourself at the root of the monorepo, then
+
+```bash
+docker build -t me-web -f apps/web/Dockerfile --progress=plain .
+```
+
+And to run a container called `me-web-container` :
+
+```bash
+docker run -p 4322:4322 --name me-web-container --env-file apps/web/.env.production me-web:latest
+```
+
+## License
+
+[MIT](/LICENSE) License &copy; 2025
+
