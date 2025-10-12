@@ -1,99 +1,108 @@
 <p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
+  <img width="200" height="200" alt="Friedrich WEKENON TOKPONTO's signature" src="https://github.com/user-attachments/assets/843cbb02-439c-468b-bcc6-101ff74cc17b" />
 </p>
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
-
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
+<h1 align="center">me API</h1>
+<p align="center">The API for my personal website, portfolio and blog<br/>
+<a href="https://api.friedrichwt.dev">api.friedrichwt.dev</a>
 </p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+
+<p align="center">
+  <img src="https://img.shields.io/badge/version-0.0.1-05df72" >  
+  <img src="https://img.shields.io/badge/LICENSE-MIT-05df72">
+</p>
 
 ## Description
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+This project is the API used to power the other main packages in the monorepo: [admin dashboard](../admin) and [web](../web).
+It is built on top of [Nestjs](https://nestjs.com/) and powered by [trpc](https://trpc.io/).
 
 ## Project setup
 
+To run the API, you need to first clone the repository
+
 ```bash
-$ npm install
+git clone https://github.com/Friedrich482/me.git
 ```
 
-## Compile and run the project
+Then `cd` in the API
 
 ```bash
-# development
-$ npm run start
-
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
+cd apps/api
 ```
 
-## Run tests
+Then install dependencies
 
 ```bash
-# unit tests
-$ npm run test
+npm install
+```
 
-# e2e tests
-$ npm run test:e2e
+Before continuing you'll need some environment variables.
 
-# test coverage
-$ npm run test:cov
+### Environment variables
+
+- `NODE_ENV`:
+
+  ```bash
+  NODE_ENV=development
+  ```
+
+- `DATABASE_URL`, you can use:
+
+  ```bash
+  DATABASE_URL="postgresql://postgres:postgres@localhost:5432/me"
+  ```
+
+  [compose.yaml](./compose.yaml)
+
+  (Local database set up by docker compose as a docker volume. If you don't have docker installed, follow that link to the installation: [Docker](https://docs.docker.com/get-started/get-docker/))
+
+- `JWT_SECRET`: Generate an SSL 64-character hexadecimal string.
+
+  ```bash
+  openssl rand -hex 32
+  ```
+  
+- `ADMIN_DASHBOARD_URL`:
+
+```bash
+ADMIN_DASHBOARD_URL=http://localhost:5173
+```
+
+- `WEB_APP_URL`:
+
+```bash
+WEB_APP_URL=http://localhost:4321
+```
+
+- `R2_ACCESS_KEY_ID`, `R2_SECRET_ACCESS_KEY`, `R2_BUCKET_NAME`, `R2_ACCOUNT_ID`, `R2_PUBLIC_DOMAIN` and `R2_ENDPOINT`:
+
+You can those by creating a free cloudflare account and a Cloudflare R2 bucket
+
+## Development
+
+```bash
+npm run dev
 ```
 
 ## Deployment
 
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
+The API is currently deployed on [api.friedrichwt.dev](https://api.friedrichwt.dev).
 
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
+## Containerization
+
+To dockerize the application, you need to place yourself at the root of the monorepo, then
 
 ```bash
-$ npm install -g mau
-$ mau deploy
+docker build -t me-api -f apps/api/Dockerfile --progress=plain .
 ```
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+And to run a container called `me-api-container` :
 
-## Resources
-
-Check out a few resources that may come in handy when working with NestJS:
-
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
-
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+```bash
+docker run -p 3000:3000 --name me-api-container --env-file apps/api/.env me-api:latest
+```
 
 ## License
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+[MIT](/LICENSE) License &copy; 2025
