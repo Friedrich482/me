@@ -171,7 +171,8 @@ export const PROJECTS: Project[] = [
       srcLight: FriedrichSellsPreviewLightImage.src,
       alt: "Friedrich Sell's preview",
     },
-    description: "A React application for houses, cars and motorbikes selling",
+    description:
+      "A React application for houses, cars and motorbikes selling. Powered by Vite",
     technologies: [
       "TypeScript",
       "React",

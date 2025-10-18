@@ -26,7 +26,7 @@ export class AuthRouter {
           ctx.res.cookie(this.AUTH_COOKIE_NAME, token, {
             httpOnly: true,
             secure: true,
-            sameSite: "none",
+            sameSite: "lax",
             maxAge: this.COOKIE_MAX_AGE,
           });
         }),
@@ -41,7 +41,7 @@ export class AuthRouter {
           ctx.res.cookie(this.AUTH_COOKIE_NAME, token, {
             httpOnly: true,
             secure: true,
-            sameSite: "none",
+            sameSite: "lax",
             maxAge: this.COOKIE_MAX_AGE,
           });
         }),
@@ -59,7 +59,7 @@ export class AuthRouter {
         ctx.res.clearCookie(this.AUTH_COOKIE_NAME, {
           httpOnly: true,
           secure: true,
-          sameSite: "none",
+          sameSite: "lax",
         });
       }),
     }),
