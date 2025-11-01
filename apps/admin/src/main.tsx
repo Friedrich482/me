@@ -12,6 +12,8 @@ import Post from "./components/post/Post";
 import Posts from "./components/posts/Posts";
 import Root from "./components/root/Root";
 import { authRouteLoader, protectedRouteLoader } from "./loaders/authLoader";
+import { editPostLoader } from "./loaders/editPostLoader";
+import { postLoader } from "./loaders/postLoader";
 
 const router = createBrowserRouter([
   {
@@ -33,12 +35,12 @@ const router = createBrowserRouter([
           {
             element: <Post />,
             path: "/posts/:slug",
-            loader: protectedRouteLoader,
+            loader: postLoader,
           },
           {
             element: <EditPost />,
             path: "/posts/:slug/edit",
-            loader: protectedRouteLoader,
+            loader: editPostLoader,
           },
           {
             element: <CreatePost />,
