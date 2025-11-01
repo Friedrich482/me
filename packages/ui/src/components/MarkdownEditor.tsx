@@ -38,37 +38,55 @@ const MarkdownEditor = ({
       components={{
         ul: (props) => (
           <ul
-            className={cn("mb-4 ml-6 list-disc text-lg", classNames.ul)}
+            className={cn(
+              "mb-4 ml-6 list-disc text-lg wrap-normal",
+              classNames.ul,
+            )}
             {...props}
           />
         ),
         ol: (props) => (
           <ol
-            className={cn("mb-4 ml-6 list-decimal text-lg", classNames.ol)}
+            className={cn(
+              "mb-4 ml-6 list-decimal text-lg wrap-normal",
+              classNames.ol,
+            )}
             {...props}
           />
         ),
         a: (props) => (
           <a
-            className={cn("text-primary mb-3 text-lg underline", classNames.a)}
+            className={cn(
+              "text-primary mb-3 text-lg wrap-anywhere underline",
+              classNames.a,
+            )}
             {...props}
           />
         ),
         li: (props) => (
-          <li className={cn("mb-1 text-lg", classNames.li)} {...props} />
+          <li
+            className={cn("mb-1 text-lg wrap-normal", classNames.li)}
+            {...props}
+          />
         ),
         p: (props) => (
-          <p className={cn("mb-3 text-lg", classNames.p)} {...props} />
+          <p
+            className={cn("mb-3 text-lg wrap-normal", classNames.p)}
+            {...props}
+          />
         ),
         h1: (props) => (
           <h1
-            className={cn("mb-2 text-4xl font-extrabold", classNames.h1)}
+            className={cn(
+              "mb-2 text-4xl font-extrabold wrap-normal",
+              classNames.h1,
+            )}
             {...props}
           />
         ),
         h2: (props) => (
           <h2
-            className={cn("mb-3 text-xl font-bold", classNames.h2)}
+            className={cn("mb-3 text-xl font-bold wrap-normal", classNames.h2)}
             {...props}
           />
         ),
@@ -95,14 +113,14 @@ const MarkdownEditor = ({
             <div className="relative">
               <pre
                 className={cn(
-                  "hljs mb-4 overflow-x-auto rounded-sm p-2 text-lg",
+                  "hljs mb-4 w-0 min-w-full overflow-x-auto rounded-sm p-2 text-lg",
                   classNames.pre,
                 )}
                 {...props}
               />
               <Button
                 size="icon"
-                className="dark:text-primary dark:hover:bg-muted absolute top-3 right-3 bg-transparent"
+                className="dark:text-primary dark:hover:bg-muted dark:bg-background absolute top-3 right-3 border"
                 title="Copy to clipboard"
                 onClick={() =>
                   handleCopyToClipBoardButtonClick(
