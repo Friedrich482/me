@@ -1,4 +1,5 @@
 import { Briefcase, Mail, PenTool } from "lucide-react";
+import type { SvgComponent } from "astro/types";
 
 import FriedrichSellsPreviewDarkImage from "@/assets/projects/dark/friedrich-sells-preview-dark.webp";
 import MangaXRPreviewDarkImage from "@/assets/projects/dark/mangaxr-preview-dark.webp";
@@ -62,9 +63,7 @@ export const NAVBAR_LINKS: { text: string; link: string }[] = [
 ];
 
 export const CONTACT_LINKS: {
-  Icon:
-    | IconType
-    | (((_props: astroHTML.JSX.SVGAttributes) => any) & ImageMetadata);
+  Icon: IconType | (SvgComponent & ImageMetadata);
   link: string;
   title: string;
   target: string;
@@ -187,7 +186,7 @@ export const PROJECTS: Project[] = [
 ];
 
 export const SKILLS: {
-  logo: ((_props: astroHTML.JSX.SVGAttributes) => any) & ImageMetadata;
+  logo: SvgComponent & ImageMetadata;
   tech: string;
 }[] = [
   { tech: "TypeScript", logo: TypeScriptLogo },

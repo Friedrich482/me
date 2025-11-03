@@ -1,14 +1,15 @@
 import { useState } from "react";
 import { MarkdownHooks } from "react-markdown";
+import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
+import { materialDark } from "react-syntax-highlighter/dist/esm/styles/prism";
+import { Element as HastElement } from "hast";
 import { Check, Copy } from "lucide-react";
-import rehypeHighlight from "rehype-highlight";
 import rehypeRaw from "rehype-raw";
 import remarkGfm from "remark-gfm";
 import z from "zod";
 
 import { Button } from "@repo/ui/components/ui/button";
 
-import "highlight.js/styles/hybrid.css";
 import { cn } from "#lib/utils.ts";
 
 type IconType = "copy" | "check";
@@ -34,7 +35,7 @@ const MarkdownEditor = ({
   return (
     <MarkdownHooks
       remarkPlugins={[remarkGfm]}
-      rehypePlugins={[rehypeRaw, rehypeHighlight]}
+      rehypePlugins={[rehypeRaw]}
       components={{
         ul: (props) => (
           <ul
@@ -91,7 +92,19 @@ const MarkdownEditor = ({
           />
         ),
 
-        pre: (props) => {
+        code({
+          node,
+          inline,
+          className,
+          children,
+          style,
+          ...props
+        }: {
+          node?: HastElement;
+          inline?: boolean;
+          className?: string;
+          children?: React.ReactNode;
+        } & React.HTMLAttributes<HTMLElement>) {
           const [iconType, setIconType] = useState<IconType>("copy");
 
           const handleCopyToClipBoardButtonClick = async (content: unknown) => {
@@ -106,50 +119,64 @@ const MarkdownEditor = ({
 
             await navigator.clipboard.writeText(finalContent);
             setIconType("check");
-            setTimeout(() => setIconType("copy"), 3000);
+            const timeOutId = setTimeout(() => setIconType("copy"), 3000);
+            return () => clearInterval(timeOutId);
           };
 
-          return (
+          const match = /language-(\w+)/.exec(className || "");
+
+          return !inline && match ? (
             <div className="relative">
-              <pre
-                className={cn(
-                  "hljs mb-4 w-0 min-w-full overflow-x-auto rounded-sm p-2 text-lg",
-                  classNames.pre,
-                )}
-                {...props}
-              />
               <Button
                 size="icon"
-                className="dark:text-primary dark:hover:bg-muted dark:bg-background absolute top-3 right-3 border"
+                className="dark:text-primary dark:hover:bg-muted dark:bg-background absolute top-3 right-3 z-50 border"
                 title="Copy to clipboard"
+                type="button"
                 onClick={() =>
                   handleCopyToClipBoardButtonClick(
-                    (props.children as { props: { children: string } }).props
-                      .children,
+                    (
+                      node?.children[0] as Exclude<
+                        HastElement["children"][0],
+                        HastElement
+                      >
+                    ).value,
                   )
                 }
-                type="button"
               >
                 {iconType === "copy" ? <Copy /> : <Check />}
               </Button>
-            </div>
-          );
-        },
 
-        code: (props) => {
-          if (props.className?.includes("language-")) {
-            return (
-              <code className={cn("text-lg", classNames.code)} {...props} />
-            );
-          }
-          return (
+              <SyntaxHighlighter
+                style={materialDark}
+                language={match[1]}
+                customStyle={{
+                  whiteSpace: "pre-line",
+                  overflowX: "scroll",
+                  overflowWrap: "break-word",
+                  fontFamily: "var(--font-sans)",
+                  backgroundColor: "#1d1f21",
+                  borderRadius: "calc(var(--radius) - 4px)",
+                  padding: "0.5em",
+                }}
+                codeTagProps={{
+                  className:
+                    "w-0 min-w-full overflow-x-auto rounded-sm text-lg block p-2",
+                }}
+                {...props}
+              >
+                {String(children).replace(/\n$/, "")}
+              </SyntaxHighlighter>
+            </div>
+          ) : (
             <code
               className={cn(
                 "bg-secondary/50 inline rounded-sm px-2 py-1 text-lg",
-                classNames.inlineCode,
+                className,
               )}
               {...props}
-            />
+            >
+              {children}
+            </code>
           );
         },
       }}
