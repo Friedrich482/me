@@ -35,7 +35,7 @@ const ContentField = <T extends FieldValues, TFieldName extends Path<T>>({
       render={({ field }) => (
         <FormItem className="w-full">
           <FormControl>
-            <div className="bg-muted/30 flex min-h-[30rem] flex-col rounded-md">
+            <div className="bg-muted/30 flex min-h-120 flex-col rounded-md">
               <div className="relative flex h-16 items-center justify-start gap-4 p-2">
                 <Button
                   variant="ghost"
@@ -55,7 +55,7 @@ const ContentField = <T extends FieldValues, TFieldName extends Path<T>>({
                   className={cn(
                     "bg-primary absolute bottom-0 h-1 w-8 rounded-md transition duration-200",
                     viewMode === "write" && "translate-x-4",
-                    viewMode === "preview" && "translate-x-[6.5rem]",
+                    viewMode === "preview" && "translate-x-26",
                   )}
                 />
               </div>

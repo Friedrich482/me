@@ -44,6 +44,7 @@ const postTags = await trpc.tags.findAllTagsForPublishedPost.query({
             markdown={`# ${post.title}\n ${post.publishDate ? format(post.publishDate, "MMM dd, yyyy") : ""}`}
             classNames={{ p: "opacity-70", h1: "max-sm:text-3xl" }}
             client:load
+            client:only
           />
         </div>
 
@@ -53,6 +54,7 @@ const postTags = await trpc.tags.findAllTagsForPublishedPost.query({
               markdown={post.content}
               classNames={{ inlineCode: "dark:bg-muted/70 bg-muted" }}
               client:load
+              client:only
             />
           </div>
 

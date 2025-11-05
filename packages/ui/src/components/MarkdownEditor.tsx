@@ -2,7 +2,7 @@ import { useState } from "react";
 import { MarkdownHooks } from "react-markdown";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { materialDark } from "react-syntax-highlighter/dist/esm/styles/prism";
-import { Element as HastElement } from "hast";
+import { type Element as HastElement } from "hast";
 import { Check, Copy } from "lucide-react";
 import rehypeRaw from "rehype-raw";
 import remarkGfm from "remark-gfm";
