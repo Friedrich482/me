@@ -17,4 +17,30 @@ export default defineConfig({
     host: true,
   },
   base: "/",
+  build: {
+    chunkSizeWarningLimit: 700,
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          reactrouter: ["react-router"],
+          zod: ["zod"],
+          trpc: ["@trpc/client", "@trpc/server"],
+          reacthookform: ["react-hook-form"],
+          query: [
+            "@tanstack/react-query",
+            "@tanstack/query-core",
+            "@tanstack/react-query-devtools",
+          ],
+          reactmarkdown: ["react-markdown"],
+          reactsyntaxhighlighter: [
+            "react-syntax-highlighter",
+            "react-syntax-highlighter/dist/esm",
+            "react-syntax-highlighter/dist/cjs",
+          ],
+          remarkGfm: ["remark-gfm"],
+          rehypeRaw: ["rehype-raw"],
+        },
+      },
+    },
+  },
 });
