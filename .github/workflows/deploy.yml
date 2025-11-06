@@ -1,0 +1,38 @@
+name: Personal website CI/CD Pipeline - Build docker images and Deploy to production
+
+on:
+  push:
+    branches: "main"
+
+jobs:
+  build-and-push-docker-image:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup nodejs
+        uses: actions/setup-node@v6
+        with:
+          node-version: 24
+          cache: npm
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Lint project
+        run: npm run lint
+
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Build and push Docker images
+        run: |
+          IMAGE_TAG=${{ github.sha }}
+          docker buildx build --platform linux/amd64 -t ${{ secrets.DOCKERHUB_USERNAME }}/me-api:$IMAGE_TAG -t ${{ secrets.DOCKERHUB_USERNAME }}/me-api:latest --push -f apps/api/Dockerfile .
+          docker buildx build --platform linux/amd64 -t ${{ secrets.DOCKERHUB_USERNAME }}/me-admin:$IMAGE_TAG -t ${{ secrets.DOCKERHUB_USERNAME }}/me-admin:latest --push -f apps/admin/Dockerfile .
+          docker buildx build --build-arg PUBLIC_API_URL=${{ secrets.PUBLIC_API_URL }} --platform linux/amd64 -t ${{ secrets.DOCKERHUB_USERNAME }}/me-web:$IMAGE_TAG -t ${{ secrets.DOCKERHUB_USERNAME }}/me-web:latest --push -f apps/web/Dockerfile .
