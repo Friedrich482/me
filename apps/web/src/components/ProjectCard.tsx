@@ -38,13 +38,13 @@ const ProjectCard = ({ project }: { project: Project }) => {
   const { resolvedTheme } = useStore(appTheme);
 
   if (!isMounted) {
-    return <Skeleton className="h-[28rem] w-full" />;
+    return <Skeleton className="h-112 w-full" />;
   }
 
   return (
-    <div className="duration-300 perspective-[800px] transform-3d">
+    <div className="duration-300 perspective-midrange transform-3d">
       <div
-        className="border-border hover:shadow-primary group flex w-full scale-3d flex-col gap-3 rounded-md border-1 p-3 shadow-2xl duration-300 will-change-transform transform-3d dark:hover:shadow-inner"
+        className="border-border hover:shadow-primary group flex w-full scale-3d flex-col gap-3 rounded-md border p-3 shadow-2xl duration-300 will-change-transform transform-3d dark:hover:shadow-inner"
         onMouseMove={handleCardHover}
         onMouseLeave={handleCardLeave}
       >
@@ -87,7 +87,7 @@ const ProjectCard = ({ project }: { project: Project }) => {
           {project.technologies.map((techno) => (
             <li
               key={`${project.title}-${techno}`}
-              className="min-w-20 rounded-sm border-1 px-2 py-1 text-center opacity-65"
+              className="min-w-20 rounded-sm border px-2 py-1 text-center opacity-65"
             >
               {techno}
             </li>
