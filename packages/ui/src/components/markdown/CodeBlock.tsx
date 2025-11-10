@@ -64,10 +64,7 @@ const CodeBlock = memo(
       </div>
     ) : (
       <code
-        className={cn(
-          "bg-secondary/50 inline rounded-sm px-2 py-1 text-lg",
-          className,
-        )}
+        className={cn("bg-muted/40 rounded-sm px-2 py-1 text-lg", className)}
         {...props}
       >
         {children}

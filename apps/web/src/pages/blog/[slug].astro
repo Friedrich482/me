@@ -50,12 +50,7 @@ const postTags = await trpc.tags.findAllTagsForPublishedPost.query({
 
         <div class="flex flex-col gap-5">
           <div class="flex flex-col opacity-95">
-            <MarkdownEditor
-              markdown={post.content}
-              classNames={{ inlineCode: "dark:bg-muted/70 bg-muted" }}
-              client:load
-              client:only
-            />
+            <MarkdownEditor markdown={post.content} client:load client:only />
           </div>
 
           <TagsList postTags={postTags} client:load />
