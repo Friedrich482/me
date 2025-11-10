@@ -1,4 +1,6 @@
 import { MarkdownHooks } from "react-markdown";
+import rehypeRaw from "rehype-raw";
+import remarkGfm from "remark-gfm";
 
 import CodeBlock from "./CodeBlock";
 
@@ -21,6 +23,8 @@ const MarkdownEditor = ({
 }) => {
   return (
     <MarkdownHooks
+      remarkPlugins={[remarkGfm]}
+      rehypePlugins={[rehypeRaw]}
       components={{
         ul: (props) => (
           <ul

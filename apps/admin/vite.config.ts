@@ -32,6 +32,8 @@ export default defineConfig({
             "@tanstack/react-query-devtools",
           ],
           reactmarkdown: ["react-markdown"],
+          remarkGfm: ["remark-gfm"],
+          rehypeRaw: ["rehype-raw"],
         },
       },
     },
