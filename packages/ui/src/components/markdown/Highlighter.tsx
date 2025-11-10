@@ -21,7 +21,10 @@ const Highlighter = memo(({ code, lang }: { lang: string; code: string }) => {
 
   useEffect(() => {
     codeToHtml(code, {
-      theme: "dark-plus",
+      themes: {
+        dark: "dark-plus",
+        light: "light-plus",
+      },
       lang: lang,
       transformers: [codeTransformer],
     }).then(setHtml);
