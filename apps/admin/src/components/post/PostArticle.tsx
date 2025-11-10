@@ -5,7 +5,7 @@ import usePageTitle from "@/hooks/usePageTitle";
 import useSafeParams from "@/hooks/useSafeParams";
 import { ParamsSchema } from "@/types-schemas";
 import { useTRPC } from "@/utils/trpc";
-import MarkdownEditor from "@repo/ui/components/MarkdownEditor";
+import MarkdownEditor from "@repo/ui/components/markdown/MarkdownEditor";
 import { useSuspenseQuery } from "@tanstack/react-query";
 
 const PostArticle = () => {

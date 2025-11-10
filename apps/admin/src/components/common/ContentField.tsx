@@ -4,7 +4,7 @@ import { ClipLoader } from "react-spinners";
 import { Info } from "lucide-react";
 
 import usePostContentFileDrop from "@/hooks/usePostContentFileDrop";
-import MarkdownEditor from "@repo/ui/components/MarkdownEditor";
+import MarkdownEditor from "@repo/ui/components/markdown/MarkdownEditor";
 import { Button } from "@repo/ui/components/ui/button";
 import {
   FormControl,

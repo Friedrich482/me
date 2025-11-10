@@ -18,7 +18,7 @@ export default defineConfig({
   },
   base: "/",
   build: {
-    chunkSizeWarningLimit: 700,
+    chunkSizeWarningLimit: 800,
     rollupOptions: {
       output: {
         manualChunks: {
@@ -32,13 +32,6 @@ export default defineConfig({
             "@tanstack/react-query-devtools",
           ],
           reactmarkdown: ["react-markdown"],
-          reactsyntaxhighlighter: [
-            "react-syntax-highlighter",
-            "react-syntax-highlighter/dist/esm",
-            "react-syntax-highlighter/dist/cjs",
-          ],
-          remarkGfm: ["remark-gfm"],
-          rehypeRaw: ["rehype-raw"],
         },
       },
     },
