@@ -22,7 +22,14 @@ const postTags = await trpc.tags.findAllTagsForPublishedPost.query({
 });
 ---
 
-<Layout title={post.title} isBackgroundDots={false}>
+<Layout
+  title={post.title}
+  ogTitle={post.title}
+  ogImageAlt={post.title}
+  twitterTitle={post.title}
+  twitterImageAlt={post.title}
+  isBackgroundDots={false}
+>
   <main
     class="flex flex-1 flex-col items-center justify-start py-2"
     transition:animate="slide"

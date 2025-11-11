@@ -10,8 +10,27 @@ import MovingDotsBackground from "@/components/motion/MovingBackground";
 type Props = {
   title: string;
   isBackgroundDots?: boolean;
+  twitterTitle?: string;
+  twitterImage?: string;
+  twitterImageAlt?: string;
+  twitterDescription?: string;
+  ogTitle?: string;
+  ogImage?: string;
+  ogDescription?: string;
+  ogImageAlt?: string;
 };
-const { title, isBackgroundDots = true } = Astro.props;
+const {
+  title,
+  isBackgroundDots = true,
+  twitterTitle = "Friedrich WT",
+  twitterImage = "https://friedrichwt.dev/og.png",
+  twitterImageAlt = "Friedrich Wekenon Tokponto's Portfolio",
+  twitterDescription = "Friedrich Wekenon Tokponto's Portfolio",
+  ogTitle = "Friedrich WT",
+  ogImage = "https://friedrichwt.dev/og.png",
+  ogDescription = "Friedrich Wekenon Tokponto's Portfolio",
+  ogImageAlt = "Friedrich Wekenon Tokponto's Portfolio",
+} = Astro.props;
 ---
 
 <script is:inline>
@@ -57,7 +76,7 @@ const { title, isBackgroundDots = true } = Astro.props;
   <meta name="description" content="Friedrich Wekenon Tokponto" />
   <meta name="author" content="Friedrich Wekenon Tokponto" />
   <meta
-    http-equiv="Content-Security-Policy"
+    http-equiv="content-Security-Policy"
     content="upgrade-insecure-requests"
   />
   <link rel="icon" href="/favicon.svg" type="image/x-icon" sizes="48x48" />
@@ -65,32 +84,21 @@ const { title, isBackgroundDots = true } = Astro.props;
   <link rel="sitemap" href="/sitemap-index.xml" />
 
   <!--Open Graph tags-->
-  <meta property="og:title" content="Friedrich WT" />
+  <meta property="og:title" content={ogTitle} />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://friedrichwt.dev" />
-  <meta
-    property="og:description"
-    content="Friedrich Wekenon Tokponto's Portfolio"
-  />
-  <meta property="og:image" content="https://friedrichwt.dev/og.png" />
+  <meta property="og:description" content={ogDescription} />
+  <meta property="og:image" content={ogImage} />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
-  <meta
-    property="og:image:alt"
-    content="Friedrich Wekenon Tokponto's Portfolio"
-  />
-  <meta name="twitter:title" content="Friedrich WT" />
-  <meta name="twitter:image" content="https://friedrichwt.dev/og.png" />
-  <meta
-    name="twitter:image:alt"
-    content="Friedrich Wekenon Tokponto's Portfolio"
-  />
-  <meta name="twitter:creator" content="@FriedrichC109" />
+  <meta property="og:image:alt" content={ogImageAlt} />
 
-  <meta
-    name="twitter:description"
-    content="Friedrich Wekenon Tokponto's Portfolio"
-  />
+  <!-- twitter tags -->
+  <meta name="twitter:title" content={twitterTitle} />
+  <meta name="twitter:image" content={twitterImage} />
+  <meta name="twitter:image:alt" content={twitterImageAlt} />
+  <meta name="twitter:creator" content="@FriedrichC109" />
+  <meta name="twitter:description" content={twitterDescription} />
   <meta name="twitter:card" content="summary_large_image" />
 
   <title>{title}</title>
