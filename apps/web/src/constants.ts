@@ -121,7 +121,7 @@ export const PROJECTS: Project[] = [
       alt: "MoonCode preview",
     },
     description:
-      "A modern application that tracks and monitors your coding time with a detailed summary of languages used, files and projects you're working on. Powered by a vscode extension.",
+      "A modern application that tracks and monitors your coding time with a detailed summary of languages used, files and projects you're working on. Powered by a vscode extension with offline support",
     technologies: [
       "TypeScript",
       "React",
@@ -138,7 +138,7 @@ export const PROJECTS: Project[] = [
       "Dokploy",
     ],
     githubLink: "https://github.com/Friedrich482/mooncode",
-    previewLink: "https://api.mooncode.cc",
+    previewLink: "https://github.com/Friedrich482/mooncode",
   },
   {
     title: "MangaXR",
