@@ -2,6 +2,7 @@
 import { defineConfig } from "astro/config";
 import sitemap from "@astrojs/sitemap";
 import tailwindcss from "@tailwindcss/vite";
+import svgr from "vite-plugin-svgr";
 
 import react from "@astrojs/react";
 
@@ -12,6 +13,8 @@ export default defineConfig({
     plugins: [
       // @ts-ignore
       tailwindcss(),
+      // @ts-ignore
+      svgr(),
       {
         name: "manual-chunks",
         enforce: "post",
@@ -23,8 +26,6 @@ export default defineConfig({
               ...config.build.rollupOptions.output,
               manualChunks(id) {
                 if (id.includes("react-markdown")) return "markdown-vendor";
-                if (id.includes("react-syntax-highlighter"))
-                  return "syntax-highlighter";
                 if (id.includes("remark-gfm")) return "remark-vendor";
                 if (id.includes("rehype-raw")) return "rehype-vendor";
               },

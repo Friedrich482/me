@@ -25,8 +25,12 @@ const postTags = await trpc.tags.findAllTagsForPublishedPost.query({
 <Layout
   title={post.title}
   ogTitle={post.title}
+  ogImage={`https://friedrichwt.dev/og/${post.slug}.png`}
+  ogDescription={post.title}
   ogImageAlt={post.title}
   twitterTitle={post.title}
+  twitterImage={`https://friedrichwt.dev/og/${post.slug}.png`}
+  twitterDescription={post.title}
   twitterImageAlt={post.title}
   isBackgroundDots={false}
 >
