@@ -7,7 +7,15 @@ import MarkdownEditor from "@repo/ui/components/markdown/MarkdownEditor";
 import TagsList from "@/components/TagsList";
 
 export async function getStaticPaths() {
-  const posts = await trpc.posts.findAllPublished.query();
+  // astro can't properly infer the types of the trpc client so we are obliged to type it manually
+  const posts: {
+    id: string;
+    title: string;
+    slug: string;
+    content: string;
+    status: "draft" | "published";
+    publishDate: Date | null;
+  }[] = await trpc.posts.findAllPublished.query();
 
   return posts.map((post) => ({
     params: { slug: post.slug },

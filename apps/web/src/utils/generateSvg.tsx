@@ -3,9 +3,11 @@ import satori from "satori";
 import OgSvg from "@/components/OgSvg";
 
 const generateSvg = async (title: string) => {
-  const robotoArrayBuffer = await fetch(
+  const response = await fetch(
     "https://github.com/googlefonts/roboto/raw/main/src/hinted/Roboto-Regular.ttf",
-  ).then((res) => res.arrayBuffer());
+  );
+
+  const robotoArrayBuffer = await response.arrayBuffer();
 
   const svg = await satori(<OgSvg title={title} />, {
     width: 1200,

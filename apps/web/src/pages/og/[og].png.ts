@@ -1,5 +1,3 @@
-import type { APIRoute } from "astro";
-
 import trpc from "@/trpc/client";
 import generateSvg from "@/utils/generateSvg";
 import { Resvg } from "@resvg/resvg-js";
@@ -13,7 +11,9 @@ export async function getStaticPaths() {
   }));
 }
 
-export const GET: APIRoute = async ({ props }) => {
+export const GET = async ({
+  props,
+}: Awaited<ReturnType<typeof getStaticPaths>>[number]) => {
   const svg = await generateSvg(props.ogTitle);
 
   const resvg = new Resvg(svg, null);

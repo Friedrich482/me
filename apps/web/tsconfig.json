@@ -1,7 +1,8 @@
 {
-  "extends": "astro/tsconfigs/strict",
+  "extends": "astro/tsconfigs/strictest",
   "references": [{ "path": "../../packages/trpc/tsconfig.json" }],
   "include": [".astro/types.d.ts", "**/*"],
+
   "exclude": ["dist"],
   "compilerOptions": {
     "baseUrl": ".",
@@ -9,6 +10,12 @@
       "@/*": ["./src/*"],
       "@repo/trpc/*": ["../../packages/trpc/src/*"]
     },
+    "plugins": [
+      {
+        "name": "@astrojs/ts-plugin"
+      }
+    ],
+    "allowJs": true,
     "jsx": "react-jsx",
     "jsxImportSource": "react",
     "target": "esnext",
