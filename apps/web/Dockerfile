@@ -1,4 +1,4 @@
-FROM node:22-alpine AS builder
+FROM node:24-alpine AS builder
 
 ARG PUBLIC_API_URL
 ENV PUBLIC_API_URL=$PUBLIC_API_URL

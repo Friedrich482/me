@@ -34,7 +34,7 @@
     }
   },
   "dependencies": {
-    "superjson": "^2.2.2"
+    "superjson": "^2.2.6"
   },
   "devDependencies": {
     "@repo/eslint-config": "*"

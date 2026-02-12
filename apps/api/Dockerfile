@@ -1,4 +1,4 @@
-FROM node:22-alpine AS builder
+FROM node:24-alpine AS builder
 
 WORKDIR /app
 
@@ -15,7 +15,7 @@ COPY . .
 RUN npm run build --workspace=@repo/common
 RUN npm run build --workspace=api
 
-FROM node:22-alpine AS deps
+FROM node:24-alpine AS deps
 
 WORKDIR /app
 
@@ -27,7 +27,7 @@ COPY packages/common/package*.json ./packages/common/
 
 RUN npm ci --omit=dev
 
-FROM node:22-alpine AS production
+FROM node:24-alpine AS production
 
 WORKDIR /app
 
