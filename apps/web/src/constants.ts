@@ -138,7 +138,7 @@ export const PROJECTS: Project[] = [
       "Dokploy",
     ],
     githubLink: "https://github.com/Friedrich482/mooncode",
-    previewLink: "https://github.com/Friedrich482/mooncode",
+    previewLink: "https://mooncode.cc",
   },
   {
     title: "MangaXR",
