@@ -1,5 +1,5 @@
 import { memo, useEffect, useState } from "react";
-import { codeToHtml, ShikiTransformer } from "shiki";
+import { codeToHtml, type ShikiTransformer } from "shiki";
 
 const codeTransformer: ShikiTransformer = {
   pre(node) {

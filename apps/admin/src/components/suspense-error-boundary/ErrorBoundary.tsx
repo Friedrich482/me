@@ -10,17 +10,20 @@ const FallBackRender = ({
   className,
   resetErrorBoundary,
 }: {
-  error: Error;
+  error: unknown;
   className?: string;
   resetErrorBoundary: () => void;
 }) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (error.message.toLowerCase().includes("not found")) {
+    if (
+      error instanceof Error &&
+      error.message.toLowerCase().includes("not found")
+    ) {
       navigate("not-found", { replace: true });
     }
-  }, []);
+  }, [error]);
 
   return (
     <div className={cn("flex w-full flex-col gap-4 p-2", className)}>
@@ -29,7 +32,7 @@ const FallBackRender = ({
         <span className="text-destructive">Something went wrong</span>
       </h2>
       <div className="text-destructive flex flex-col items-start justify-center gap-2 text-xl">
-        <p>{error.message}</p>
+        <p>{error instanceof Error ? error.message : String(error)}</p>
         <Button
           variant="outline"
           onClick={resetErrorBoundary}

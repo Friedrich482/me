@@ -32,10 +32,7 @@ const PostArticle = () => {
 
       <div className="flex w-full flex-col gap-5">
         <div className="flex flex-col opacity-95">
-          <MarkdownEditor
-            markdown={post.content}
-            classNames={{ inlineCode: "dark:bg-muted/70 bg-muted" }}
-          />
+          <MarkdownEditor markdown={post.content} />
         </div>
         <div className="flex flex-wrap items-center justify-start gap-3">
           {postTags.map((tag) => (
