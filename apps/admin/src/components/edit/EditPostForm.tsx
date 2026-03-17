@@ -50,7 +50,7 @@ const EditPostForm = () => {
       post: {
         content: post.content,
         title: post.title,
-        status: post.status || "draft",
+        status: post.status,
         publishedAt: null,
       },
       tags: tagsForPost,
@@ -71,7 +71,7 @@ const EditPostForm = () => {
   const queryClient = useQueryClient();
 
   // we don't want to batch this mutation because we use it to update the post on edit and also on publish
-  // since both of those mutations can have opposed effects, (e.g  the post while editing can still be a draft)
+  // since both of those mutations can have opposed effects, (e.g the post while editing can still be a draft)
   // if the mutation is batched it leads to race conditions where a post that have already been published
   // is marked as draft again
   const editPostMutation = useMutation(

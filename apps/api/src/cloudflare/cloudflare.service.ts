@@ -53,7 +53,7 @@ export class CloudflareService {
       }),
     );
 
-    const imageUrl = `${this.envService.get("R2_PUBLIC_DOMAIN")}/${this.envService.get("R2_BUCKET_NAME")}/${filename}`;
+    const imageUrl = `${this.envService.get("R2_PUBLIC_DOMAIN")}/${filename}`;
 
     return { filename, imageUrl, uploadedAt, mimeType };
   }

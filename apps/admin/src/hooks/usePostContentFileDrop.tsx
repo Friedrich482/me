@@ -36,7 +36,7 @@ const usePostContentFileDrop = <
           setFormRootError(form, errorMessage);
         },
         onSuccess: (data) => {
-          const imageMarkdown = `[<img src="${data.url}" width="50%" style="display: block; margin: auto; " />](${data.url})`;
+          const imageMarkdown = `[<img src="${data.url}" width="100%" style="display: block; margin: auto; " />](${data.url})`;
 
           form.setValue(
             name,
