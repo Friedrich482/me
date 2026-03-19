@@ -13,7 +13,7 @@ export const envSchema = z.object({
   R2_SECRET_ACCESS_KEY: z.string().trim().min(1),
   R2_BUCKET_NAME: z.string().trim().min(1),
   R2_ACCOUNT_ID: z.string().trim().min(1),
-  R2_PUBLIC_DOMAIN: z.url(),
+  R2_BUCKET_PUBLIC_DOMAIN: z.url(),
   R2_ENDPOINT: z.url(),
 });
 

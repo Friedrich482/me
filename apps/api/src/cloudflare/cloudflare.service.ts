@@ -55,7 +55,7 @@ export class CloudflareService {
       }),
     );
 
-    const mediaUrl = `${this.envService.get("R2_PUBLIC_DOMAIN")}/${filename}`;
+    const mediaUrl = `${this.envService.get("R2_BUCKET_PUBLIC_DOMAIN")}/${filename}`;
 
     return { filename, mediaUrl, uploadedAt, mimeType };
   }
