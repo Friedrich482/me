@@ -3,9 +3,16 @@ import { trpcLoaderClient as trpcClient } from "./trpc";
 
 const handlePostMedias = async (content: string, postId: string) => {
   const extractedImagesUrls = extractImageUrls(content);
-  const existingMediaFromDb = await trpcClient.media.findAll.query({
+
+  const existingMediaNotAttachedToPost = await trpcClient.media.findAll.query({
     postId: null,
   });
+  const existingMediaAttachedToPost = await trpcClient.media.findAll.query({
+    postId,
+  });
+  const existingMediaFromDb = existingMediaNotAttachedToPost.concat(
+    ...existingMediaAttachedToPost,
+  );
 
   const deletedMedias = existingMediaFromDb.filter(
     (media) => !extractedImagesUrls.includes(media.url),
