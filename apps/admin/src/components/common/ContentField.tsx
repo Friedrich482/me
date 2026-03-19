@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { type FieldValues, type Path, useForm } from "react-hook-form";
 import { ClipLoader } from "react-spinners";
 import { Info } from "lucide-react";
@@ -26,7 +26,14 @@ const ContentField = <T extends FieldValues, TFieldName extends Path<T>>({
   const handleWriteButtonClick = () => setViewMode("write");
   const handlePreviewButtonClick = () => setViewMode("preview");
 
-  const { handleDrop, isPending } = usePostContentFileDrop(form, name);
+  const textAreaRef = useRef<HTMLTextAreaElement | null>(null);
+  const { ref } = form.register(name);
+
+  const { handleDrop, isPending } = usePostContentFileDrop(
+    form,
+    name,
+    textAreaRef,
+  );
 
   return (
     <FormField
@@ -69,6 +76,10 @@ const ContentField = <T extends FieldValues, TFieldName extends Path<T>>({
                     placeholder="Start writing..."
                     className="field-sizing-fixed size-full flex-1 rounded-t-none rounded-b-none border-0 text-lg placeholder:text-lg placeholder:opacity-65 focus-visible:border-none focus-visible:ring-0 md:text-lg"
                     {...field}
+                    ref={(e) => {
+                      ref(e);
+                      textAreaRef.current = e;
+                    }}
                   />
                 </div>
               ) : (

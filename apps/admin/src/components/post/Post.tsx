@@ -45,7 +45,7 @@ const Post = () => {
             />
           )}
         >
-          <SuspenseBoundary className="h-[22rem] w-full">
+          <SuspenseBoundary className="h-88 w-full">
             <PostArticle />
           </SuspenseBoundary>
         </ErrorBoundary>

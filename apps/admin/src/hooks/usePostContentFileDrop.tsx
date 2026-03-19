@@ -1,3 +1,4 @@
+import type { RefObject } from "react";
 import type { FieldValues, Path, PathValue, useForm } from "react-hook-form";
 
 import setFormRootError from "@/utils/setFormRootError";
@@ -7,9 +8,11 @@ import { useMutation } from "@tanstack/react-query";
 const usePostContentFileDrop = <
   T extends FieldValues,
   TFieldName extends Path<T>,
+  K extends HTMLTextAreaElement,
 >(
   form: ReturnType<typeof useForm<T>>,
   name: TFieldName,
+  formInputRef: RefObject<K | null>,
 ) => {
   const trpc = useTRPC();
   const createMediaMutation = useMutation(trpc.media.create.mutationOptions());
@@ -38,9 +41,14 @@ const usePostContentFileDrop = <
         onSuccess: (data) => {
           const imageMarkdown = `[<img src="${data.url}" width="100%" style="display: block; margin: auto; " />](${data.url})`;
 
+          const cursorPosition = formInputRef.current?.selectionStart || 0;
+          const formInputValue = formInputRef.current?.value;
+          const frontText = formInputValue?.slice(0, cursorPosition);
+          const backText = formInputValue?.slice(cursorPosition);
+
           form.setValue(
             name,
-            `${form.getValues(name)}\n\n${imageMarkdown}` as PathValue<
+            `${frontText}\n${imageMarkdown}\n${backText}` as PathValue<
               T,
               TFieldName
             >,
