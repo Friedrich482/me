@@ -113,6 +113,7 @@ const ContentField = <T extends FieldValues, TFieldName extends Path<T>>({
                       type="button"
                       aria-label="Upload image"
                       onClick={handleImageButtonClick}
+                      disabled={viewMode === "preview"}
                     >
                       <Image />
                     </Button>

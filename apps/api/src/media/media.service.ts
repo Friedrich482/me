@@ -26,7 +26,7 @@ export class MediaService {
   async create(createMediaDto: CreateMediaDtoType) {
     const { file, postId } = createMediaDto;
 
-    const { filename, imageUrl, uploadedAt, mimeType } =
+    const { filename, mediaUrl, uploadedAt, mimeType } =
       await this.cloudflareService.uploadFileInBucket({ file });
 
     const [createdMedia] = await this.db
@@ -35,7 +35,7 @@ export class MediaService {
         filename,
         originalFilename: file.name,
         path: filename.split("/")[0],
-        url: imageUrl,
+        url: mediaUrl,
         size: file.size,
         postId,
         uploadedAt,

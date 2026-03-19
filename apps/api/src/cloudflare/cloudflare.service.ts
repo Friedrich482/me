@@ -1,4 +1,5 @@
 import sharp from "sharp";
+import { ulid } from "ulid";
 import { EnvService } from "src/env/env.service";
 
 import {
@@ -7,7 +8,6 @@ import {
   S3Client,
 } from "@aws-sdk/client-s3";
 import { Injectable } from "@nestjs/common";
-import generateSlug from "@repo/common/generateSlug";
 
 import {
   DeleteFileFromBucketDtoType,
@@ -40,8 +40,7 @@ export class CloudflareService {
     const now = Date.now();
     const uploadedAt = new Date(now);
 
-    const name = generateSlug(file.name);
-    const filename = `images/${now}-${name}.webp`;
+    const filename = `images/${ulid().toLowerCase()}.webp`;
     const mimeType = "image/webp";
 
     await this.r2.send(
@@ -50,12 +49,15 @@ export class CloudflareService {
         Key: filename,
         Body: optimized,
         ContentType: mimeType,
+        Metadata: {
+          "original-name": encodeURIComponent(file.name),
+        },
       }),
     );
 
-    const imageUrl = `${this.envService.get("R2_PUBLIC_DOMAIN")}/${filename}`;
+    const mediaUrl = `${this.envService.get("R2_PUBLIC_DOMAIN")}/${filename}`;
 
-    return { filename, imageUrl, uploadedAt, mimeType };
+    return { filename, mediaUrl, uploadedAt, mimeType };
   }
 
   async deleteFileFromBucket(
