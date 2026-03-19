@@ -62,7 +62,7 @@ Before continuing you'll need some environment variables.
   ```bash
   openssl rand -hex 32
   ```
-  
+
 - `ADMIN_DASHBOARD_URL`:
 
   ```bash
@@ -75,7 +75,7 @@ Before continuing you'll need some environment variables.
   WEB_APP_URL=http://localhost:4321
   ```
 
-- `R2_ACCESS_KEY_ID`, `R2_SECRET_ACCESS_KEY`, `R2_BUCKET_NAME`, `R2_ACCOUNT_ID`, `R2_PUBLIC_DOMAIN` and `R2_ENDPOINT`:
+- `R2_ACCESS_KEY_ID`, `R2_SECRET_ACCESS_KEY`, `R2_BUCKET_NAME`, `R2_ACCOUNT_ID`, `R2_BUCKET_PUBLIC_DOMAIN` and `R2_ENDPOINT`:
 
 You can those by creating a free cloudflare account and a Cloudflare R2 bucket
 
