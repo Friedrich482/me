@@ -28,7 +28,7 @@ const SideBar = ({ pathname }: { pathname: string }) => {
       {/* Sidebar */}
       <div
         className={cn(
-          "border-primary bg-background fixed top-0 z-[100] hidden h-[105%] w-64 translate-x-40 flex-col gap-20 rounded-sm border p-8 transition duration-200 ease-in max-[28.25rem]:flex",
+          "border-primary bg-background fixed top-0 z-100 hidden h-[105%] w-64 translate-x-40 flex-col gap-20 rounded-sm border p-8 transition duration-200 ease-in max-[28.25rem]:flex",
           isOpen && "-translate-x-44",
         )}
         ref={ref}

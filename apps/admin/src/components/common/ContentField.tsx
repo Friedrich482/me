@@ -1,9 +1,9 @@
 import { useRef, useState } from "react";
 import { type FieldValues, type Path, useForm } from "react-hook-form";
 import { ClipLoader } from "react-spinners";
-import { Info } from "lucide-react";
+import { Image } from "lucide-react";
 
-import usePostContentFileDrop from "@/hooks/usePostContentFileDrop";
+import useUploadPostMedia from "@/hooks/useUploadPostMedia";
 import MarkdownEditor from "@repo/ui/components/markdown/MarkdownEditor";
 import { Button } from "@repo/ui/components/ui/button";
 import {
@@ -12,6 +12,7 @@ import {
   FormItem,
   FormMessage,
 } from "@repo/ui/components/ui/form";
+import { Input } from "@repo/ui/components/ui/input";
 import { Textarea } from "@repo/ui/components/ui/textarea";
 import { cn } from "@repo/ui/lib/utils";
 
@@ -29,7 +30,12 @@ const ContentField = <T extends FieldValues, TFieldName extends Path<T>>({
   const textAreaRef = useRef<HTMLTextAreaElement | null>(null);
   const { ref } = form.register(name);
 
-  const { handleDrop, isPending } = usePostContentFileDrop(
+  const imageUploadInputRef = useRef<HTMLInputElement | null>(null);
+  const handleImageButtonClick = () => {
+    imageUploadInputRef.current?.click();
+  };
+
+  const { isPending, handleDrop, handleFileInputChange } = useUploadPostMedia(
     form,
     name,
     textAreaRef,
@@ -70,11 +76,11 @@ const ContentField = <T extends FieldValues, TFieldName extends Path<T>>({
                 <div
                   onDrop={handleDrop}
                   onDragOver={(e) => e.preventDefault()}
-                  className="flex-1 rounded-t-none rounded-b-md border-0"
+                  className="flex-1 border-y px-0 py-3"
                 >
                   <Textarea
                     placeholder="Start writing..."
-                    className="field-sizing-fixed size-full flex-1 rounded-t-none rounded-b-none border-0 text-lg placeholder:text-lg placeholder:opacity-65 focus-visible:border-none focus-visible:ring-0 md:text-lg"
+                    className="field-sizing-fixed size-full flex-1 rounded-t-none rounded-b-none border-0 bg-transparent text-lg placeholder:text-lg placeholder:opacity-65 focus-visible:border-none focus-visible:ring-0 md:text-lg"
                     {...field}
                     ref={(e) => {
                       ref(e);
@@ -87,11 +93,12 @@ const ContentField = <T extends FieldValues, TFieldName extends Path<T>>({
                   <MarkdownEditor markdown={field.value} />
                 </div>
               )}
+
               <div
                 id="content-drop-hint"
                 role="status"
                 aria-live="polite"
-                className="flex h-10 translate-x-2 items-center justify-start gap-1 p-1 opacity-50"
+                className="flex h-10 translate-x-2 items-center justify-start gap-1 px-1 py-6 opacity-50"
               >
                 {isPending ? (
                   <>
@@ -100,8 +107,23 @@ const ContentField = <T extends FieldValues, TFieldName extends Path<T>>({
                   </>
                 ) : (
                   <>
-                    <Info size={20} />
-                    <span>You can drag and drop images</span>
+                    <Button
+                      size="icon"
+                      variant="outline"
+                      type="button"
+                      aria-label="Upload image"
+                      onClick={handleImageButtonClick}
+                    >
+                      <Image />
+                    </Button>
+                    <Input
+                      type="file"
+                      onChange={handleFileInputChange}
+                      ref={imageUploadInputRef}
+                      accept="image/*"
+                      className="hidden"
+                    />
+                    <span>or drag and drop images</span>
                   </>
                 )}
               </div>
