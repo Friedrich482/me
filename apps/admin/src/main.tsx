@@ -10,10 +10,10 @@ import { EditPost } from "./components/edit/edit-post";
 import { Layout } from "./components/layout/layout";
 import { Post } from "./components/post/post";
 import { Posts } from "./components/posts/posts";
-import { Root } from "./components/root/root";
 import { authRouteLoader, protectedRouteLoader } from "./loaders/auth-loader";
 import { editPostLoader } from "./loaders/edit-post-loader";
 import { postLoader } from "./loaders/post-loader";
+import { rootLoader } from "./loaders/root-loader";
 
 const router = createBrowserRouter([
   {
@@ -24,8 +24,7 @@ const router = createBrowserRouter([
         children: [
           {
             index: true,
-            element: <Root />,
-            loader: protectedRouteLoader,
+            loader: rootLoader,
           },
           {
             element: <Posts />,
