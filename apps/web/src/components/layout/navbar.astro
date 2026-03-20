@@ -1,0 +1,31 @@
+---
+import { NAVBAR_LINKS } from "@/constants";
+import { cn } from "@repo/ui/lib/utils";
+
+const pathname = Astro.url.pathname;
+
+const navItems = NAVBAR_LINKS.map((entry) => ({
+  ...entry,
+  className: cn(
+    "hover:text-foreground",
+    entry.link !== "/" &&
+      pathname.includes(entry.link) &&
+      "text-primary hover:text-primary",
+    entry.link === "/" && pathname === "/" && "text-primary hover:text-primary",
+  ),
+}));
+---
+
+<nav class="text-foreground/50 flex flex-1 max-[32rem]:hidden">
+  <ul class="flex w-full items-center justify-end gap-4">
+    {
+      navItems.map((entry) => (
+        <li class={entry.className}>
+          <a href={entry.link} class="h-full">
+            {entry.text}
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+</nav>

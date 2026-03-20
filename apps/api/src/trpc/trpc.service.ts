@@ -1,7 +1,7 @@
 import superjson from "superjson";
 import { JWTDtoType } from "src/common/dto";
 import { EnvService } from "src/env/env.service";
-import { errorFormatter } from "src/filters/errorFormatter";
+import { errorFormatter } from "src/filters/error-formatter";
 
 import { Injectable } from "@nestjs/common";
 import { JwtService } from "@nestjs/jwt";

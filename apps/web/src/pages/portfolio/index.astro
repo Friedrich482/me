@@ -1,8 +1,8 @@
 ---
 import Layout from "@/layouts/main.astro";
 import { PROJECTS, SKILLS } from "@/constants";
-import ProjectCard from "@/components/ProjectCard";
-import TextFade from "@/components/motion/TextFade";
+import { ProjectCard } from "@/components/project-card";
+import { TextFade } from "@/components/motion/text-fade";
 ---
 
 <Layout title="Portfolio | Friedrich WT">
@@ -14,8 +14,8 @@ import TextFade from "@/components/motion/TextFade";
       <TextFade client:load direction="up" staggerChildren={0.15}>
         <div class="flex flex-col gap-8">
           {
-            PROJECTS.map((project) => (
-              <ProjectCard project={project} client:load />
+            PROJECTS.map((project, index) => (
+              <ProjectCard project={project} index={index} client:load />
             ))
           }
         </div>

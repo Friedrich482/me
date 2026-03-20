@@ -3,7 +3,7 @@ import { Outlet } from "react-router";
 import superjson from "superjson";
 
 import type { AppRouter } from "@repo/trpc/router";
-import { ThemeProvider } from "@repo/ui/providers/themeProvider";
+import { ThemeProvider } from "@repo/ui/providers/theme-provider";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import {
@@ -37,7 +37,7 @@ function getQueryClient() {
   }
 }
 
-const App = () => {
+export const App = () => {
   const queryClient = getQueryClient();
   const [trpcClient] = useState(() =>
     createTRPCClient<AppRouter>({
@@ -68,6 +68,7 @@ const App = () => {
       ],
     }),
   );
+
   return (
     <ThemeProvider defaultTheme="dark" storageKey="theme">
       <QueryClientProvider client={queryClient}>
@@ -79,5 +80,3 @@ const App = () => {
     </ThemeProvider>
   );
 };
-
-export default App;

@@ -1,5 +1,5 @@
 export * from "./media";
+export * from "./post-tags";
 export * from "./posts";
-export * from "./postTags";
 export * from "./tags";
 export * from "./users";

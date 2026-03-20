@@ -17,7 +17,7 @@
     "wait-on": "^8.0.5"
   },
   "engines": {
-    "node": ">=22"
+    "node": ">=24"
   },
   "packageManager": "npm@11.4.2",
   "workspaces": [

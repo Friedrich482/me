@@ -1,0 +1,19 @@
+---
+import Logo from "@/assets/signature.svg";
+import Navbar from "./navbar.astro";
+import HeaderIcons from "./header-icons.astro";
+import { SideBar } from "./sidebar";
+
+const pathname = Astro.url.pathname;
+---
+
+<header class="flex items-center justify-between gap-12 px-8 py-2">
+  <a href="/" aria-label="logo">
+    <Logo class="hover:text-primary size-12" />
+  </a>
+  <Navbar />
+  <div class="flex items-center gap-3">
+    <HeaderIcons />
+    <SideBar client:load pathname={pathname} />
+  </div>
+</header>

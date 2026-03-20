@@ -1,5 +1,5 @@
 import simpleImportSort from "eslint-plugin-simple-import-sort";
-
+import checkFile from "eslint-plugin-check-file";
 import typescriptEslint from "@typescript-eslint/eslint-plugin";
 import typescriptParser from "@typescript-eslint/parser";
 
@@ -19,6 +19,7 @@ export default [
     plugins: {
       "simple-import-sort": simpleImportSort,
       "@typescript-eslint": typescriptEslint,
+      "check-file": checkFile,
     },
     rules: {
       "@typescript-eslint/interface-name-prefix": "off",
@@ -51,6 +52,23 @@ export default [
         },
       ],
       "simple-import-sort/exports": "error", // Also sort exports
+      "check-file/filename-naming-convention": [
+        "error",
+        {
+          "**/*.{ts,tsx}": "KEBAB_CASE",
+          "*.{ts,tsx}": "KEBAB_CASE",
+        },
+        {
+          // ignore the middle extensions of the filename to support filename like auth.controller.ts
+          ignoreMiddleExtensions: true,
+        },
+      ],
+      "check-file/folder-naming-convention": [
+        "error",
+        {
+          "src/**/!(__tests__)": "KEBAB_CASE",
+        },
+      ],
     },
   },
 ];

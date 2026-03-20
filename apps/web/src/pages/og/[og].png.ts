@@ -1,5 +1,5 @@
-import trpc from "@/trpc/client";
-import generateSvg from "@/utils/generateSvg";
+import { trpc } from "@/trpc/client";
+import { generateSvg } from "@/utils/generate-svg";
 import { Resvg } from "@resvg/resvg-js";
 
 export async function getStaticPaths() {

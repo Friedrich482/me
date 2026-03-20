@@ -7,6 +7,12 @@ export default [
   {
     ignores: ["**/eslint.config.ts", "**/*.astro", "./dist/**"],
   },
+  {
+    files: ["**/og/*.png.ts", "**/*.png.ts"],
+    rules: {
+      "check-file/filename-naming-convention": "off",
+    },
+  },
 
   // Astro files configuration
   {

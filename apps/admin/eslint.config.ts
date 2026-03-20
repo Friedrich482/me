@@ -5,4 +5,11 @@ export default [
   {
     ignores: ["**/eslint.config.ts", "./dist/**"],
   },
+
+  {
+    files: ["./src/App.tsx"],
+    rules: {
+      "check-file/filename-naming-convention": "off",
+    },
+  },
 ];
