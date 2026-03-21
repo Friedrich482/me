@@ -1,15 +1,15 @@
-import { Link } from "react-router";
+import { Link, useLoaderData } from "react-router";
 import { format } from "date-fns";
 
 import { usePageTitle } from "@/hooks/use-page-title";
-import { useSafeParams } from "@/hooks/use-safe-params";
-import { ParamsSchema } from "@/types-schemas";
+import type { postLoader } from "@/loaders/post-loader";
 import { useTRPC } from "@/utils/trpc";
 import { MarkdownEditor } from "@repo/ui/components/markdown/markdown-editor";
 import { useSuspenseQuery } from "@tanstack/react-query";
 
 export const PostArticle = () => {
-  const { slug } = useSafeParams(ParamsSchema);
+  const { slug } = useLoaderData<typeof postLoader>();
+
   const trpc = useTRPC();
 
   const { data: post } = useSuspenseQuery(

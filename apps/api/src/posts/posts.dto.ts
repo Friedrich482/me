@@ -37,6 +37,10 @@ export const DeletePostDto = z.object({
   slug: slugSchema,
 });
 
+export const CheckPostExistDto = z.object({
+  slug: slugSchema,
+});
+
 export type CreatePostDtoType = z.infer<typeof CreatePostDto> & {
   authorId: string;
 };
@@ -60,5 +64,8 @@ export type UpdatePostDtoType = z.infer<typeof UpdatePostDto> & {
 };
 
 export type DeletePostDtoType = z.infer<typeof DeletePostDto> & {
+  authorId: string;
+};
+export type CheckPostExistDtoType = z.infer<typeof CheckPostExistDto> & {
   authorId: string;
 };

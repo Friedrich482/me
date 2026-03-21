@@ -11,7 +11,6 @@ import { Layout } from "./components/layout/layout";
 import { Post } from "./components/post/post";
 import { Posts } from "./components/posts/posts";
 import { authRouteLoader, protectedRouteLoader } from "./loaders/auth-loader";
-import { editPostLoader } from "./loaders/edit-post-loader";
 import { postLoader } from "./loaders/post-loader";
 import { rootLoader } from "./loaders/root-loader";
 
@@ -39,7 +38,7 @@ const router = createBrowserRouter([
           {
             element: <EditPost />,
             path: "/posts/:slug/edit",
-            loader: editPostLoader,
+            loader: postLoader,
           },
           {
             element: <CreatePost />,

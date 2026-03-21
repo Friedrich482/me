@@ -1,9 +1,8 @@
 import { ErrorBoundary } from "react-error-boundary";
-import { Link } from "react-router";
+import { Link, useLoaderData } from "react-router";
 import { ArrowLeft, Pencil } from "lucide-react";
 
-import { useSafeParams } from "@/hooks/use-safe-params";
-import { ParamsSchema } from "@/types-schemas";
+import type { postLoader } from "@/loaders/post-loader";
 import { Button } from "@repo/ui/components/ui/button";
 
 import { FallBackRender } from "../suspense-error-boundary/error-boundary";
@@ -11,7 +10,7 @@ import { SuspenseBoundary } from "../suspense-error-boundary/suspense-boundary";
 import { PostArticle } from "./post-article";
 
 export const Post = () => {
-  const { slug } = useSafeParams(ParamsSchema);
+  const { slug } = useLoaderData<typeof postLoader>();
 
   return (
     <main className="flex flex-1 flex-col items-center py-2">

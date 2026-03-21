@@ -4,6 +4,7 @@ import { Injectable } from "@nestjs/common";
 import { CreatePostDto } from "@repo/common/types-schemas";
 
 import {
+  CheckPostExistDto,
   DeletePostDto,
   FindAllPostsDto,
   FindPostDto,
@@ -75,6 +76,16 @@ export class PostsRouter {
         .input(DeletePostDto)
         .mutation(async ({ ctx, input }) =>
           this.postsService.deletePost({
+            ...input,
+            authorId: ctx.user.sub,
+          }),
+        ),
+
+      checkPostExists: this.trpcService
+        .protectedProcedure()
+        .input(CheckPostExistDto)
+        .query(async ({ ctx, input }) =>
+          this.postsService.checkPostExists({
             ...input,
             authorId: ctx.user.sub,
           }),

@@ -66,10 +66,8 @@ export class TrpcService {
   }
 
   async getPayload(ctx: TrpcContext) {
-    // get jwt token from cookies (browser) or the headers (extension)
-    const accessToken =
-      ctx.req.cookies?.auth_token ??
-      (ctx.req.headers.authorization?.replace("Bearer ", "") || "");
+    // get jwt token from cookies
+    const accessToken = ctx.req.cookies?.auth_token;
 
     if (!accessToken) {
       throw new TRPCError({

@@ -1,11 +1,11 @@
 import { useFieldArray, useForm } from "react-hook-form";
-import { useNavigate } from "react-router";
+import { useLoaderData, useNavigate } from "react-router";
 import { Check, Plus, X } from "lucide-react";
 import { toast } from "sonner";
 
 import { usePageTitle } from "@/hooks/use-page-title";
-import { useSafeParams } from "@/hooks/use-safe-params";
-import { type EditPost, EditPostSchema, ParamsSchema } from "@/types-schemas";
+import type { postLoader } from "@/loaders/post-loader";
+import { type EditPost, EditPostSchema } from "@/types-schemas";
 import { extractImagesUrls } from "@/utils/extract-images-urls";
 import { handlePostMedias } from "@/utils/handle-post-medias";
 import { setFormRootError } from "@/utils/set-form-root-error";
@@ -31,7 +31,7 @@ import { ContentField } from "../common/content-field";
 import { DeletePostAlert } from "./delete-post-alert";
 
 export const EditPostForm = () => {
-  const { slug } = useSafeParams(ParamsSchema);
+  const { slug } = useLoaderData<typeof postLoader>();
 
   const trpc = useTRPC();
 

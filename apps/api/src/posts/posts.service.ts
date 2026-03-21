@@ -7,6 +7,7 @@ import { Inject, Injectable } from "@nestjs/common";
 import { TRPCError } from "@trpc/server";
 
 import {
+  CheckPostExistDtoType,
   CreatePostDtoType,
   DeletePostDtoType,
   FindAllPostsDtoType,
@@ -203,5 +204,17 @@ export class PostsService {
       throw new TRPCError({ message: "Post not found", code: "NOT_FOUND" });
 
     return deletedPost;
+  }
+
+  async checkPostExists(checkPostExistsDto: CheckPostExistDtoType) {
+    const { slug, authorId } = checkPostExistsDto;
+
+    const [existingPost] = await this.db
+      .select({ id: posts.id })
+      .from(posts)
+      .where(and(eq(posts.slug, slug), eq(posts.authorId, authorId)))
+      .limit(1);
+
+    return !!existingPost;
   }
 }
