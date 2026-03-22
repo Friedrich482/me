@@ -1,9 +1,9 @@
 import { z } from "zod";
 
 import {
-  AddTagToPostDto,
-  CreatePostDto,
+  AddTagToPostSchema,
   isoDateSchema,
+  PostSchema,
   slugSchema,
 } from "@repo/common/types-schemas";
 
@@ -13,16 +13,16 @@ export const ParamsSchema = z.object({
   slug: slugSchema,
 });
 
-export const CreatePostSchema = z.object({
-  post: CreatePostDto.omit({ slug: true }),
-  tags: z.array(AddTagToPostDto.pick({ name: true })),
+export const CreatePostFormSchema = z.object({
+  post: PostSchema.omit({ slug: true }),
+  tags: z.array(AddTagToPostSchema.pick({ name: true })),
 });
 
-export const EditPostSchema = z.object({
-  post: CreatePostDto.omit({ slug: true }).extend({
+export const EditPostFormSchema = z.object({
+  post: PostSchema.omit({ slug: true }).extend({
     publishedAt: isoDateSchema.nullable(),
   }),
-  tags: z.array(AddTagToPostDto.pick({ name: true })),
+  tags: z.array(AddTagToPostSchema.pick({ name: true })),
 });
 
 export const LocalStoragePostDraftSchema = z.object({
@@ -33,6 +33,6 @@ export const LocalStoragePostDraftSchema = z.object({
 
 export type Status = Inputs["posts"]["findAll"]["status"];
 
-export type CreatePost = z.infer<typeof CreatePostSchema>;
+export type CreatePostFormType = z.infer<typeof CreatePostFormSchema>;
 
-export type EditPost = z.infer<typeof EditPostSchema>;
+export type EditPostFormType = z.infer<typeof EditPostFormSchema>;

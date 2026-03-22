@@ -7,8 +7,8 @@ import { UsersService } from "src/users/users.service";
 import { Injectable } from "@nestjs/common";
 import { JwtService } from "@nestjs/jwt";
 import {
-  RegisterUserDtoType,
-  SignInUserDtoType,
+  RegisterUser as RegisterUserDtoType,
+  SignInUser as SignInUserDtoType,
 } from "@repo/common/types-schemas";
 import { TRPCError } from "@trpc/server";
 

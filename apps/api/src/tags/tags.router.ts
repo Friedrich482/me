@@ -1,7 +1,7 @@
 import { TrpcService } from "src/trpc/trpc.service";
 
 import { Injectable } from "@nestjs/common";
-import { AddTagToPostDto } from "@repo/common/types-schemas";
+import { AddTagToPostSchema as AddTagToPostDto } from "@repo/common/types-schemas";
 
 import {
   FindAllTagsForPostDto,

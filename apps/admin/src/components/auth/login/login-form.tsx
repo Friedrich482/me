@@ -6,10 +6,7 @@ import { usePageTitle } from "@/hooks/use-page-title";
 import { setFormRootError } from "@/utils/set-form-root-error";
 import { useTRPC } from "@/utils/trpc";
 import { zodResolver } from "@hookform/resolvers/zod";
-import {
-  SignInUserDto,
-  type SignInUserDtoType,
-} from "@repo/common/types-schemas";
+import { type SignInUser, SignInUserSchema } from "@repo/common/types-schemas";
 import { Button } from "@repo/ui/components/ui/button";
 import {
   Form,
@@ -25,8 +22,8 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 export const LoginForm = () => {
   usePageTitle("Login | Admin Blog");
 
-  const form = useForm<SignInUserDtoType>({
-    resolver: zodResolver(SignInUserDto),
+  const form = useForm<SignInUser>({
+    resolver: zodResolver(SignInUserSchema),
     defaultValues: {
       email: "",
       password: "",
@@ -40,7 +37,7 @@ export const LoginForm = () => {
   const queryClient = useQueryClient();
   const loginMutation = useMutation(trpc.auth.signIn.mutationOptions());
 
-  const onSubmit = async (values: SignInUserDtoType) => {
+  const onSubmit = async (values: SignInUser) => {
     loginMutation.mutate(
       {
         email: values.email,

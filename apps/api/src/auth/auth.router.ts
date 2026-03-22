@@ -1,7 +1,10 @@
 import { TrpcService } from "src/trpc/trpc.service";
 
 import { Injectable } from "@nestjs/common";
-import { RegisterUserDto, SignInUserDto } from "@repo/common/types-schemas";
+import {
+  RegisterUserSchema as RegisterUserDto,
+  SignInUserSchema as SignInUserDto,
+} from "@repo/common/types-schemas";
 
 import { AuthService } from "./auth.service";
 

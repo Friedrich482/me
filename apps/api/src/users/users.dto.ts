@@ -1,7 +1,7 @@
 import { z } from "zod";
 import { roles } from "src/common/constants";
 
-import { RegisterUserDto } from "@repo/common/types-schemas";
+import { RegisterUserSchema as RegisterUserDto } from "@repo/common/types-schemas";
 
 export const CreateUserDto = z.object({
   ...RegisterUserDto.shape,

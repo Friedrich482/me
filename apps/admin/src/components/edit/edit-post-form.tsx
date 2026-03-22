@@ -5,7 +5,7 @@ import { toast } from "sonner";
 
 import { usePageTitle } from "@/hooks/use-page-title";
 import type { postLoader } from "@/loaders/post-loader";
-import { type EditPost, EditPostSchema } from "@/types-schemas";
+import { EditPostFormSchema,type EditPostFormType } from "@/types-schemas";
 import { extractImagesUrls } from "@/utils/extract-images-urls";
 import { handlePostMedias } from "@/utils/handle-post-medias";
 import { setFormRootError } from "@/utils/set-form-root-error";
@@ -44,8 +44,8 @@ export const EditPostForm = () => {
 
   usePageTitle(`Edit | ${post.title}`);
 
-  const form = useForm<EditPost>({
-    resolver: zodResolver(EditPostSchema),
+  const form = useForm<EditPostFormType>({
+    resolver: zodResolver(EditPostFormSchema),
     defaultValues: {
       post: {
         content: post.content,
@@ -99,7 +99,7 @@ export const EditPostForm = () => {
   );
 
   // submit handler when the post is edited
-  const onEdit = async (values: EditPost) => {
+  const onEdit = async (values: EditPostFormType) => {
     editPostMutation.mutate(
       {
         id: post.id,
@@ -213,7 +213,7 @@ export const EditPostForm = () => {
   };
 
   // submit handler when the post is published
-  const onSubmit = async (values: EditPost) => {
+  const onSubmit = async (values: EditPostFormType) => {
     await onEdit(values);
 
     editPostMutation.mutate(
@@ -245,7 +245,7 @@ export const EditPostForm = () => {
   };
 
   // submit handler when the post is deleted
-  const onDelete = async (values: EditPost) => {
+  const onDelete = async (values: EditPostFormType) => {
     const extractedImagesUrls = extractImagesUrls(values.post.content);
 
     const deletePostImagesMutations = extractedImagesUrls.map((image) =>

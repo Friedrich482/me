@@ -4,7 +4,7 @@ import { useNavigate } from "react-router";
 import { Plus, X } from "lucide-react";
 
 import { useDebounce } from "@/hooks/use-debounce";
-import { type CreatePost, CreatePostSchema } from "@/types-schemas";
+import { CreatePostFormSchema,type CreatePostFormType } from "@/types-schemas";
 import { getPostDraftFromLocalStorage } from "@/utils/get-post-draft-from-localstorage";
 import { handlePostMedias } from "@/utils/handle-post-medias";
 import { setFormRootError } from "@/utils/set-form-root-error";
@@ -27,8 +27,8 @@ import { ContentField } from "../common/content-field";
 export const CreatePostForm = () => {
   const postDraft = getPostDraftFromLocalStorage();
 
-  const form = useForm<CreatePost>({
-    resolver: zodResolver(CreatePostSchema),
+  const form = useForm<CreatePostFormType>({
+    resolver: zodResolver(CreatePostFormSchema),
     defaultValues: {
       post: {
         content: postDraft.content,
@@ -71,7 +71,7 @@ export const CreatePostForm = () => {
     trpc.tags.addTagToPost.mutationOptions(),
   );
 
-  const onSubmit = async (values: CreatePost) => {
+  const onSubmit = async (values: CreatePostFormType) => {
     createPostMutation.mutate(
       {
         title: values.post.title,

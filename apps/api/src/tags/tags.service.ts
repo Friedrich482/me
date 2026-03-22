@@ -5,7 +5,7 @@ import { postTags, tags } from "src/drizzle/schema";
 import { PostsService } from "src/posts/posts.service";
 
 import { Inject, Injectable } from "@nestjs/common";
-import { AddTagToPostDtoType } from "@repo/common/types-schemas";
+import { AddTagToPost as AddTagToPostDtoType } from "@repo/common/types-schemas";
 import { TRPCError } from "@trpc/server";
 
 import {
