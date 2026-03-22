@@ -1,8 +1,8 @@
-import z from "zod";
+import { z } from "zod";
 
 import { STATUS_ENUM } from "./constants";
 
-export const slugSchema = z
+export const SlugSchema = z
   .string()
   .min(1, "Slug cannot be empty")
   .regex(
@@ -10,7 +10,7 @@ export const slugSchema = z
     "Slug must be lowercase, alphanumeric, and may contain hyphens (no spaces, no special characters)",
   );
 
-export const isoDateSchema = z.iso.datetime();
+export const IsoStringSchema = z.iso.datetime();
 
 export const SignInUserSchema = z.object({
   email: z.email(),
@@ -24,13 +24,13 @@ export const RegisterUserSchema = z.object({
 
 export const AddTagToPostSchema = z.object({
   name: z.string().trim().min(1),
-  slug: slugSchema,
+  slug: SlugSchema,
   postId: z.ulid(),
 });
 
 export const PostSchema = z.object({
   title: z.string().trim().min(1),
-  slug: slugSchema,
+  slug: SlugSchema,
   content: z.string().trim().min(1),
   status: z.enum(STATUS_ENUM),
 });

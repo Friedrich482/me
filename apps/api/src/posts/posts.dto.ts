@@ -2,16 +2,12 @@ import { z } from "zod";
 
 import { STATUS_ENUM } from "@repo/common/constants";
 import {
+  IsoStringSchema,
   PostSchema as CreatePostDto,
-  slugSchema,
+  SlugSchema,
 } from "@repo/common/types-schemas";
 
-const isoDateSchema = z
-  .string()
-  .refine((val) => !isNaN(Date.parse(val)), {
-    message: "Invalid ISO date string",
-  })
-  .transform((val) => new Date(val));
+const PublishedAtSchema = IsoStringSchema.transform((val) => new Date(val));
 
 export const FindAllPostsDto = z.object({
   status: z.enum(STATUS_ENUM).optional(),
@@ -22,7 +18,7 @@ export const FindAllPublishedPostsDto = z.object({
 });
 
 export const FindPostDto = z.object({
-  slug: slugSchema,
+  slug: SlugSchema,
 });
 
 export const FindPublishedPostDto = FindPostDto;
@@ -30,18 +26,18 @@ export const FindPublishedPostDto = FindPostDto;
 export const UpdatePostDto = z.object({
   id: z.ulid(),
   title: z.string().min(1).optional(),
-  slug: slugSchema,
+  slug: SlugSchema,
   content: z.string().min(1).optional(),
   status: z.enum(STATUS_ENUM).optional(),
-  publishedAt: isoDateSchema.optional(),
+  publishedAt: PublishedAtSchema.optional(),
 });
 
 export const DeletePostDto = z.object({
-  slug: slugSchema,
+  slug: SlugSchema,
 });
 
 export const CheckPostExistDto = z.object({
-  slug: slugSchema,
+  slug: SlugSchema,
 });
 
 export type CreatePostDtoType = z.infer<typeof CreatePostDto> & {

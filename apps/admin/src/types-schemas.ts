@@ -2,15 +2,15 @@ import { z } from "zod";
 
 import {
   AddTagToPostSchema,
-  isoDateSchema,
+  IsoStringSchema,
   PostSchema,
-  slugSchema,
+  SlugSchema,
 } from "@repo/common/types-schemas";
 
 import type { Inputs } from "./utils/trpc";
 
 export const ParamsSchema = z.object({
-  slug: slugSchema,
+  slug: SlugSchema,
 });
 
 export const CreatePostFormSchema = z.object({
@@ -20,7 +20,7 @@ export const CreatePostFormSchema = z.object({
 
 export const EditPostFormSchema = z.object({
   post: PostSchema.omit({ slug: true }).extend({
-    publishedAt: isoDateSchema.nullable(),
+    publishedAt: IsoStringSchema.nullable(),
   }),
   tags: z.array(AddTagToPostSchema.pick({ name: true })),
 });

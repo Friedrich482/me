@@ -1,16 +1,16 @@
 import { z } from "zod";
 
-import { slugSchema } from "@repo/common/types-schemas";
+import { SlugSchema } from "@repo/common/types-schemas";
 
 export const FindAllTagsForPostDto = z.object({
-  postSlug: slugSchema,
+  postSlug: SlugSchema,
 });
 
 export const FindAllTagsForPublishedPostDto = FindAllTagsForPostDto;
 
 export const RemoveTagFromPostDto = z.object({
-  tagSlug: slugSchema,
-  postSlug: slugSchema,
+  tagSlug: SlugSchema,
+  postSlug: SlugSchema,
 });
 
 export type FindAllTagsForPostDtoType = z.infer<
