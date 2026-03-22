@@ -1,4 +1,4 @@
-import { z } from "zod";
+import z from "zod";
 
 import { STATUS_ENUM } from "./constants";
 
