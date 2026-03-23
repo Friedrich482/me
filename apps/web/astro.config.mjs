@@ -2,6 +2,7 @@
 import { defineConfig } from "astro/config";
 import sitemap from "@astrojs/sitemap";
 import tailwindcss from "@tailwindcss/vite";
+import { visualizer } from "rollup-plugin-visualizer";
 import svgr from "vite-plugin-svgr";
 
 import react from "@astrojs/react";
@@ -15,25 +16,25 @@ export default defineConfig({
       tailwindcss(),
       // @ts-ignore
       svgr(),
-      {
-        name: "manual-chunks",
-        enforce: "post",
-        config(config, { command }) {
-          if (command === "build") {
-            config.build = config.build || {};
-            config.build.rollupOptions = config.build.rollupOptions || {};
-            config.build.rollupOptions.output = {
-              ...config.build.rollupOptions.output,
-              manualChunks(id) {
-                if (id.includes("react-markdown")) return "markdown-vendor";
-                if (id.includes("remark-gfm")) return "remark-vendor";
-                if (id.includes("rehype-raw")) return "rehype-vendor";
-              },
-            };
-          }
+      // @ts-ignore
+      visualizer({
+        open: true,
+        filename: "dist/deps.html",
+      }),
+    ],
+    build: {
+      chunkSizeWarningLimit: 800,
+      rollupOptions: {
+        output: {
+          manualChunks: {
+            trpc: ["@trpc/client", "@trpc/server"],
+            reactmarkdown: ["react-markdown"],
+            remarkGfm: ["remark-gfm"],
+            rehypeRaw: ["rehype-raw"],
+          },
         },
       },
-    ],
+    },
   },
 
   integrations: [react(), sitemap()],
