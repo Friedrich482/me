@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Outlet } from "react-router";
 import superjson from "superjson";
 
+import { TRPCProvider } from "@/utils/trpc";
 import type { AppRouter } from "@repo/trpc/router";
 import { ThemeProvider } from "@repo/ui/providers/theme-provider";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
@@ -13,8 +14,6 @@ import {
   isNonJsonSerializable,
   splitLink,
 } from "@trpc/client";
-
-import { TRPCProvider } from "./utils/trpc";
 
 function makeQueryClient() {
   return new QueryClient({

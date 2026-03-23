@@ -1,15 +1,13 @@
 import { useFieldArray, useForm } from "react-hook-form";
-import { useLoaderData, useNavigate } from "react-router";
+import { useNavigate } from "react-router";
 import { Check, Plus, X } from "lucide-react";
 import { toast } from "sonner";
 
-import { usePageTitle } from "@/hooks/use-page-title";
-import type { postLoader } from "@/loaders/post-loader";
-import { EditPostFormSchema,type EditPostFormType } from "@/types-schemas";
+import { ContentField } from "@/components/common/content-field";
 import { extractImagesUrls } from "@/utils/extract-images-urls";
 import { handlePostMedias } from "@/utils/handle-post-medias";
 import { setFormRootError } from "@/utils/set-form-root-error";
-import { useTRPC } from "@/utils/trpc";
+import { type Outputs, useTRPC } from "@/utils/trpc";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { generateSlug } from "@repo/common/generate-slug";
 import { Button } from "@repo/ui/components/ui/button";
@@ -27,22 +25,19 @@ import {
   useSuspenseQuery,
 } from "@tanstack/react-query";
 
-import { ContentField } from "../common/content-field";
+import { EditPostFormSchema, type EditPostFormType } from "../types-schemas";
 import { DeletePostAlert } from "./delete-post-alert";
 
-export const EditPostForm = () => {
-  const { slug } = useLoaderData<typeof postLoader>();
-
+export const EditPostForm = ({
+  post,
+}: {
+  post: Outputs["posts"]["findPost"];
+}) => {
   const trpc = useTRPC();
 
-  const { data: post } = useSuspenseQuery(
-    trpc.posts.findPost.queryOptions({ slug }),
-  );
   const { data: tagsForPost } = useSuspenseQuery(
     trpc.tags.findAllTagsForPost.queryOptions({ postSlug: post.slug }),
   );
-
-  usePageTitle(`Edit | ${post.title}`);
 
   const form = useForm<EditPostFormType>({
     resolver: zodResolver(EditPostFormSchema),

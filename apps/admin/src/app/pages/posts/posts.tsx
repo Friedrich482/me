@@ -3,14 +3,13 @@ import { ErrorBoundary } from "react-error-boundary";
 import { Link } from "react-router";
 import { Plus } from "lucide-react";
 
+import { FallBackRender } from "@/components/suspense-error-boundary/error-boundary";
+import { SuspenseBoundary } from "@/components/suspense-error-boundary/suspense-boundary";
+import { PostsList } from "@/features/posts/components/posts-list";
+import { StatusDropDown } from "@/features/posts/components/status-dropdown";
+import type { Status } from "@/features/posts/types-schemas";
 import { usePageTitle } from "@/hooks/use-page-title";
-import type { Status } from "@/types-schemas";
 import { Button } from "@repo/ui/components/ui/button";
-
-import { FallBackRender } from "../suspense-error-boundary/error-boundary";
-import { SuspenseBoundary } from "../suspense-error-boundary/suspense-boundary";
-import { PostsList } from "./posts-list";
-import { StatusDropDown } from "./status-dropdown";
 
 export const Posts = () => {
   usePageTitle("Admin Blog | Friedrich WT");

@@ -1,9 +1,8 @@
 import { Link } from "react-router";
 import { ArrowLeft } from "lucide-react";
 
+import { CreatePostForm } from "@/features/create-post/components/create-post-form";
 import { usePageTitle } from "@/hooks/use-page-title";
-
-import { CreatePostForm } from "./create-post-form";
 
 export const CreatePost = () => {
   usePageTitle("Create Post");

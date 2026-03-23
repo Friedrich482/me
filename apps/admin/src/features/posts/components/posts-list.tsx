@@ -2,9 +2,10 @@ import { Link } from "react-router";
 import { format } from "date-fns";
 import { CircleSmall } from "lucide-react";
 
-import type { Status } from "@/types-schemas";
 import { useTRPC } from "@/utils/trpc";
 import { useSuspenseQuery } from "@tanstack/react-query";
+
+import type { Status } from "../types-schemas";
 
 export const PostsList = ({ status }: { status: Status }) => {
   const trpc = useTRPC();

@@ -1,25 +1,20 @@
-import { Link, useLoaderData } from "react-router";
+import { Link } from "react-router";
 import { format } from "date-fns";
 
-import { usePageTitle } from "@/hooks/use-page-title";
-import type { postLoader } from "@/loaders/post-loader";
-import { useTRPC } from "@/utils/trpc";
+import { type Outputs, useTRPC } from "@/utils/trpc";
 import { MarkdownEditor } from "@repo/ui/components/markdown/markdown-editor";
 import { useSuspenseQuery } from "@tanstack/react-query";
 
-export const PostArticle = () => {
-  const { slug } = useLoaderData<typeof postLoader>();
-
+export const PostArticle = ({
+  post,
+}: {
+  post: Outputs["posts"]["findPost"];
+}) => {
   const trpc = useTRPC();
 
-  const { data: post } = useSuspenseQuery(
-    trpc.posts.findPost.queryOptions({ slug }),
-  );
   const { data: postTags } = useSuspenseQuery(
     trpc.tags.findAllTagsForPost.queryOptions({ postSlug: post.slug }),
   );
-
-  usePageTitle(post.title);
 
   return (
     <article className="flex w-full flex-col items-start justify-center gap-7 text-start">

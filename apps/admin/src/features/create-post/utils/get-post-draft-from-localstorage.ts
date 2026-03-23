@@ -1,4 +1,4 @@
-import { LocalStoragePostDraftSchema } from "@/types-schemas";
+import { LocalStoragePostDraftSchema } from "../types-schemas";
 
 export const getPostDraftFromLocalStorage = () => {
   const parsedPost = LocalStoragePostDraftSchema.safeParse(

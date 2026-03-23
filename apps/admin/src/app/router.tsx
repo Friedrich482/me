@@ -2,17 +2,21 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router";
 
-import { App } from "./App";
-import { NotFound } from "./components/404/not-found";
-import { LoginForm } from "./components/auth/login/login-form";
-import { CreatePost } from "./components/create/create-post";
-import { EditPost } from "./components/edit/edit-post";
-import { Layout } from "./components/layout/layout";
-import { Post } from "./components/post/post";
-import { Posts } from "./components/posts/posts";
-import { authRouteLoader, protectedRouteLoader } from "./loaders/auth-loader";
-import { postLoader } from "./loaders/post-loader";
-import { rootLoader } from "./loaders/root-loader";
+import {
+  authRouteLoader,
+  protectedRouteLoader,
+} from "@/app/loaders/auth-loader";
+import { postLoader } from "@/app/loaders/post-loader";
+import { rootLoader } from "@/app/loaders/root-loader";
+import { Layout } from "@/components/layout/layout";
+
+import { App } from "./app";
+import { Login } from "./pages/auth/login";
+import { CreatePost } from "./pages/create-post/create-post";
+import { EditPost } from "./pages/edit-post/edit-post";
+import { NotFound } from "./pages/not-found/not-found";
+import { Post } from "./pages/post/post";
+import { Posts } from "./pages/posts/posts";
 
 const router = createBrowserRouter([
   {
@@ -52,7 +56,7 @@ const router = createBrowserRouter([
         ],
       },
       {
-        element: <LoginForm />,
+        element: <Login />,
         path: "/login",
         loader: authRouteLoader,
       },

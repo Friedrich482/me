@@ -2,15 +2,24 @@ import { ErrorBoundary } from "react-error-boundary";
 import { Link, useLoaderData } from "react-router";
 import { ArrowLeft, Pencil } from "lucide-react";
 
-import type { postLoader } from "@/loaders/post-loader";
+import type { postLoader } from "@/app/loaders/post-loader";
+import { FallBackRender } from "@/components/suspense-error-boundary/error-boundary";
+import { SuspenseBoundary } from "@/components/suspense-error-boundary/suspense-boundary";
+import { PostArticle } from "@/features/post/components/post-article";
+import { usePageTitle } from "@/hooks/use-page-title";
+import { useTRPC } from "@/utils/trpc";
 import { Button } from "@repo/ui/components/ui/button";
-
-import { FallBackRender } from "../suspense-error-boundary/error-boundary";
-import { SuspenseBoundary } from "../suspense-error-boundary/suspense-boundary";
-import { PostArticle } from "./post-article";
+import { useSuspenseQuery } from "@tanstack/react-query";
 
 export const Post = () => {
   const { slug } = useLoaderData<typeof postLoader>();
+  const trpc = useTRPC();
+
+  const { data: post } = useSuspenseQuery(
+    trpc.posts.findPost.queryOptions({ slug }),
+  );
+
+  usePageTitle(post.title);
 
   return (
     <main className="flex flex-1 flex-col items-center py-2">
@@ -45,7 +54,7 @@ export const Post = () => {
           )}
         >
           <SuspenseBoundary className="h-88 w-full">
-            <PostArticle />
+            <PostArticle post={post} />
           </SuspenseBoundary>
         </ErrorBoundary>
       </section>

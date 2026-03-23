@@ -3,9 +3,8 @@ import { useFieldArray, useForm } from "react-hook-form";
 import { useNavigate } from "react-router";
 import { Plus, X } from "lucide-react";
 
+import { ContentField } from "@/components/common/content-field";
 import { useDebounce } from "@/hooks/use-debounce";
-import { CreatePostFormSchema,type CreatePostFormType } from "@/types-schemas";
-import { getPostDraftFromLocalStorage } from "@/utils/get-post-draft-from-localstorage";
 import { handlePostMedias } from "@/utils/handle-post-medias";
 import { setFormRootError } from "@/utils/set-form-root-error";
 import { useTRPC } from "@/utils/trpc";
@@ -22,7 +21,11 @@ import {
 import { Input } from "@repo/ui/components/ui/input";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
-import { ContentField } from "../common/content-field";
+import {
+  CreatePostFormSchema,
+  type CreatePostFormType,
+} from "../types-schemas";
+import { getPostDraftFromLocalStorage } from "../utils/get-post-draft-from-localstorage";
 
 export const CreatePostForm = () => {
   const postDraft = getPostDraftFromLocalStorage();
