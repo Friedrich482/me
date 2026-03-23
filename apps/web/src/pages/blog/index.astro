@@ -1,7 +1,7 @@
 ---
-import Layout from "@/layouts/main.astro";
+import Layout from "@/components/layout/layout.astro";
 import { CircleSmall } from "lucide-react";
-import { trpc } from "@/trpc/client";
+import { trpc } from "@/utils/trpc";
 import { format } from "date-fns";
 import { TextFade } from "@/components/motion/text-fade";
 
@@ -30,12 +30,7 @@ const posts: {
         posts.length === 0 ? (
           <p class="text-center text-xl">No posts yet</p>
         ) : (
-          <TextFade
-            client:load
-            direction="up"
-            staggerChildren={0.15}
-            className="self-start"
-          >
+          <TextFade client:load direction="up" className="self-start">
             <ul class="text-foreground/75 dark:text-foreground/60 flex flex-col gap-y-8 self-start text-lg">
               {posts.map((post) => (
                 <li class="hover:text-primary/95 dark:hover:text-primary/75 w-full cursor-pointer text-start">

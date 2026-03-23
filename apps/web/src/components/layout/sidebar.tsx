@@ -11,7 +11,7 @@ export const SideBar = ({ pathname }: { pathname: string }) => {
   const handleClick = () => setIsOpen((prev) => !prev);
   const handleCloseButtonClick = () => setIsOpen(false);
 
-  const ref = useOutsideClick(setIsOpen);
+  const ref = useOutsideClick<HTMLDivElement>(setIsOpen);
 
   return (
     <div className="relative hidden max-[32rem]:flex">

@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 
-import { appTheme } from "@/store/theme-store";
+import { appTheme } from "@/stores/theme-store";
 import { useStore } from "@nanostores/react";
 import { ModeToggleContent } from "@repo/ui/components/mode-toggle-content";
 import type { ResolvedTheme, Theme } from "@repo/ui/types-schemas";

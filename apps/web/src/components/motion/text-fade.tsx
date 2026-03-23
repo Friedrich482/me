@@ -6,7 +6,7 @@ export const TextFade = ({
   direction,
   children,
   className = "",
-  staggerChildren = 0.1,
+  staggerChildren = 0.15,
 }: {
   direction: "up" | "down";
   children: React.ReactNode;
@@ -30,7 +30,7 @@ export const TextFade = ({
         hidden: {},
         show: {
           transition: {
-            staggerChildren: staggerChildren,
+            staggerChildren,
           },
         },
       }}

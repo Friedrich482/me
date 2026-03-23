@@ -1,10 +1,10 @@
 ---
-import Layout from "@/layouts/main.astro";
-import { trpc } from "@/trpc/client";
+import Layout from "@/components/layout/layout.astro";
+import { trpc } from "@/utils/trpc";
 import { ArrowLeft } from "lucide-react";
 import { format } from "date-fns";
 import { MarkdownEditor } from "@repo/ui/components/markdown/markdown-editor";
-import { TagsList } from "@/components/tags-list";
+import { TagsList } from "@/features/post/components/tags-list";
 
 export async function getStaticPaths() {
   // astro can't properly infer the types of the trpc client so we are obliged to type it manually
@@ -25,7 +25,10 @@ export async function getStaticPaths() {
 
 const { post } = Astro.props;
 
-const postTags = await trpc.tags.findAllTagsForPublishedPost.query({
+const postTags: {
+  name: string;
+  slug: string;
+}[] = await trpc.tags.findAllTagsForPublishedPost.query({
   postSlug: post.slug,
 });
 ---

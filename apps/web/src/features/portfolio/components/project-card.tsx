@@ -1,33 +1,14 @@
 import { useEffect, useState } from "react";
 import { ExternalLink } from "lucide-react";
 
-import { appTheme } from "@/store/theme-store";
-import type { Project } from "@/types-schemas";
+import { appTheme } from "@/stores/theme-store";
 import { SiGithub } from "@icons-pack/react-simple-icons";
 import { useStore } from "@nanostores/react";
 import { Skeleton } from "@repo/ui/components/ui/skeleton";
 
-export const handleCardHover = (
-  e: React.MouseEvent<HTMLDivElement, MouseEvent>,
-) => {
-  const card = e.currentTarget;
-  const rect = card.getBoundingClientRect();
-
-  const relativeX = (e.clientX - rect.left) / rect.width - 0.5;
-  const relativeY = (e.clientY - rect.top) / rect.height - 0.5;
-
-  // Rotation angles (side you hover goes UP)
-  const maxRotation = 20;
-  const rotateX = relativeY * maxRotation * 1;
-  const rotateY = relativeX * maxRotation * -1;
-
-  card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateZ(6px)`;
-};
-
-const handleCardLeave = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-  const card = e.currentTarget;
-  card.style.transform = "rotateX(0deg) rotateY(0deg) translateZ(0px)";
-};
+import type { Project } from "../types-schemas";
+import { handleCardHover } from "../utils/handle-card-hover";
+import { handleCardLeave } from "../utils/handle-card-leave";
 
 export const ProjectCard = ({
   project,
@@ -38,7 +19,7 @@ export const ProjectCard = ({
 }) => {
   const [isMounted, setIsMounted] = useState(false);
 
-  // prevents hydration errors and forces the component to be only rendered on the client
+  // prevents hydration errors and forces the component to be only rendered on the client (the theme is determined on the client)
   useEffect(() => {
     setIsMounted(true);
   }, []);

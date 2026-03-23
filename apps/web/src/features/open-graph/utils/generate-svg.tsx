@@ -1,6 +1,6 @@
 import satori from "satori";
 
-import { OgSvg } from "@/components/og-svg";
+import { OgSvg } from "../components/og-svg";
 
 export const generateSvg = async (title: string) => {
   const response = await fetch(
