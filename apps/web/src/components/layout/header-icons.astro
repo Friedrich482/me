@@ -4,10 +4,10 @@ import { ModeToggle } from "./mode-toggle";
 ---
 
 <div class="flex items-center justify-center gap-4">
-  <div class="flex items-center justify-center gap-4 max-[28.25rem]:hidden">
+  <div class="flex items-center justify-center gap-4 max-[34.5rem]:hidden">
     {
-      HEADER_LINKS.map(({ Icon, link }) => (
-        <a href={link} target="_blank" rel="noopener noreferrer">
+      HEADER_LINKS.map(({ Icon, link, title }) => (
+        <a href={link} target="_blank" rel="noopener noreferrer" title={title}>
           <Icon size={20} className="hover:text-primary" />
         </a>
       ))

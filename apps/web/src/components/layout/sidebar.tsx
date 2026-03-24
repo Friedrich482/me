@@ -28,7 +28,7 @@ export const SideBar = ({ pathname }: { pathname: string }) => {
       {/* Sidebar */}
       <div
         className={cn(
-          "border-primary bg-background fixed top-0 z-100 hidden h-[105%] w-64 translate-x-40 flex-col gap-20 rounded-sm border p-8 transition duration-200 ease-in max-[28.25rem]:flex",
+          "border-primary bg-background fixed top-0 z-100 hidden h-[105%] w-64 translate-x-40 flex-col gap-10 rounded-sm border p-8 transition duration-200 ease-in max-[32rem]:flex",
           isOpen && "-translate-x-44",
         )}
         ref={ref}
@@ -63,7 +63,7 @@ export const SideBar = ({ pathname }: { pathname: string }) => {
         </ul>
 
         {/* Socials */}
-        <div className="flex flex-col gap-4 pt-8">
+        <div className="flex flex-col gap-4">
           <h2 className="text-2xl">Socials</h2>
           <div className="flex flex-col items-start gap-2">
             {HEADER_LINKS.map(({ Icon, link, title }) => (

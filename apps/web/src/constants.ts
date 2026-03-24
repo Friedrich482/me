@@ -2,6 +2,7 @@ import {
   type IconType,
   SiDailydotdev,
   SiGithub,
+  SiRss,
   SiX,
 } from "@icons-pack/react-simple-icons";
 
@@ -24,6 +25,11 @@ export const HEADER_LINKS: {
     Icon: SiX,
     link: "https://x.com/FriedrichC109",
     title: "X",
+  },
+  {
+    Icon: SiRss,
+    link: "/rss.xml",
+    title: "RSS feed",
   },
 ];
 

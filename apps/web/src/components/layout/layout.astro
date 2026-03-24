@@ -100,6 +100,14 @@ const {
   <meta name="twitter:description" content={twitterDescription} />
   <meta name="twitter:card" content="summary_large_image" />
 
+  <!-- rss feed auto-discovery tag -->
+  <link
+    rel="alternate"
+    type="application/rss+xml"
+    title={title}
+    href={new URL("rss.xml", Astro.site)}
+  />
+
   <title>{title}</title>
 
   <ClientRouter />
