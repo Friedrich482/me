@@ -5,8 +5,8 @@
 
   "exclude": ["dist"],
   "compilerOptions": {
-    "baseUrl": ".",
     "paths": {
+      "*": ["./*"],
       "@/*": ["./src/*"],
       "@repo/trpc/*": ["../../packages/trpc/src/*"]
     },
