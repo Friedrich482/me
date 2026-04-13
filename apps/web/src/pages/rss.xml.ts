@@ -51,7 +51,7 @@ export async function GET(context: APIContext) {
     items: postsWithTags.map((post) => ({
       title: post.title,
       link: `/blog/${post.slug}/`,
-      pubDate: post.publishDate ?? new Date(),
+      pubDate: post.publishDate,
       content: post.content,
       categories: post.tags.map((tag) => tag.slug),
       author: "friedrichcorner@gmail.com (Friedrich WT)",

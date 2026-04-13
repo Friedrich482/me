@@ -10,8 +10,8 @@ const posts: {
   title: string;
   slug: string;
   content: string;
-  status: "draft" | "published";
-  publishDate: Date | null;
+  status: "published";
+  publishDate: Date;
 }[] = await trpc.posts.findAllPublished.query();
 ---
 
@@ -39,9 +39,7 @@ const posts: {
                     <div class="space-x-4">
                       <span>{post.title}</span>
                       <span class="opacity-70 dark:opacity-50">
-                        {post.publishDate
-                          ? convertDateToMediumFormat(post.publishDate)
-                          : ""}
+                        {convertDateToMediumFormat(post.publishDate)}
                       </span>
                     </div>
                   </a>

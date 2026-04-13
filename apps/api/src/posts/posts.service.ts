@@ -12,6 +12,7 @@ import {
   DeletePostDtoType,
   FindAllPostsDtoType,
   FindAllPublishedPostsDtoType,
+  FindAllPublishedPostsReturnDto,
   FindPostDtoType,
   FindPublishedPostDto,
   UpdatePostDtoType,
@@ -103,7 +104,17 @@ export class PostsService {
       .where(eq(posts.status, status))
       .orderBy(desc(posts.publishedAt));
 
-    return postsFromDb;
+    const parsedPosts = FindAllPublishedPostsReturnDto.safeParse(postsFromDb);
+
+    if (!parsedPosts.success) {
+      // we can never reach this case
+      throw new TRPCError({
+        code: "INTERNAL_SERVER_ERROR",
+        message: "An error occurred",
+      });
+    }
+
+    return parsedPosts.data;
   }
 
   async findPost(findPostDto: FindPostDtoType) {

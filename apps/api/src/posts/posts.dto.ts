@@ -14,8 +14,19 @@ export const FindAllPostsDto = z.object({
 });
 
 export const FindAllPublishedPostsDto = z.object({
-  status: z.enum(STATUS_ENUM),
+  status: z.enum(STATUS_ENUM).extract(["published"]),
 });
+
+export const FindAllPublishedPostsReturnDto = z.array(
+  z.object({
+    id: z.ulid(),
+    slug: SlugSchema,
+    title: z.string().min(1),
+    content: z.string().min(1),
+    status: z.enum(STATUS_ENUM).extract(["published"]),
+    publishDate: z.date(),
+  }),
+);
 
 export const FindPostDto = z.object({
   slug: SlugSchema,
@@ -50,6 +61,10 @@ export type FindAllPostsDtoType = z.infer<typeof FindAllPostsDto> & {
 
 export type FindAllPublishedPostsDtoType = z.infer<
   typeof FindAllPublishedPostsDto
+>;
+
+export type FindAllPublishedPostsReturnDtoType = z.infer<
+  typeof FindAllPublishedPostsReturnDto
 >;
 
 export type FindPostDtoType = z.infer<typeof FindPostDto> & {

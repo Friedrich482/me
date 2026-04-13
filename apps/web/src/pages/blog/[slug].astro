@@ -13,8 +13,8 @@ export async function getStaticPaths() {
     title: string;
     slug: string;
     content: string;
-    status: "draft" | "published";
-    publishDate: Date | null;
+    status: "published";
+    publishDate: Date;
   }[] = await trpc.posts.findAllPublished.query();
 
   return posts.map((post) => ({
@@ -63,7 +63,7 @@ const postTags: {
       <article class="flex w-full flex-col gap-7">
         <div>
           <MarkdownEditor
-            markdown={`# ${post.title}\n ${post.publishDate ? convertDateToMediumFormat(post.publishDate) : ""}`}
+            markdown={`# ${post.title}\n ${convertDateToMediumFormat(post.publishDate)}`}
             classNames={{ p: "opacity-70", h1: "max-sm:text-3xl" }}
             client:load
             client:only
