@@ -5,8 +5,8 @@
     { "path": "./tsconfig.node.json" }
   ],
   "compilerOptions": {
-    "baseUrl": ".",
     "paths": {
+      "*": ["./*"],
       "@/*": ["./src/*"],
       "@repo/trpc/*": ["../../packages/trpc/src/*"],
       "@repo/common/*": ["../../packages/common/src/*"]

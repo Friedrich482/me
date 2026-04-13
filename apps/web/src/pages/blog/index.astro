@@ -2,7 +2,7 @@
 import Layout from "@/components/layout/layout.astro";
 import { CircleSmall } from "lucide-react";
 import { trpc } from "@/utils/trpc";
-import { format } from "date-fns";
+import { convertDateToMediumFormat } from "@repo/common/convert-date-to-medium-format";
 import { TextFade } from "@/components/motion/text-fade";
 
 const posts: {
@@ -40,7 +40,7 @@ const posts: {
                       <span>{post.title}</span>
                       <span class="opacity-70 dark:opacity-50">
                         {post.publishDate
-                          ? format(post.publishDate, "MMM dd, yyyy")
+                          ? convertDateToMediumFormat(post.publishDate)
                           : ""}
                       </span>
                     </div>

@@ -2,7 +2,7 @@
 import Layout from "@/components/layout/layout.astro";
 import { trpc } from "@/utils/trpc";
 import { ArrowLeft } from "lucide-react";
-import { format } from "date-fns";
+import { convertDateToMediumFormat } from "@repo/common/convert-date-to-medium-format";
 import { MarkdownEditor } from "@repo/ui/components/markdown/markdown-editor";
 import { TagsList } from "@/features/post/components/tags-list";
 
@@ -63,7 +63,7 @@ const postTags: {
       <article class="flex w-full flex-col gap-7">
         <div>
           <MarkdownEditor
-            markdown={`# ${post.title}\n ${post.publishDate ? format(post.publishDate, "MMM dd, yyyy") : ""}`}
+            markdown={`# ${post.title}\n ${post.publishDate ? convertDateToMediumFormat(post.publishDate) : ""}`}
             classNames={{ p: "opacity-70", h1: "max-sm:text-3xl" }}
             client:load
             client:only

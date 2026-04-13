@@ -2,6 +2,7 @@
 import { defineConfig } from "astro/config";
 import sitemap from "@astrojs/sitemap";
 import tailwindcss from "@tailwindcss/vite";
+import commonjs from "vite-plugin-commonjs";
 import { visualizer } from "rollup-plugin-visualizer";
 import svgr from "vite-plugin-svgr";
 
@@ -21,6 +22,8 @@ export default defineConfig({
         open: true,
         filename: "dist/deps.html",
       }),
+      // @ts-ignore
+      commonjs(),
     ],
     build: {
       chunkSizeWarningLimit: 800,

@@ -1,8 +1,8 @@
 import { Link } from "react-router";
-import { format } from "date-fns";
 import { CircleSmall } from "lucide-react";
 
 import { useTRPC } from "@/utils/trpc";
+import { convertDateToMediumFormat } from "@repo/common/convert-date-to-medium-format";
 import { useSuspenseQuery } from "@tanstack/react-query";
 
 import type { Status } from "../types-schemas";
@@ -29,7 +29,7 @@ export const PostsList = ({ status }: { status: Status }) => {
               <span>{post.title}</span>
               <span className="opacity-70 dark:opacity-50">
                 {post.publishDate
-                  ? format(post.publishDate, "MMM dd, yyyy")
+                  ? convertDateToMediumFormat(post.publishDate)
                   : post.status === "draft" && status !== "draft"
                     ? "(draft)"
                     : ""}

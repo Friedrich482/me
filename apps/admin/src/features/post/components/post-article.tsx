@@ -1,7 +1,7 @@
 import { Link } from "react-router";
-import { format } from "date-fns";
 
 import { type Outputs, useTRPC } from "@/utils/trpc";
+import { convertDateToMediumFormat } from "@repo/common/convert-date-to-medium-format";
 import { MarkdownEditor } from "@repo/ui/components/markdown/markdown-editor";
 import { useSuspenseQuery } from "@tanstack/react-query";
 
@@ -20,7 +20,7 @@ export const PostArticle = ({
     <article className="flex w-full flex-col items-start justify-center gap-7 text-start">
       <div className="flex w-full flex-col">
         <MarkdownEditor
-          markdown={`# ${post.title}\n ${post.publishDate ? format(post.publishDate, "MMM dd, yyyy") : ""}`}
+          markdown={`# ${post.title}\n ${post.publishDate ? convertDateToMediumFormat(post.publishDate) : ""}`}
           classNames={{ p: "opacity-70", h1: "max-sm:text-3xl" }}
         />
       </div>
