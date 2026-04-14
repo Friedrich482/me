@@ -19,7 +19,7 @@ import {
   FormMessage,
 } from "@repo/ui/components/ui/form";
 import { Input } from "@repo/ui/components/ui/input";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 
 import {
   CreatePostFormSchema,
@@ -67,7 +67,6 @@ export const CreatePostForm = () => {
 
   const navigate = useNavigate();
   const trpc = useTRPC();
-  const queryClient = useQueryClient();
 
   const createPostMutation = useMutation(trpc.posts.create.mutationOptions());
   const addTagToPostMutation = useMutation(
@@ -94,9 +93,9 @@ export const CreatePostForm = () => {
           }
         },
 
-        onSuccess: async ({ id }) => {
+        onSuccess: async ({ id }, _, __, { client }) => {
           // invalidate posts
-          await queryClient.invalidateQueries({
+          await client.invalidateQueries({
             queryKey: trpc.posts.findAll.queryKey(),
             exact: true,
           });
@@ -120,8 +119,8 @@ export const CreatePostForm = () => {
                     setFormRootError(form, errorMessage);
                   }
                 },
-                onSuccess: async () => {
-                  await queryClient.invalidateQueries({
+                onSuccess: async (_, __, ___, { client }) => {
+                  await client.invalidateQueries({
                     queryKey: trpc.tags.findAllTagsForPost.queryKey(),
                     exact: true,
                   });

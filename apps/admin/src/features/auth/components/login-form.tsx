@@ -15,7 +15,7 @@ import {
   FormMessage,
 } from "@repo/ui/components/ui/form";
 import { Input } from "@repo/ui/components/ui/input";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 
 import { useTogglePassword } from "../hooks/use-toggle-password";
 
@@ -32,7 +32,6 @@ export const LoginForm = () => {
 
   const navigate = useNavigate();
   const trpc = useTRPC();
-  const queryClient = useQueryClient();
   const loginMutation = useMutation(trpc.auth.signIn.mutationOptions());
 
   const onSubmit = async (values: SignInUser) => {
@@ -55,8 +54,8 @@ export const LoginForm = () => {
             setFormRootError(form, errorMessage);
           }
         },
-        onSuccess: async () => {
-          await queryClient.invalidateQueries({
+        onSuccess: async (_, __, ___, { client }) => {
+          await client.invalidateQueries({
             queryKey: trpc.auth.getUser.queryKey(),
             exact: true,
           });

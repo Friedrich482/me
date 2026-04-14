@@ -1,6 +1,6 @@
 import { useFieldArray, useForm } from "react-hook-form";
 import { useNavigate } from "react-router";
-import { Check, Plus, X } from "lucide-react";
+import { Plus, X } from "lucide-react";
 import { toast } from "sonner";
 
 import { ContentField } from "@/components/common/content-field";
@@ -19,11 +19,7 @@ import {
   FormMessage,
 } from "@repo/ui/components/ui/form";
 import { Input } from "@repo/ui/components/ui/input";
-import {
-  useMutation,
-  useQueryClient,
-  useSuspenseQuery,
-} from "@tanstack/react-query";
+import { useMutation, useSuspenseQuery } from "@tanstack/react-query";
 
 import { EditPostFormSchema, type EditPostFormType } from "../types-schemas";
 import { DeletePostAlert } from "./delete-post-alert";
@@ -63,7 +59,6 @@ export const EditPostForm = ({
   });
 
   const navigate = useNavigate();
-  const queryClient = useQueryClient();
 
   // we don't want to batch this mutation because we use it to update the post on edit and also on publish
   // since both of those mutations can have opposed effects, (e.g the post while editing can still be a draft)
@@ -115,9 +110,9 @@ export const EditPostForm = ({
           }
         },
 
-        onSuccess: async ({ id, slug }) => {
+        onSuccess: async ({ id, slug }, _, __, { client }) => {
           // invalidate posts
-          await queryClient.invalidateQueries({
+          await client.invalidateQueries({
             queryKey: trpc.posts.findAll.queryKey(),
             exact: true,
           });
@@ -135,7 +130,6 @@ export const EditPostForm = ({
             newAddedTags.length !== 0 || deletedTags.length !== 0;
 
           if (!havePostTagsChanged) {
-            toast("Saved", { icon: <Check /> });
             return;
           }
 
@@ -157,13 +151,11 @@ export const EditPostForm = ({
                   }
                 },
 
-                onSuccess: async () => {
-                  await queryClient.invalidateQueries({
+                onSuccess: async (_, __, ___, { client }) => {
+                  await client.invalidateQueries({
                     queryKey: trpc.tags.findAllTagsForPost.queryKey(),
                     exact: true,
                   });
-
-                  toast("Saved", { icon: <Check /> });
                 },
               },
             ),
@@ -186,13 +178,11 @@ export const EditPostForm = ({
                   }
                 },
 
-                onSuccess: async () => {
-                  await queryClient.invalidateQueries({
+                onSuccess: async (_, __, ___, { client }) => {
+                  await client.invalidateQueries({
                     queryKey: trpc.tags.findAllTagsForPost.queryKey(),
                     exact: true,
                   });
-
-                  toast("Saved", { icon: <Check /> });
                 },
               },
             ),
@@ -274,13 +264,13 @@ export const EditPostForm = ({
           setFormRootError(form, errorMessage);
         },
 
-        onSuccess: async ({ title }) => {
-          await queryClient.invalidateQueries({
+        onSuccess: async ({ title }, _, __, { client }) => {
+          await client.invalidateQueries({
             queryKey: trpc.posts.findAll.queryKey(),
             exact: true,
           });
 
-          toast(`Post deleted: ${title}`, { icon: <Check /> });
+          toast.success(`Post deleted: ${title}`);
           navigate("/posts");
         },
       },
@@ -346,7 +336,13 @@ export const EditPostForm = ({
             variant="outline"
             type="submit"
             disabled={form.formState.isSubmitting}
-            onClick={form.handleSubmit(onEdit)}
+            onClick={(e) => {
+              e.preventDefault();
+              toast.promise(form.handleSubmit(onEdit), {
+                loading: "Saving...",
+                success: "Saved",
+              });
+            }}
             className="shadow-primary/50 h-11 w-32 rounded-lg shadow-lg"
           >
             Save
