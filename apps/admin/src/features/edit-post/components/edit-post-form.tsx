@@ -21,6 +21,7 @@ import {
 import { Input } from "@repo/ui/components/ui/input";
 import { useMutation, useSuspenseQuery } from "@tanstack/react-query";
 
+import { useAutoSave } from "../hooks/use-auto-save";
 import { EditPostFormSchema, type EditPostFormType } from "../types-schemas";
 import { DeletePostAlert } from "./delete-post-alert";
 
@@ -277,6 +278,18 @@ export const EditPostForm = ({
     );
   };
 
+  const saveChanges = (options?: { loading: string; success: string }) => {
+    toast.promise(
+      form.handleSubmit(onEdit),
+      options ?? {
+        loading: "Saving...",
+        success: "Saved",
+      },
+    );
+  };
+
+  useAutoSave(saveChanges);
+
   return (
     <Form {...form}>
       <form className="flex w-full flex-col items-center justify-center gap-6">
@@ -338,10 +351,7 @@ export const EditPostForm = ({
             disabled={form.formState.isSubmitting}
             onClick={(e) => {
               e.preventDefault();
-              toast.promise(form.handleSubmit(onEdit), {
-                loading: "Saving...",
-                success: "Saved",
-              });
+              saveChanges();
             }}
             className="shadow-primary/50 h-11 w-32 rounded-lg shadow-lg"
           >
