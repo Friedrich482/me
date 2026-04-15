@@ -1,9 +1,10 @@
 import { useRef, useState } from "react";
-import { type FieldValues, type Path, useForm } from "react-hook-form";
+import { type Path, useForm } from "react-hook-form";
 import { ClipLoader } from "react-spinners";
 import { Image } from "lucide-react";
 
 import { useUploadPostMedia } from "@/hooks/use-upload-post-media";
+import { handleTabKey } from "@/utils/handle-tab-key";
 import { MarkdownEditor } from "@repo/ui/components/markdown/markdown-editor";
 import { Button } from "@repo/ui/components/ui/button";
 import {
@@ -17,8 +18,8 @@ import { Textarea } from "@repo/ui/components/ui/textarea";
 import { cn } from "@repo/ui/lib/utils";
 
 export const ContentField = <
-  T extends FieldValues,
-  TFieldName extends Path<T>,
+  T extends { post: { content: string } },
+  TFieldName extends Exclude<Path<T>, "post">,
 >({
   form,
   name,
@@ -89,6 +90,7 @@ export const ContentField = <
                       ref(e);
                       textAreaRef.current = e;
                     }}
+                    onKeyDown={(e) => handleTabKey(e, form, name, textAreaRef)}
                   />
                 </div>
               ) : (

@@ -29,7 +29,7 @@ export const MarkdownEditor = ({
         ul: (props) => (
           <ul
             className={cn(
-              "mb-4 ml-6 list-disc text-lg wrap-anywhere",
+              "mb-4 ml-6 list-disc text-lg wrap-anywhere [&>li>ul]:list-[circle] [&>li>ul>li>ul]:list-[square] [&>li>ul>li>ul>li>ul]:list-[lower-roman]",
               classNames.ul,
             )}
             {...props}
