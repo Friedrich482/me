@@ -56,8 +56,24 @@ services:
       - POSTGRES_USER=postgres
       - POSTGRES_DB=me
 
+  drizzle-gateway:
+    image: ghcr.io/drizzle-team/gateway:1.2.0
+    container_name: me-drizzle-gateway-container
+    restart: always
+    env_file:
+      - .env
+    ports:
+      - "127.0.0.1:4995:${PORT}"
+    volumes:
+      - drizzle-gateway:/app
+    networks:
+      - me-network
+
 volumes:
   me-postgres-db:
+    driver: local
+
+  drizzle-gateway:
     driver: local
 
 networks:
