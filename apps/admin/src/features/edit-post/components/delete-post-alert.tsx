@@ -1,4 +1,4 @@
-import { type FieldValues, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { Trash2, TriangleAlert, X } from "lucide-react";
 
 import {
@@ -14,7 +14,9 @@ import {
 } from "@repo/ui/components/ui/alert-dialog";
 import { Button } from "@repo/ui/components/ui/button";
 
-export const DeletePostAlert = <T extends FieldValues>({
+import type { EditPostFormType } from "../types-schemas";
+
+export const DeletePostAlert = <T extends EditPostFormType>({
   form,
   onDelete,
 }: {

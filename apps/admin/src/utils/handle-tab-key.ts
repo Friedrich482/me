@@ -1,9 +1,11 @@
 import type { KeyboardEvent, RefObject } from "react";
-import type { Path, PathValue, useForm } from "react-hook-form";
+import type { PathValue, useForm } from "react-hook-form";
+
+import type { MinimalPost, MinimalTFieldName } from "@/types-schemas";
 
 export const handleTabKey = <
-  T extends { post: { content: string } },
-  TFieldName extends Exclude<Path<T>, "post">,
+  T extends MinimalPost,
+  TFieldName extends MinimalTFieldName<T>,
 >(
   e: KeyboardEvent<HTMLTextAreaElement>,
   form: ReturnType<typeof useForm<T>>,

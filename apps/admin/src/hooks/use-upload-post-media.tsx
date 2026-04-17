@@ -1,13 +1,17 @@
 import type { RefObject } from "react";
-import type { FieldValues, Path, PathValue, useForm } from "react-hook-form";
+import type { PathValue, useForm } from "react-hook-form";
 
+import type { MinimalPost, MinimalTFieldName } from "@/types-schemas";
 import { setFormRootError } from "@/utils/set-form-root-error";
 import { type Outputs, useTRPC } from "@/utils/trpc";
 import { useMutation, type UseMutationResult } from "@tanstack/react-query";
 import type { TRPCClientErrorLike } from "@trpc/client";
 import type { DefaultErrorShape } from "@trpc/server/unstable-core-do-not-import";
 
-type UploadMedia<T extends FieldValues, TFieldName extends Path<T>> = {
+type UploadMedia<
+  T extends MinimalPost,
+  TFieldName extends MinimalTFieldName<T>,
+> = {
   files: File[];
   form: ReturnType<typeof useForm<T>>;
   name: TFieldName;
@@ -28,7 +32,10 @@ type UploadMedia<T extends FieldValues, TFieldName extends Path<T>> = {
   >;
 };
 
-const uploadImages = async <T extends FieldValues, TFieldName extends Path<T>>({
+const uploadImages = async <
+  T extends MinimalPost,
+  TFieldName extends MinimalTFieldName<T>,
+>({
   files,
   form,
   name,
@@ -78,8 +85,8 @@ const uploadImages = async <T extends FieldValues, TFieldName extends Path<T>>({
 };
 
 export const useUploadPostMedia = <
-  T extends FieldValues,
-  TFieldName extends Path<T>,
+  T extends MinimalPost,
+  TFieldName extends MinimalTFieldName<T>,
 >(
   form: ReturnType<typeof useForm<T>>,
   name: TFieldName,

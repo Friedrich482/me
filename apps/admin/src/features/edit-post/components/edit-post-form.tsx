@@ -342,7 +342,7 @@ export const EditPostForm = ({
           </Button>
         </div>
 
-        <ContentField form={form} name="post.content" />
+        <ContentField form={form} type="edit" />
 
         <div className="flex w-full items-center justify-between max-[25rem]:flex-col max-[25rem]:gap-3">
           <Button

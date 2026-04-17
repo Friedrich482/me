@@ -65,7 +65,7 @@ services:
     ports:
       - "127.0.0.1:4995:${PORT}"
     volumes:
-      - drizzle-gateway:/app
+      - drizzle-gateway:${STORE_PATH}
     networks:
       - me-network
 

@@ -1,10 +1,13 @@
 import { useRef, useState } from "react";
 import { type Path, useForm } from "react-hook-form";
+import { Link } from "react-router";
 import { ClipLoader } from "react-spinners";
 import { Image } from "lucide-react";
 
 import { useUploadPostMedia } from "@/hooks/use-upload-post-media";
+import type { MinimalPost, MinimalTFieldName } from "@/types-schemas";
 import { handleTabKey } from "@/utils/handle-tab-key";
+import { generateSlug } from "@repo/common/generate-slug";
 import { MarkdownEditor } from "@repo/ui/components/markdown/markdown-editor";
 import { Button } from "@repo/ui/components/ui/button";
 import {
@@ -18,21 +21,26 @@ import { Textarea } from "@repo/ui/components/ui/textarea";
 import { cn } from "@repo/ui/lib/utils";
 
 export const ContentField = <
-  T extends { post: { content: string } },
-  TFieldName extends Exclude<Path<T>, "post">,
+  T extends MinimalPost,
+  TFieldName extends MinimalTFieldName<T>,
 >({
   form,
-  name,
+  type,
 }: {
   form: ReturnType<typeof useForm<T>>;
-  name: TFieldName;
+  type: "create" | "edit";
 }) => {
   const [viewMode, setViewMode] = useState<"write" | "preview">("write");
   const handleWriteButtonClick = () => setViewMode("write");
   const handlePreviewButtonClick = () => setViewMode("preview");
 
+  const fieldName = "post.content" as TFieldName;
+  const postSlug = generateSlug(
+    form.getValues("post.title" as Exclude<Path<T>, "post">),
+  );
+
   const textAreaRef = useRef<HTMLTextAreaElement | null>(null);
-  const { ref } = form.register(name);
+  const { ref } = form.register(fieldName);
 
   const imageUploadInputRef = useRef<HTMLInputElement | null>(null);
   const handleImageButtonClick = () => {
@@ -41,14 +49,14 @@ export const ContentField = <
 
   const { isPending, handleDrop, handleFileInputChange } = useUploadPostMedia(
     form,
-    name,
+    fieldName,
     textAreaRef,
   );
 
   return (
     <FormField
       control={form.control}
-      name={name}
+      name={fieldName}
       render={({ field }) => (
         <FormItem className="w-full">
           <FormControl>
@@ -61,6 +69,7 @@ export const ContentField = <
                 >
                   Write
                 </Button>
+
                 <Button
                   variant="ghost"
                   type="button"
@@ -68,6 +77,7 @@ export const ContentField = <
                 >
                   Preview
                 </Button>
+
                 <div
                   className={cn(
                     "bg-primary absolute bottom-0 h-1 w-8 rounded-md transition duration-200",
@@ -75,7 +85,14 @@ export const ContentField = <
                     viewMode === "preview" && "translate-x-26",
                   )}
                 />
+
+                {type === "edit" && (
+                  <Button asChild variant="link" className="ml-auto">
+                    <Link to={`/posts/${postSlug}`}>View Post</Link>
+                  </Button>
+                )}
               </div>
+
               {viewMode === "write" ? (
                 <div
                   onDrop={handleDrop}
@@ -90,7 +107,9 @@ export const ContentField = <
                       ref(e);
                       textAreaRef.current = e;
                     }}
-                    onKeyDown={(e) => handleTabKey(e, form, name, textAreaRef)}
+                    onKeyDown={(e) =>
+                      handleTabKey(e, form, fieldName, textAreaRef)
+                    }
                   />
                 </div>
               ) : (

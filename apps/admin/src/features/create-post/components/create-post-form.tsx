@@ -192,7 +192,7 @@ export const CreatePostForm = () => {
           </Button>
         </div>
 
-        <ContentField form={form} name="post.content" />
+        <ContentField form={form} type="create" />
 
         <Button
           variant="default"
