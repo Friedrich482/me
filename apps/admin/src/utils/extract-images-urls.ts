@@ -1,7 +1,7 @@
 export const extractImagesUrls = (content: string) => {
   if (!content) return [];
 
-  const imgRegex = /\[<img[^>]*src=["']([^"']+)["'][^>]*\/>\]/g;
+  const imgRegex = /!\[[^\]]*\]\(([^)]+)\)/g;
   const urls = [];
   let match;
 

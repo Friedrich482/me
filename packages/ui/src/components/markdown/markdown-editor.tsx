@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { MarkdownHooks } from "react-markdown";
 import rehypeRaw from "rehype-raw";
 import remarkGfm from "remark-gfm";
@@ -19,6 +20,7 @@ export const MarkdownEditor = ({
     ol?: string;
     li?: string;
     a?: string;
+    img?: string;
   };
 }) => {
   return (
@@ -35,6 +37,7 @@ export const MarkdownEditor = ({
             {...props}
           />
         ),
+
         ol: (props) => (
           <ol
             className={cn(
@@ -44,6 +47,7 @@ export const MarkdownEditor = ({
             {...props}
           />
         ),
+
         a: (props) => (
           <a
             className={cn(
@@ -55,18 +59,21 @@ export const MarkdownEditor = ({
             {...props}
           />
         ),
+
         li: (props) => (
           <li
             className={cn("mb-1 text-lg wrap-anywhere", classNames.li)}
             {...props}
           />
         ),
+
         p: (props) => (
           <p
             className={cn("mb-3 text-lg wrap-anywhere", classNames.p)}
             {...props}
           />
         ),
+
         h1: (props) => (
           <h1
             className={cn(
@@ -76,6 +83,7 @@ export const MarkdownEditor = ({
             {...props}
           />
         ),
+
         h2: (props) => (
           <h2
             className={cn(
@@ -87,6 +95,42 @@ export const MarkdownEditor = ({
         ),
 
         code: CodeBlock,
+
+        img: (props) => {
+          // makes sure to give the right "loading" attribute to the image
+          // depending of the fact that it is above or below the fold
+          const [loading, setLoading] = useState<"lazy" | "eager">("eager");
+
+          const imageRef = (node: HTMLImageElement) => {
+            const observer = new IntersectionObserver(([entry]) => {
+              if (!entry) {
+                return;
+              }
+
+              setLoading(
+                entry.boundingClientRect.top + window.scrollY >
+                  window.innerHeight
+                  ? "lazy"
+                  : "eager",
+              );
+            });
+
+            observer.observe(node);
+
+            return () => {
+              observer.disconnect();
+            };
+          };
+
+          return (
+            <img
+              className={cn("m-auto block w-full", classNames.img)}
+              loading={loading}
+              {...props}
+              ref={imageRef}
+            />
+          );
+        },
       }}
     >
       {markdown}

@@ -61,7 +61,7 @@ const uploadImages = async <
         setFormRootError(form, errorMessage);
       },
       onSuccess: (data) => {
-        const imageMarkdown = `[<img src="${data.url}" width="100%" style="display: block; margin: auto;" />](${data.url})`;
+        const imageMarkdown = `![Put the image alt here](${data.url})`;
 
         const cursorPosition = formInputRef.current?.selectionStart || 0;
         const formInputValue = formInputRef.current?.value ?? "";
