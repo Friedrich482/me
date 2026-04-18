@@ -3,7 +3,10 @@ import { codeToHtml, type ShikiTransformer } from "shiki";
 
 const codeTransformer: ShikiTransformer = {
   pre(node) {
-    this.addClassToHast(node, "rounded-sm p-2 text-lg w-0 min-w-full");
+    this.addClassToHast(
+      node,
+      "rounded-sm p-2 text-lg w-0 min-w-full font-mono",
+    );
   },
   code(node) {
     this.addClassToHast(
@@ -26,7 +29,7 @@ export const Highlighter = memo(
           dark: "dark-plus",
           light: "light-plus",
         },
-        lang: lang,
+        lang,
         transformers: [codeTransformer],
       }).then(setHtml);
     }, [code, lang]);

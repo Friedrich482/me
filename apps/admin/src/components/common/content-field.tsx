@@ -103,6 +103,8 @@ export const ContentField = <
                     placeholder="Start writing..."
                     className="field-sizing-fixed size-full flex-1 rounded-t-none rounded-b-none border-0 bg-transparent text-lg placeholder:text-lg placeholder:opacity-65 focus-visible:border-none focus-visible:ring-0 md:text-lg"
                     {...field}
+                    autoComplete="off"
+                    autoCapitalize="off"
                     ref={(e) => {
                       ref(e);
                       textAreaRef.current = e;

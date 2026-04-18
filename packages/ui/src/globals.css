@@ -42,7 +42,9 @@
   --sidebar-ring: oklch(0.7179 0.201 147.9565);
   --font-sans: Inter, sans-serif;
   --font-serif: Inter, sans-serif;
-  --font-mono: Inter, sans-serif;
+  --font-mono:
+    ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
+    "Courier New", monospace;
   --radius: 0.75rem;
   --shadow-x: 0;
   --shadow-y: 1px;
@@ -101,7 +103,9 @@
   --sidebar-ring: oklch(0.7179 0.201 147.9565);
   --font-sans: Inter, sans-serif;
   --font-serif: Inter, sans-serif;
-  --font-mono: Inter, sans-serif;
+  --font-mono:
+    ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
+    "Courier New", monospace;
   --radius: 0.75rem;
   --shadow-x: 0;
   --shadow-y: 1px;
