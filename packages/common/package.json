@@ -3,38 +3,21 @@
   "version": "0.0.0",
   "private": true,
   "license": "MIT",
-  "main": "./dist/index.js",
-  "types": "./dist/index.d.ts",
   "scripts": {
     "dev": "tsc --watch",
+    "build": "tsc",
     "lint": "eslint . --fix",
-    "build": "tsc"
-  },
-  "files": [
-    "./dist/**"
-  ],
-  "publishConfig": {
-    "access": "public"
-  },
-  "typesVersions": {
-    "*": {
-      "*": [
-        "src/*"
-      ]
-    }
+    "format": "prettier --write \"**/*.ts\""
   },
   "exports": {
-    ".": {
-      "import": "./dist/index.js",
-      "require": "./dist/index.js"
-    },
     "./*": {
-      "import": "./dist/*.js",
+      "import": "./src/*.ts",
       "require": "./dist/*.js"
     }
   },
   "devDependencies": {
     "@repo/eslint-config": "*",
+    "prettier": "^3.8.3",
     "typescript": "^5.9.3"
   },
   "dependencies": {

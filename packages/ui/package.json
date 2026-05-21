@@ -16,7 +16,7 @@
   },
   "scripts": {
     "lint": "eslint . --fix",
-    "generate:component": "turbo gen react-component",
+    "format": "prettier --write \"**/*.{ts,tsx}\"",
     "check-types": "tsc --noEmit"
   },
   "devDependencies": {
@@ -26,6 +26,7 @@
     "@types/react": "^19.1.8",
     "@types/react-dom": "^19.1.6",
     "eslint": "^9.39.2",
+    "prettier": "^3.8.3",
     "prettier-plugin-tailwindcss": "^0.6.14",
     "shiki": "^3.22.0",
     "tailwind-merge": "^3.4.0",

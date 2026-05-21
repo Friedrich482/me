@@ -5,13 +5,15 @@
   "license": "MIT",
   "scripts": {
     "dev": "tsc --watch",
+    "build": "tsc",
     "lint": "eslint . --fix",
-    "build": "tsc"
+    "format": "prettier --write \"**/*.ts\""
   },
   "exports": {
     "./router": "./src/router.ts"
   },
   "devDependencies": {
-    "@repo/eslint-config": "*"
+    "@repo/eslint-config": "*",
+    "prettier": "^3.8.3"
   }
 }
