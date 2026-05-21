@@ -1,5 +1,5 @@
 import superjson from "superjson";
-import { JWTDtoType } from "src/common/dto";
+import { JWTDto } from "src/common/dto";
 import { EnvService } from "src/env/env.service";
 import { errorFormatter } from "src/filters/error-formatter";
 
@@ -51,10 +51,6 @@ export class TrpcService {
     const procedure = this.trpc.procedure.use(async (opts) => {
       const payload = await this.getPayload(opts.ctx);
 
-      if (!payload) {
-        throw new TRPCError({ code: "UNAUTHORIZED" });
-      }
-      // user is authorized
       return opts.next({
         ctx: {
           ...opts.ctx,
@@ -66,7 +62,7 @@ export class TrpcService {
   }
 
   async getPayload(ctx: TrpcContext) {
-    // get jwt token from cookies
+    // get jwt from cookies
     const accessToken = ctx.req.cookies?.auth_token;
 
     if (!accessToken) {
@@ -77,12 +73,21 @@ export class TrpcService {
     }
 
     try {
-      const payload: JWTDtoType = await this.jwtService.verifyAsync(
-        accessToken,
-        {
-          secret: this.envService.get("JWT_SECRET"),
-        },
-      );
+      const rawPayload = await this.jwtService.verifyAsync(accessToken, {
+        secret: this.envService.get("JWT_SECRET"),
+      });
+
+      const parsedPayload = JWTDto.safeParse(rawPayload);
+
+      if (!parsedPayload.success) {
+        throw new TRPCError({
+          code: "BAD_REQUEST",
+          message: "Payload malformed",
+        });
+      }
+
+      const payload = parsedPayload.data;
+
       return payload;
     } catch (error) {
       if (error instanceof Error && error.name !== "JsonWebTokenError") {
