@@ -1,0 +1,22 @@
+---
+type Props = {
+  postTags: {
+    name: string;
+    slug: string;
+  }[];
+};
+
+const { postTags } = Astro.props;
+---
+
+<ul class="flex flex-wrap items-center justify-start gap-3">
+  {
+    postTags.map((tag) => (
+      <li class="dark:bg-muted/40 bg-muted/75 rounded-md px-2 py-1 text-lg">
+        <a href={`/blog#${tag.slug}/`} class="size-full">
+          {tag.name}
+        </a>
+      </li>
+    ))
+  }
+</ul>
