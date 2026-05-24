@@ -21,6 +21,7 @@
     "target": "esnext",
     "module": "preserve",
     "moduleResolution": "bundler",
+    "strictNullChecks": true,
     "strict": true
   }
 }
