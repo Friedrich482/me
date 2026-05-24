@@ -1,17 +1,17 @@
 "use client";
 import * as React from "react";
-import { motion, useInView } from "motion/react";
+import { motion, stagger, useInView } from "motion/react";
 
 export const TextFade = ({
   direction,
   children,
-  className = "",
-  staggerChildren = 0.15,
+  className,
+  staggerDelay = 0.1,
 }: {
   direction: "up" | "down";
   children: React.ReactNode;
   className?: string;
-  staggerChildren?: number;
+  staggerDelay?: number;
 }) => {
   const FADE_DOWN = {
     show: { opacity: 1, y: 0, transition: { type: "spring" } },
@@ -30,7 +30,7 @@ export const TextFade = ({
         hidden: {},
         show: {
           transition: {
-            staggerChildren,
+            delayChildren: stagger(staggerDelay),
           },
         },
       }}
