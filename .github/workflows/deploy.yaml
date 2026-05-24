@@ -36,12 +36,14 @@ jobs:
           - app: admin
             image: me-admin
             dockerfile: apps/admin/Dockerfile
-            build_arg: VITE_API_URL=${{ secrets.VITE_API_URL }}
+            args: |
+              VITE_API_URL: VITE_API_URL
 
           - app: web
             image: me-web
             dockerfile: apps/web/Dockerfile
-            build_arg: PUBLIC_API_URL=${{ secrets.PUBLIC_API_URL }}
+            args: |
+              PUBLIC_API_URL: PUBLIC_API_URL
 
     steps:
       - name: Checkout code
@@ -68,6 +70,6 @@ jobs:
           tags: |
             ${{ secrets.DOCKERHUB_USERNAME }}/${{ matrix.image }}:${{ github.sha }}
             ${{ secrets.DOCKERHUB_USERNAME }}/${{ matrix.image }}:latest
-          build-args: ${{ matrix.build_arg }}
+          build-args: ${{ secrets[matrix.args] }}
           cache-from: type=gha,scope=${{ matrix.app }}
           cache-to: type=gha,mode=max,scope=${{ matrix.app }}
