@@ -7,7 +7,7 @@ import { CodeBlock } from "./code-block";
 
 import { cn } from "#lib/utils.ts";
 
-export const MarkdownEditor = ({
+export const MarkdownRenderer = ({
   markdown,
   classNames = {},
 }: {

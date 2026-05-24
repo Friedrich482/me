@@ -8,7 +8,7 @@ import { useUploadPostMedia } from "@/hooks/use-upload-post-media";
 import type { MinimalPost, MinimalTFieldName } from "@/types-schemas";
 import { handleTabKey } from "@/utils/handle-tab-key";
 import { generateSlug } from "@repo/common/generate-slug";
-import { MarkdownEditor } from "@repo/ui/components/markdown/markdown-editor";
+import { MarkdownRenderer } from "@repo/ui/components/markdown/markdown-renderer";
 import { Button } from "@repo/ui/components/ui/button";
 import {
   FormControl,
@@ -116,7 +116,7 @@ export const ContentField = <
                 </div>
               ) : (
                 <div className="bg-muted/30 flex-1 rounded-t-none border-0 p-4">
-                  <MarkdownEditor markdown={field.value} />
+                  <MarkdownRenderer markdown={field.value} />
                 </div>
               )}
 
