@@ -1,8 +1,8 @@
 import { and, desc, eq } from "drizzle-orm";
 import { NodePgDatabase } from "drizzle-orm/node-postgres";
-import { DrizzleAsyncProvider } from "src/drizzle/drizzle.provider";
-import { posts } from "src/drizzle/schema";
 
+import { DrizzleAsyncProvider } from "@/drizzle/drizzle.provider";
+import { posts } from "@/drizzle/schema";
 import { Inject, Injectable } from "@nestjs/common";
 import { TRPCError } from "@trpc/server";
 

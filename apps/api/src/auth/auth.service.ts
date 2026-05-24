@@ -1,9 +1,9 @@
 import { compare } from "bcrypt";
-import { JWTDtoType } from "src/common/dto";
-import { EnvService } from "src/env/env.service";
-import { TrpcContext } from "src/trpc/trpc.service";
-import { UsersService } from "src/users/users.service";
 
+import { JWTDtoType } from "@/common/dto";
+import { EnvService } from "@/env/env.service";
+import { TrpcContext } from "@/trpc/trpc.service";
+import { UsersService } from "@/users/users.service";
 import { Injectable } from "@nestjs/common";
 import { JwtService } from "@nestjs/jwt";
 import {

@@ -1,8 +1,7 @@
-import { AuthRouter } from "src/auth/auth.router";
-import { MediaRouter } from "src/media/media.router";
-import { PostsRouter } from "src/posts/posts.router";
-import { TagsRouter } from "src/tags/tags.router";
-
+import { AuthRouter } from "@/auth/auth.router";
+import { MediaRouter } from "@/media/media.router";
+import { PostsRouter } from "@/posts/posts.router";
+import { TagsRouter } from "@/tags/tags.router";
 import { INestApplication, Injectable } from "@nestjs/common";
 import * as trpcExpress from "@trpc/server/adapters/express";
 

@@ -1,9 +1,9 @@
 import { and, eq } from "drizzle-orm";
 import { NodePgDatabase } from "drizzle-orm/node-postgres";
-import { DrizzleAsyncProvider } from "src/drizzle/drizzle.provider";
-import { postTags, tags } from "src/drizzle/schema";
-import { PostsService } from "src/posts/posts.service";
 
+import { DrizzleAsyncProvider } from "@/drizzle/drizzle.provider";
+import { postTags, tags } from "@/drizzle/schema";
+import { PostsService } from "@/posts/posts.service";
 import { Inject, Injectable } from "@nestjs/common";
 import { AddTagToPost as AddTagToPostDtoType } from "@repo/common/types-schemas";
 import { TRPCError } from "@trpc/server";

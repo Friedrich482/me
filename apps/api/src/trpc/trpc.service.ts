@@ -1,8 +1,8 @@
 import superjson from "superjson";
-import { JWTDto } from "src/common/dto";
-import { EnvService } from "src/env/env.service";
-import { errorFormatter } from "src/filters/error-formatter";
 
+import { JWTDto } from "@/common/dto";
+import { EnvService } from "@/env/env.service";
+import { errorFormatter } from "@/filters/error-formatter";
 import { Injectable } from "@nestjs/common";
 import { JwtService } from "@nestjs/jwt";
 import { initTRPC, TRPCError } from "@trpc/server";

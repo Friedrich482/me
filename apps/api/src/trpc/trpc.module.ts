@@ -1,13 +1,12 @@
-import { AuthModule } from "src/auth/auth.module";
-import { AuthRouter } from "src/auth/auth.router";
-import { EnvService } from "src/env/env.service";
-import { MediaModule } from "src/media/media.module";
-import { MediaRouter } from "src/media/media.router";
-import { PostsModule } from "src/posts/posts.module";
-import { PostsRouter } from "src/posts/posts.router";
-import { TagsModule } from "src/tags/tags.module";
-import { TagsRouter } from "src/tags/tags.router";
-
+import { AuthModule } from "@/auth/auth.module";
+import { AuthRouter } from "@/auth/auth.router";
+import { EnvService } from "@/env/env.service";
+import { MediaModule } from "@/media/media.module";
+import { MediaRouter } from "@/media/media.router";
+import { PostsModule } from "@/posts/posts.module";
+import { PostsRouter } from "@/posts/posts.router";
+import { TagsModule } from "@/tags/tags.module";
+import { TagsRouter } from "@/tags/tags.router";
 import { Global, Module } from "@nestjs/common";
 import { JwtService } from "@nestjs/jwt";
 

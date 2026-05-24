@@ -1,6 +1,6 @@
 import { z, ZodError } from "zod";
-import { EnvService } from "src/env/env.service";
 
+import { EnvService } from "@/env/env.service";
 import { TRPCError } from "@trpc/server";
 
 type ErrorShape = {

@@ -1,7 +1,7 @@
 import sharp from "sharp";
 import { ulid } from "ulid";
-import { EnvService } from "src/env/env.service";
 
+import { EnvService } from "@/env/env.service";
 import {
   DeleteObjectCommand,
   PutObjectCommand,

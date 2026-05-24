@@ -1,7 +1,6 @@
-import { EnvModule } from "src/env/env.module";
-import { EnvService } from "src/env/env.service";
-import { UsersModule } from "src/users/users.module";
-
+import { EnvModule } from "@/env/env.module";
+import { EnvService } from "@/env/env.service";
+import { UsersModule } from "@/users/users.module";
 import { Module } from "@nestjs/common";
 import { ConfigModule } from "@nestjs/config";
 import { JwtModule } from "@nestjs/jwt";
