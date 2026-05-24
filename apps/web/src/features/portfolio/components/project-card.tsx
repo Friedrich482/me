@@ -1,3 +1,4 @@
+import Zoom from "react-medium-image-zoom";
 import { ExternalLink } from "lucide-react";
 
 import { SiGithub } from "@icons-pack/react-simple-icons";
@@ -5,6 +6,8 @@ import { SiGithub } from "@icons-pack/react-simple-icons";
 import type { Project } from "../types-schemas";
 import { handleCardHover } from "../utils/handle-card-hover";
 import { handleCardLeave } from "../utils/handle-card-leave";
+
+import "react-medium-image-zoom/dist/styles.css";
 
 export const ProjectCard = ({
   project,
@@ -43,21 +46,25 @@ export const ProjectCard = ({
         </div>
       </div>
 
-      <img
-        src={project.image.srcDark}
-        alt={project.image.alt}
-        className="group-hover:border-primary/90 hidden w-full rounded-md border dark:flex"
-        loading={index === 0 ? "eager" : "lazy"}
-        decoding="async"
-      />
+      <Zoom wrapElement="span" canSwipeToUnzoom={true}>
+        <img
+          src={project.image.srcDark}
+          alt={project.image.alt}
+          className="group-hover:border-primary/90 hidden w-full cursor-pointer rounded-md border dark:flex"
+          loading={index === 0 ? "eager" : "lazy"}
+          decoding="async"
+        />
+      </Zoom>
 
-      <img
-        src={project.image.srcLight}
-        alt={project.image.alt}
-        className="group-hover:border-primary/90 flex w-full rounded-md border dark:hidden"
-        loading={index === 0 ? "eager" : "lazy"}
-        decoding="async"
-      />
+      <Zoom wrapElement="span" canSwipeToUnzoom={true}>
+        <img
+          src={project.image.srcLight}
+          alt={project.image.alt}
+          className="group-hover:border-primary/90 flex w-full rounded-md border dark:hidden"
+          loading={index === 0 ? "eager" : "lazy"}
+          decoding="async"
+        />
+      </Zoom>
 
       <p className="opacity-75">{project.description}</p>
       <ul className="flex flex-wrap gap-1.5">

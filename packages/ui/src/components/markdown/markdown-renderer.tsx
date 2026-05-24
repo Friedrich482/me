@@ -1,10 +1,12 @@
 import { useState } from "react";
 import { MarkdownHooks } from "react-markdown";
+import Zoom from "react-medium-image-zoom";
 import rehypeRaw from "rehype-raw";
 import remarkGfm from "remark-gfm";
 
 import { CodeBlock } from "./code-block";
 
+import "react-medium-image-zoom/dist/styles.css";
 import { cn } from "#lib/utils.ts";
 
 export const MarkdownRenderer = ({
@@ -123,12 +125,14 @@ export const MarkdownRenderer = ({
           };
 
           return (
-            <img
-              className={cn("m-auto block w-full", classNames.img)}
-              loading={loading}
-              {...props}
-              ref={imageRef}
-            />
+            <Zoom wrapElement="span" canSwipeToUnzoom={true}>
+              <img
+                className={cn("m-auto block w-full", classNames.img)}
+                loading={loading}
+                {...props}
+                ref={imageRef}
+              />
+            </Zoom>
           );
         },
       }}

@@ -252,3 +252,31 @@ html.dark .shiki span {
   font-weight: var(--shiki-dark-font-weight) !important;
   text-decoration: var(--shiki-dark-text-decoration) !important;
 }
+
+[data-rmiz-modal]:focus-visible {
+  outline: none;
+}
+
+[data-rmiz-ghost] {
+  pointer-events: none;
+  position: absolute;
+}
+
+[data-rmiz-modal-overlay="visible"] {
+  background-color: var(--color-background) !important;
+}
+
+[data-rmiz-modal-img] {
+  scale: 0.9;
+  cursor: zoom-out;
+  image-rendering: high-quality;
+  transition: transform 0.3s;
+  position: absolute;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-rmiz-modal-overlay],
+  [data-rmiz-modal-img] {
+    transition-duration: 0.01ms !important;
+  }
+}
