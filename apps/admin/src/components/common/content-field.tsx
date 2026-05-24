@@ -1,10 +1,11 @@
-import { useRef, useState } from "react";
+import { useRef } from "react";
 import { type Path, useForm } from "react-hook-form";
 import { Link } from "react-router";
 import { ClipLoader } from "react-spinners";
 import { Image } from "lucide-react";
 
 import { useUploadPostMedia } from "@/hooks/use-upload-post-media";
+import { useViewModeStore } from "@/stores/view-mode-store";
 import type { MinimalPost, MinimalTFieldName } from "@/types-schemas";
 import { handleTabKey } from "@/utils/handle-tab-key";
 import { generateSlug } from "@repo/common/generate-slug";
@@ -30,9 +31,13 @@ export const ContentField = <
   form: ReturnType<typeof useForm<T>>;
   type: "create" | "edit";
 }) => {
-  const [viewMode, setViewMode] = useState<"write" | "preview">("write");
-  const handleWriteButtonClick = () => setViewMode("write");
-  const handlePreviewButtonClick = () => setViewMode("preview");
+  const viewMode = useViewModeStore((state) => state.viewMode);
+  const handleWriteButtonClick = useViewModeStore(
+    (state) => state.handleWriteButtonClick,
+  );
+  const handlePreviewButtonClick = useViewModeStore(
+    (state) => state.handlePreviewButtonClick,
+  );
 
   const fieldName = "post.content" as TFieldName;
   const postSlug = generateSlug(
