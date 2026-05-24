@@ -7,7 +7,7 @@ export const handleCardHover = (
   const relativeX = (e.clientX - rect.left) / rect.width - 0.5;
   const relativeY = (e.clientY - rect.top) / rect.height - 0.5;
 
-  // Rotation angles (side you hover goes UP)
+  // Rotation angles (side hovered goes up)
   const maxRotation = 20;
   const rotateX = relativeY * maxRotation * 1;
   const rotateY = relativeX * maxRotation * -1;

@@ -1,15 +1,16 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
-import { appTheme } from "@/stores/theme-store";
-import { useStore } from "@nanostores/react";
 import { ModeToggleContent } from "@repo/ui/components/mode-toggle-content";
+import { getInitialTheme } from "@repo/ui/lib/utils";
 import type { ResolvedTheme, Theme } from "@repo/ui/types-schemas";
 
 export const ModeToggle = () => {
-  const $themeData = useStore(appTheme);
+  const [theme, setTheme] = useState<Theme>(getInitialTheme());
+  const [, setResolvedTheme] = useState<ResolvedTheme>("light");
 
   const handleThemeOptionClick = (theme: Theme) => {
-    appTheme.set({ ...$themeData, theme });
+    localStorage.setItem("theme", theme);
+    setTheme(theme);
   };
 
   useEffect(() => {
@@ -19,24 +20,22 @@ export const ModeToggle = () => {
 
     let newTheme: ResolvedTheme;
 
-    if ($themeData.theme === "system") {
+    if (theme === "system") {
       newTheme = window.matchMedia("(prefers-color-scheme: dark)").matches
         ? "dark"
         : "light";
     } else {
-      newTheme = $themeData.theme;
+      newTheme = theme;
     }
 
     root.classList.add(newTheme);
-    appTheme.set({ ...$themeData, resolvedTheme: newTheme });
-  }, [$themeData.theme]);
+    setResolvedTheme(newTheme);
+  }, [theme]);
 
   return (
-    <div className="flex">
-      <ModeToggleContent
-        theme={$themeData.theme}
-        handleThemeOptionClick={handleThemeOptionClick}
-      />
-    </div>
+    <ModeToggleContent
+      theme={theme}
+      handleThemeOptionClick={handleThemeOptionClick}
+    />
   );
 };
