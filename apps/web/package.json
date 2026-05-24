@@ -17,7 +17,7 @@
     "@astrojs/rss": "^4.0.17",
     "@astrojs/sitemap": "^3.7.0",
     "@astrojs/ts-plugin": "^1.10.6",
-    "@icons-pack/react-simple-icons": "^13.11.2",
+    "@icons-pack/react-simple-icons": "^13.13.0",
     "@repo/common": "*",
     "@repo/trpc": "*",
     "@repo/ui": "*",
