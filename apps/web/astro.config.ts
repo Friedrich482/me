@@ -1,5 +1,4 @@
 import { visualizer } from "rollup-plugin-visualizer";
-import commonjs from "vite-plugin-commonjs";
 import svgr from "vite-plugin-svgr";
 import { defineConfig } from "astro/config";
 
@@ -12,28 +11,42 @@ export default defineConfig({
   site: "https://friedrichwt.dev",
   vite: {
     plugins: [
-      // @ts-ignore
       tailwindcss(),
-      // @ts-ignore
       svgr(),
-      // @ts-ignore
       visualizer({
         open: true,
         filename: "dist/deps.html",
       }),
-      // @ts-ignore
-      commonjs(),
     ],
 
     build: {
       chunkSizeWarningLimit: 800,
-      rollupOptions: {
+      rolldownOptions: {
         output: {
-          manualChunks: {
-            trpc: ["@trpc/client", "@trpc/server"],
-            reactmarkdown: ["react-markdown"],
-            remarkGfm: ["remark-gfm"],
-            rehypeRaw: ["rehype-raw"],
+          codeSplitting: {
+            maxSize: 800,
+            groups: [
+              {
+                name: "react-vendor",
+                test: /node_modules[\\/]react/,
+              },
+              {
+                name: "zod-vendor",
+                test: /node_modules[\\/]zod/,
+              },
+              {
+                name: "react-markdown-vendor",
+                test: /node_modules[\\/]react-markdown/,
+              },
+              {
+                name: "remark-gfm-vendor",
+                test: /node_modules[\\/]remark-gfm/,
+              },
+              {
+                name: "rehype-raw-vendor",
+                test: /node_modules[\\/]rehype-raw/,
+              },
+            ],
           },
         },
       },
