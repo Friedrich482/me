@@ -1,16 +1,21 @@
-import path from "path";
+import { fileURLToPath, URL } from "url";
 import { defineConfig } from "vite";
-import commonjs from "vite-plugin-commonjs";
 import svgr from "vite-plugin-svgr";
 
+import babel from "@rolldown/plugin-babel";
 import tailwindcss from "@tailwindcss/vite";
-import react from "@vitejs/plugin-react-swc";
+import react, { reactCompilerPreset } from "@vitejs/plugin-react";
 
 export default defineConfig({
-  plugins: [react(), tailwindcss(), svgr(), commonjs()],
+  plugins: [
+    react(),
+    babel({ presets: [reactCompilerPreset()] }),
+    tailwindcss(),
+    svgr(),
+  ],
   resolve: {
     alias: {
-      "@": path.resolve(__dirname, "./src"),
+      "@": fileURLToPath(new URL("./src", import.meta.url)),
     },
   },
   server: {
@@ -19,21 +24,31 @@ export default defineConfig({
   base: "/",
   build: {
     chunkSizeWarningLimit: 800,
-    rollupOptions: {
+    rolldownOptions: {
       output: {
-        manualChunks: {
-          reactrouter: ["react-router"],
-          zod: ["zod"],
-          trpc: ["@trpc/client", "@trpc/server"],
-          reacthookform: ["react-hook-form"],
-          query: [
-            "@tanstack/react-query",
-            "@tanstack/query-core",
-            "@tanstack/react-query-devtools",
+        codeSplitting: {
+          groups: [
+            {
+              name: "react-vendor",
+              test: /node_modules[\\/]react/,
+            },
+            {
+              name: "zod-vendor",
+              test: /node_modules[\\/]zod/,
+            },
+            {
+              name: "react-markdown-vendor",
+              test: /node_modules[\\/]react-markdown/,
+            },
+            {
+              name: "remark-gfm-vendor",
+              test: /node_modules[\\/]remark-gfm/,
+            },
+            {
+              name: "rehype-raw-vendor",
+              test: /node_modules[\\/]rehype-raw/,
+            },
           ],
-          reactmarkdown: ["react-markdown"],
-          remarkGfm: ["remark-gfm"],
-          rehypeRaw: ["rehype-raw"],
         },
       },
     },

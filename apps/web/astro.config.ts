@@ -24,7 +24,6 @@ export default defineConfig({
       rolldownOptions: {
         output: {
           codeSplitting: {
-            maxSize: 800,
             groups: [
               {
                 name: "react-vendor",
