@@ -1,8 +1,6 @@
 import { compare } from "bcrypt";
 
-import { JWTDtoType } from "@/common/dto";
-import { EnvService } from "@/env/env.service";
-import { TrpcContext } from "@/trpc/trpc.service";
+import { JWTDtoType, TrpcContext } from "@/common/dto";
 import { UsersService } from "@/users/users.service";
 import { Injectable } from "@nestjs/common";
 import { JwtService } from "@nestjs/jwt";
@@ -17,7 +15,6 @@ export class AuthService {
   constructor(
     private readonly usersService: UsersService,
     private readonly jwtService: JwtService,
-    private readonly envService: EnvService,
   ) {}
 
   async signIn(signInDto: SignInUserDtoType) {

@@ -1,12 +1,13 @@
 import { DrizzleModule } from "@/drizzle/drizzle.module";
-import { PostsService } from "@/posts/posts.service";
+import { PostsModule } from "@/posts/posts.module";
 import { Module } from "@nestjs/common";
 
+import { TagsRouter } from "./tags.router";
 import { TagsService } from "./tags.service";
 
 @Module({
-  imports: [DrizzleModule],
-  providers: [TagsService, PostsService],
-  exports: [TagsService],
+  imports: [DrizzleModule, PostsModule],
+  providers: [TagsService, TagsRouter],
+  exports: [TagsService, TagsRouter],
 })
 export class TagsModule {}

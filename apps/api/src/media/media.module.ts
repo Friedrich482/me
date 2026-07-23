@@ -1,13 +1,13 @@
-import { CloudflareService } from "@/cloudflare/cloudflare.service";
+import { CloudflareModule } from "@/cloudflare/cloudflare.module";
 import { DrizzleModule } from "@/drizzle/drizzle.module";
-import { EnvService } from "@/env/env.service";
 import { Module } from "@nestjs/common";
 
+import { MediaRouter } from "./media.router";
 import { MediaService } from "./media.service";
 
 @Module({
-  imports: [DrizzleModule],
-  providers: [MediaService, CloudflareService, EnvService],
-  exports: [MediaService],
+  imports: [DrizzleModule, CloudflareModule],
+  providers: [MediaService, MediaRouter],
+  exports: [MediaService, MediaRouter],
 })
 export class MediaModule {}

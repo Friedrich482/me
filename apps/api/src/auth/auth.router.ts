@@ -16,54 +16,56 @@ export class AuthRouter {
   private readonly AUTH_COOKIE_NAME = "auth_token";
   private readonly COOKIE_MAX_AGE = 28 * 24 * 60 * 60 * 1000; // 28 days
 
-  procedures = {
-    auth: this.trpcService.trpc.router({
-      signIn: this.trpcService
-        .publicProcedure()
-        .input(SignInUserDto)
-        .mutation(async ({ input, ctx }) => {
-          const token = await this.authService.signIn(input);
+  procedures() {
+    return {
+      auth: this.trpcService.trpc.router({
+        signIn: this.trpcService
+          .publicProcedure()
+          .input(SignInUserDto)
+          .mutation(async ({ input, ctx }) => {
+            const token = await this.authService.signIn(input);
 
-          // Set the HTTP-only cookie
-          ctx.res.cookie(this.AUTH_COOKIE_NAME, token, {
+            // Set the HTTP-only cookie
+            ctx.res.cookie(this.AUTH_COOKIE_NAME, token, {
+              httpOnly: true,
+              secure: true,
+              sameSite: "lax",
+              maxAge: this.COOKIE_MAX_AGE,
+            });
+          }),
+
+        register: this.trpcService
+          .publicProcedure()
+          .input(RegisterUserDto)
+          .mutation(async ({ input, ctx }) => {
+            const token = await this.authService.register(input);
+
+            // Set the HTTP-only cookie
+            ctx.res.cookie(this.AUTH_COOKIE_NAME, token, {
+              httpOnly: true,
+              secure: true,
+              sameSite: "lax",
+              maxAge: this.COOKIE_MAX_AGE,
+            });
+          }),
+
+        checkAuthStatus: this.trpcService
+          .protectedProcedure()
+          .query(async ({ ctx }) => this.authService.checkAuthStatus(ctx)),
+
+        getUser: this.trpcService
+          .protectedProcedure()
+          .query(async ({ ctx }) => this.authService.getUser(ctx)),
+
+        logOut: this.trpcService.publicProcedure().mutation(async ({ ctx }) => {
+          // Remove the cookie
+          ctx.res.clearCookie(this.AUTH_COOKIE_NAME, {
             httpOnly: true,
             secure: true,
             sameSite: "lax",
-            maxAge: this.COOKIE_MAX_AGE,
           });
         }),
-
-      register: this.trpcService
-        .publicProcedure()
-        .input(RegisterUserDto)
-        .mutation(async ({ input, ctx }) => {
-          const token = await this.authService.register(input);
-
-          // Set the HTTP-only cookie
-          ctx.res.cookie(this.AUTH_COOKIE_NAME, token, {
-            httpOnly: true,
-            secure: true,
-            sameSite: "lax",
-            maxAge: this.COOKIE_MAX_AGE,
-          });
-        }),
-
-      checkAuthStatus: this.trpcService
-        .protectedProcedure()
-        .query(async ({ ctx }) => this.authService.checkAuthStatus(ctx)),
-
-      getUser: this.trpcService
-        .protectedProcedure()
-        .query(async ({ ctx }) => this.authService.getUser(ctx)),
-
-      logOut: this.trpcService.publicProcedure().mutation(async ({ ctx }) => {
-        // Remove the cookie
-        ctx.res.clearCookie(this.AUTH_COOKIE_NAME, {
-          httpOnly: true,
-          secure: true,
-          sameSite: "lax",
-        });
       }),
-    }),
-  };
+    };
+  }
 }

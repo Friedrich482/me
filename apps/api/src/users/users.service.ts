@@ -2,7 +2,7 @@ import * as bcrypt from "bcrypt";
 import { eq } from "drizzle-orm";
 import { NodePgDatabase } from "drizzle-orm/node-postgres";
 
-import { DrizzleAsyncProvider } from "@/drizzle/drizzle.provider";
+import { DRIZZLE_ASYNC_PROVIDER } from "@/drizzle/constants";
 import { users } from "@/drizzle/schema";
 import { Inject, Injectable } from "@nestjs/common";
 import { TRPCError } from "@trpc/server";
@@ -17,7 +17,7 @@ import {
 @Injectable()
 export class UsersService {
   constructor(
-    @Inject(DrizzleAsyncProvider)
+    @Inject(DRIZZLE_ASYNC_PROVIDER)
     private readonly db: NodePgDatabase,
   ) {}
   private readonly saltRounds = 10;

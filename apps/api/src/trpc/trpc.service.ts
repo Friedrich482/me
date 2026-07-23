@@ -1,64 +1,43 @@
-import superjson from "superjson";
-
-import { JWTDto } from "@/common/dto";
+import { JWTDto, TrpcContext } from "@/common/dto";
 import { EnvService } from "@/env/env.service";
-import { errorFormatter } from "@/filters/error-formatter";
-import { Injectable } from "@nestjs/common";
+import { Inject, Injectable } from "@nestjs/common";
 import { JwtService } from "@nestjs/jwt";
-import { initTRPC, TRPCError } from "@trpc/server";
-import * as trpcExpress from "@trpc/server/adapters/express";
+import { TRPCError } from "@trpc/server";
 
-export type TrpcContext = {
-  req: trpcExpress.CreateExpressContextOptions["req"];
-  res: trpcExpress.CreateExpressContextOptions["res"];
-  user?:
-    | {
-        sub: string;
-      }
-    | undefined;
-};
-
-export const createContext = async (
-  opts: trpcExpress.CreateExpressContextOptions,
-): Promise<TrpcContext> => {
-  return {
-    req: opts.req,
-    res: opts.res,
-  };
-};
+import { TRPC_PROVIDER } from "./constants";
+import { TrpcInstance } from "./providers/trpc.provider";
 
 @Injectable()
 export class TrpcService {
-  trpc;
   constructor(
     private readonly jwtService: JwtService,
     private readonly envService: EnvService,
-  ) {
-    this.trpc = initTRPC.context<TrpcContext>().create({
-      transformer: superjson,
-      errorFormatter: ({ error, shape }) =>
-        errorFormatter(this.envService, { error, shape }),
-    });
-  }
+
+    @Inject(TRPC_PROVIDER)
+    readonly trpc: TrpcInstance,
+  ) {}
 
   // these routes are publicly accessible to everyone
   publicProcedure() {
     return this.trpc.procedure;
   }
 
-  // these routes requires authentication:
+  // these routes requires authentication
   protectedProcedure() {
-    const procedure = this.trpc.procedure.use(async (opts) => {
-      const payload = await this.getPayload(opts.ctx);
+    return this.trpc.procedure.use((opts) => this.authMiddleware(opts));
+  }
 
-      return opts.next({
-        ctx: {
-          ...opts.ctx,
-          user: { sub: payload.sub },
-        },
-      });
+  async authMiddleware(
+    opts: Parameters<Parameters<TrpcInstance["middleware"]>[number]>[number],
+  ) {
+    const payload = await this.getPayload(opts.ctx);
+
+    return opts.next({
+      ctx: {
+        ...opts.ctx,
+        user: { sub: payload.sub },
+      },
     });
-    return procedure;
   }
 
   async getPayload(ctx: TrpcContext) {
@@ -68,36 +47,33 @@ export class TrpcService {
     if (!accessToken) {
       throw new TRPCError({
         code: "UNAUTHORIZED",
-        message: "Token not found",
+        message: "Auth Token not found",
       });
     }
 
+    let rawPayload: unknown;
     try {
-      const rawPayload = await this.jwtService.verifyAsync(accessToken, {
+      rawPayload = await this.jwtService.verifyAsync(accessToken, {
         secret: this.envService.get("JWT_SECRET"),
       });
-
-      const parsedPayload = JWTDto.safeParse(rawPayload);
-
-      if (!parsedPayload.success) {
-        throw new TRPCError({
-          code: "BAD_REQUEST",
-          message: "Payload malformed",
-        });
-      }
-
-      const payload = parsedPayload.data;
-
-      return payload;
-    } catch (error) {
-      if (error instanceof Error && error.name !== "JsonWebTokenError") {
-        console.error("Unexpected Error:", error);
-      }
-
+    } catch {
       throw new TRPCError({
         code: "UNAUTHORIZED",
-        message: "An error occurred",
+        message: "Invalid or expired token",
       });
     }
+
+    const parsedPayload = JWTDto.safeParse(rawPayload);
+
+    if (!parsedPayload.success) {
+      throw new TRPCError({
+        code: "BAD_REQUEST",
+        message: "Payload malformed",
+      });
+    }
+
+    const payload = parsedPayload.data;
+
+    return payload;
   }
 }

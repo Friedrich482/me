@@ -16,41 +16,43 @@ export class TagsRouter {
     private readonly tagsService: TagsService,
   ) {}
 
-  procedures = {
-    tags: this.trpcService.trpc.router({
-      addTagToPost: this.trpcService
-        .protectedProcedure()
-        .input(AddTagToPostDto)
-        .mutation(async ({ input }) =>
-          this.tagsService.addTagToPost({ ...input }),
-        ),
+  procedures() {
+    return {
+      tags: this.trpcService.trpc.router({
+        addTagToPost: this.trpcService
+          .protectedProcedure()
+          .input(AddTagToPostDto)
+          .mutation(async ({ input }) =>
+            this.tagsService.addTagToPost({ ...input }),
+          ),
 
-      findAllTagsForPost: this.trpcService
-        .protectedProcedure()
-        .input(FindAllTagsForPostDto)
-        .query(async ({ ctx, input }) =>
-          this.tagsService.findAllTagsForPost({
-            ...input,
-            authorId: ctx.user.sub,
-          }),
-        ),
+        findAllTagsForPost: this.trpcService
+          .protectedProcedure()
+          .input(FindAllTagsForPostDto)
+          .query(async ({ ctx, input }) =>
+            this.tagsService.findAllTagsForPost({
+              ...input,
+              authorId: ctx.user.sub,
+            }),
+          ),
 
-      findAllTagsForPublishedPost: this.trpcService
-        .publicProcedure()
-        .input(FindAllTagsForPublishedPostDto)
-        .query(async ({ input }) =>
-          this.tagsService.findAllTagsForPublishedPost({ ...input }),
-        ),
+        findAllTagsForPublishedPost: this.trpcService
+          .publicProcedure()
+          .input(FindAllTagsForPublishedPostDto)
+          .query(async ({ input }) =>
+            this.tagsService.findAllTagsForPublishedPost({ ...input }),
+          ),
 
-      removeTagFromPost: this.trpcService
-        .protectedProcedure()
-        .input(RemoveTagFromPostDto)
-        .mutation(async ({ ctx, input }) =>
-          this.tagsService.removeTagFromPost({
-            ...input,
-            authorId: ctx.user.sub,
-          }),
-        ),
-    }),
-  };
+        removeTagFromPost: this.trpcService
+          .protectedProcedure()
+          .input(RemoveTagFromPostDto)
+          .mutation(async ({ ctx, input }) =>
+            this.tagsService.removeTagFromPost({
+              ...input,
+              authorId: ctx.user.sub,
+            }),
+          ),
+      }),
+    };
+  }
 }

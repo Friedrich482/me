@@ -2,7 +2,7 @@ import { and, eq, isNull } from "drizzle-orm";
 import { NodePgDatabase } from "drizzle-orm/node-postgres";
 
 import { CloudflareService } from "@/cloudflare/cloudflare.service";
-import { DrizzleAsyncProvider } from "@/drizzle/drizzle.provider";
+import { DRIZZLE_ASYNC_PROVIDER } from "@/drizzle/constants";
 import { media, posts } from "@/drizzle/schema";
 import { Inject, Injectable } from "@nestjs/common";
 import { TRPCError } from "@trpc/server";
@@ -17,7 +17,7 @@ import {
 @Injectable()
 export class MediaService {
   constructor(
-    @Inject(DrizzleAsyncProvider)
+    @Inject(DRIZZLE_ASYNC_PROVIDER)
     private readonly db: NodePgDatabase,
 
     private readonly cloudflareService: CloudflareService,

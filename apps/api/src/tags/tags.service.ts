@@ -1,7 +1,7 @@
 import { and, eq } from "drizzle-orm";
 import { NodePgDatabase } from "drizzle-orm/node-postgres";
 
-import { DrizzleAsyncProvider } from "@/drizzle/drizzle.provider";
+import { DRIZZLE_ASYNC_PROVIDER } from "@/drizzle/constants";
 import { postTags, tags } from "@/drizzle/schema";
 import { PostsService } from "@/posts/posts.service";
 import { Inject, Injectable } from "@nestjs/common";
@@ -17,7 +17,7 @@ import {
 @Injectable()
 export class TagsService {
   constructor(
-    @Inject(DrizzleAsyncProvider)
+    @Inject(DRIZZLE_ASYNC_PROVIDER)
     private readonly db: NodePgDatabase,
     private readonly postsService: PostsService,
   ) {}
